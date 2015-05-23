@@ -12,3 +12,14 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::openNewWindow()
+{
+   mMyNewWindow = new myWindow(); // Be sure to destroy you window somewhere
+   mMyNewWindow->show();
+}
+
+void MainWindow::on_pushButton_submit_clicked()
+{
+    openNewWindow();
+}
