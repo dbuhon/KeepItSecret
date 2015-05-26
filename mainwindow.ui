@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1080</width>
+    <width>720</width>
     <height>1280</height>
    </rect>
   </property>
@@ -156,30 +156,16 @@ background-color: rgb(255, 190, 133);</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="0" colspan="2">
-     <widget class="QLabel" name="label">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>25</height>
-       </size>
-      </property>
-      <property name="baseSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <underline>true</underline>
-       </font>
-      </property>
+    <item row="8" column="1">
+     <widget class="QPushButton" name="pushButton_newAccount">
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 190, 133);</string>
+       <string notr="true">border-radius: 5px;
+background-color: none;
+color: orange;
+text-align: left;</string>
       </property>
       <property name="text">
-       <string>Créer un compte.</string>
+       <string>Créer un compte</string>
       </property>
      </widget>
     </item>

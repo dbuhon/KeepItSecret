@@ -13,13 +13,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::openNewWindow()
+void MainWindow::openNewAccountView()
 {
-   mMyNewWindow = new myWindow(); // Be sure to destroy you window somewhere
-   mMyNewWindow->show();
+   newAccountWindow = new NewAccountWindow(); // Be sure to destroy you window somewhere
+   newAccountWindow->show();
+}
+
+void MainWindow::openContactsView()
+{
+   contactsWindow = new ContactsWindow();
+   contactsWindow->show();
 }
 
 void MainWindow::on_pushButton_submit_clicked()
 {
-    openNewWindow();
+    openContactsView();
+}
+
+void MainWindow::on_pushButton_newAccount_clicked()
+{
+    openNewAccountView();
 }

@@ -13,14 +13,28 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    mywindow.cpp
+    mainwindow.cpp \
+    contactswindow.cpp \
+    newaccountwindow.cpp \
+    newcontactwindow.cpp \
+    deviceselectionwindow.cpp \
+    discussionwindow.cpp
 
-HEADERS  += mainwindow.h \
-    mywindow.h
+HEADERS  += \
+    mainwindow.h \
+    contactswindow.h \
+    newaccountwindow.h \
+    newcontactwindow.h \
+    deviceselectionwindow.h \
+    discussionwindow.h
 
-FORMS    += mainwindow.ui \
-    mywindow.ui
+FORMS    += \
+    mainwindow.ui \
+    contactswindow.ui \
+    newaccountwindow.ui \
+    newcontactwindow.ui \
+    deviceselectionwindow.ui \
+    discussionwindow.ui
 
 CONFIG += mobility
 MOBILITY = 
