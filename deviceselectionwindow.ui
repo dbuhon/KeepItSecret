@@ -17,7 +17,7 @@
    <string notr="true">background-color: rgb(143, 160, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListView" name="listView">
+   <widget class="QListWidget" name="listWidget_devices">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -29,6 +29,21 @@
     <property name="styleSheet">
      <string notr="true">background-color: whitesmoke;</string>
     </property>
+    <item>
+     <property name="text">
+      <string>iPhone38</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Patrick's Phone</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>AndroidDeveve</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

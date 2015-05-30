@@ -53,7 +53,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QListView" name="listView_contacts">
+   <widget class="QListWidget" name="listWidget_contacts">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -65,6 +65,26 @@
     <property name="styleSheet">
      <string notr="true">background-color: whitesmoke;</string>
     </property>
+    <item>
+     <property name="text">
+      <string>Tom</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Laura</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Camille</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Paul</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="pushButton_newContact">
     <property name="geometry">

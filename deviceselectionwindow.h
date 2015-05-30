@@ -16,7 +16,7 @@ public:
     ~DeviceSelectionWindow();
 
 private slots:
-    void on_listView_clicked(const QModelIndex &index);
+    void on_listView_devices_clicked(const QModelIndex &index);
 
 private:
     Ui::DeviceSelectionWindow *ui;
