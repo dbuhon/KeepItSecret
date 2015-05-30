@@ -2,6 +2,8 @@
 #define CONTACTSWINDOW_H
 
 #include <QMainWindow>
+#include "newcontactwindow.h"
+#include "discussionwindow.h"
 
 namespace Ui {
 class ContactsWindow;
@@ -14,11 +16,17 @@ class ContactsWindow : public QMainWindow
 public:
     explicit ContactsWindow(QWidget *parent = 0);
     ~ContactsWindow();
-    void openDiscussionView();
     void openNewContactView();
+    void openDiscussionView();
+
+private slots:
+    void on_listView_contacts_clicked(const QModelIndex &index);
+    void on_pushButton_newContact_clicked();
 
 private:
     Ui::ContactsWindow *ui;
+    NewContactWindow *newContactWindow;
+    DiscussionWindow *discussionWindow;
 };
 
 #endif // CONTACTSWINDOW_H

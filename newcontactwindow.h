@@ -2,6 +2,7 @@
 #define NEWCONTACTWINDOW_H
 
 #include <QMainWindow>
+#include "deviceselectionwindow.h"
 
 namespace Ui {
 class NewContactWindow;
@@ -16,8 +17,13 @@ public:
     ~NewContactWindow();
     void openDeviceSelectionView();
 
+private slots:
+    void on_pushButton_createContact_clicked();
+    void on_pushButton_sync_clicked();
+
 private:
     Ui::NewContactWindow *ui;
+    DeviceSelectionWindow *deviceSelectionWindow;
 };
 
 #endif // NEWCONTACTWINDOW_H

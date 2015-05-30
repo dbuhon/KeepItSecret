@@ -12,3 +12,8 @@ DeviceSelectionWindow::~DeviceSelectionWindow()
 {
     delete ui;
 }
+
+void DeviceSelectionWindow::on_listView_clicked(const QModelIndex &index)
+{
+    this->close();
+}

@@ -12,3 +12,18 @@ NewContactWindow::~NewContactWindow()
 {
     delete ui;
 }
+
+void NewContactWindow::openDeviceSelectionView(){
+    deviceSelectionWindow = new DeviceSelectionWindow;
+    deviceSelectionWindow->show();
+}
+
+void NewContactWindow::on_pushButton_createContact_clicked()
+{
+    this->close();
+}
+
+void NewContactWindow::on_pushButton_sync_clicked()
+{
+    openDeviceSelectionView();
+}
