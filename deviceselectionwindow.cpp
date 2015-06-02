@@ -13,7 +13,7 @@ DeviceSelectionWindow::~DeviceSelectionWindow()
     delete ui;
 }
 
-void DeviceSelectionWindow::on_listView_devices_clicked(const QModelIndex &index)
+void DeviceSelectionWindow::on_listWidget_devices_clicked(const QModelIndex &index)
 {
     this->close();
 }

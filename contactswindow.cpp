@@ -31,8 +31,7 @@ void ContactsWindow::on_pushButton_newContact_clicked()
     openNewContactView();
 }
 
-void ContactsWindow::on_listView_contacts_clicked(const QModelIndex &index)
+void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
 {
-    openDiscussionView();
+     openDiscussionView();
 }
-

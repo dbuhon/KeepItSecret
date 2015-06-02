@@ -20,8 +20,8 @@ public:
     void openDiscussionView();
 
 private slots:
-    void on_listView_contacts_clicked(const QModelIndex &index);
     void on_pushButton_newContact_clicked();
+    void on_listWidget_contacts_clicked(const QModelIndex &index);
 
 private:
     Ui::ContactsWindow *ui;
