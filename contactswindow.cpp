@@ -1,5 +1,6 @@
 #include "contactswindow.h"
 #include "ui_contactswindow.h"
+#include "chat.h"
 
 ContactsWindow::ContactsWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,8 +23,13 @@ void ContactsWindow::openNewContactView()
 
 void ContactsWindow::openDiscussionView()
 {
-   discussionWindow = new DiscussionWindow();
-   discussionWindow->show();
+   // Test bluetooth chat
+    Chat d;
+    QObject::connect(&d, SIGNAL(accepted()), SLOT(quit()));
+    d.show();
+
+   /*discussionWindow = new DiscussionWindow();
+   discussionWindow->show();*/
 }
 
 void ContactsWindow::on_pushButton_newContact_clicked()
