@@ -17,3 +17,6 @@ void DeviceSelectionWindow::on_listWidget_devices_clicked(const QModelIndex &ind
 {
     this->close();
 }
+
+
+

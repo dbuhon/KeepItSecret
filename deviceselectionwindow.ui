@@ -20,14 +20,15 @@
    <widget class="QListWidget" name="listWidget_devices">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>140</y>
-      <width>581</width>
-      <height>451</height>
+      <x>0</x>
+      <y>130</y>
+      <width>721</width>
+      <height>1131</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: whitesmoke;</string>
+     <string notr="true">background-color: whitesmoke;
+font-size: 25px;</string>
     </property>
     <item>
      <property name="text">
@@ -44,6 +45,23 @@
       <string>AndroidDeveve</string>
      </property>
     </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>231</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">text-align:center;
+font-size: 30px;</string>
+    </property>
+    <property name="text">
+     <string>Choose a device</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

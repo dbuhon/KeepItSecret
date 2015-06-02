@@ -63,11 +63,17 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: whitesmoke;</string>
+     <string notr="true">background-color: whitesmoke;
+font-size: 25px;</string>
     </property>
     <item>
      <property name="text">
       <string>Tom</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mahmoud</string>
      </property>
     </item>
     <item>

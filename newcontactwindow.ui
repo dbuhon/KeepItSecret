@@ -33,14 +33,14 @@
    <widget class="QPushButton" name="pushButton_createContact">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>230</x>
       <y>450</y>
       <width>191</width>
       <height>81</height>
      </rect>
     </property>
     <property name="text">
-     <string>Créer contact</string>
+     <string>Valider la création du contact</string>
     </property>
    </widget>
   </widget>
