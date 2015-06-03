@@ -7,7 +7,6 @@ ContactsWindow::ContactsWindow(QWidget *parent) :
     ui(new Ui::ContactsWindow)
 {
     ui->setupUi(this);
-
 }
 
 ContactsWindow::~ContactsWindow()
@@ -24,9 +23,9 @@ void ContactsWindow::openNewContactView()
 void ContactsWindow::openDiscussionView()
 {
    // Test bluetooth chat
-    Chat d;
-    QObject::connect(&d, SIGNAL(accepted()), SLOT(quit()));
-    d.show();
+    chat = new Chat();
+    connect(chat, SIGNAL(accepted()),this, SLOT(quit()));
+    chat->show();
 
    /*discussionWindow = new DiscussionWindow();
    discussionWindow->show();*/
@@ -39,5 +38,10 @@ void ContactsWindow::on_pushButton_newContact_clicked()
 
 void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
 {
-     openDiscussionView();
+    openDiscussionView();
+}
+
+void ContactsWindow::quit()
+{
+    // Do something
 }

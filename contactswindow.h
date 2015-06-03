@@ -5,6 +5,8 @@
 #include "newcontactwindow.h"
 #include "discussionwindow.h"
 
+class Chat;
+
 namespace Ui {
 class ContactsWindow;
 }
@@ -22,11 +24,13 @@ public:
 private slots:
     void on_pushButton_newContact_clicked();
     void on_listWidget_contacts_clicked(const QModelIndex &index);
+    void quit();
 
 private:
     Ui::ContactsWindow *ui;
     NewContactWindow *newContactWindow;
     DiscussionWindow *discussionWindow;
+    Chat *chat;
 };
 
 #endif // CONTACTSWINDOW_H
