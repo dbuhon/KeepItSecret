@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     chatclient.cpp \
     chatserver.cpp \
     remoteselector.cpp \
-    cryptotools.cpp
+    cryptotools.cpp \
+    user.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -36,7 +37,8 @@ HEADERS  += \
     chatclient.h \
     chatserver.h \
     remoteselector.h \
-    cryptotools.h
+    cryptotools.h \
+    user.h
 
 FORMS    += \
     mainwindow.ui \
