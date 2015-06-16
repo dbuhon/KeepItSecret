@@ -43,6 +43,7 @@
 
 #include <qbluetoothserviceinfo.h>
 #include <qbluetoothaddress.h>
+#include <QBluetoothServer>
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
@@ -80,7 +81,7 @@ private slots:
 private:
     QBluetoothServer *rfcommServer;
     QBluetoothServiceInfo serviceInfo;
-    QList<QBluetoothSocket *> clientSockets;
+    QList<QBluetoothSocket* > clientSockets;
 };
 //! [declaration]
 

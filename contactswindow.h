@@ -24,7 +24,6 @@ public:
 private slots:
     void on_pushButton_newContact_clicked();
     void on_listWidget_contacts_clicked(const QModelIndex &index);
-    void quit();
 
 private:
     Ui::ContactsWindow *ui;

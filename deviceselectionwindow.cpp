@@ -15,6 +15,7 @@ DeviceSelectionWindow::~DeviceSelectionWindow()
 
 void DeviceSelectionWindow::on_listWidget_devices_clicked(const QModelIndex &index)
 {
+    // TODO mémorisation du device pour le sauvegarder dans le contact
     this->close();
 }
 

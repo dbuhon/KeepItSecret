@@ -6,40 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>720</width>
-    <height>1280</height>
+    <width>373</width>
+    <height>558</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(157, 255, 115);</string>
+   <string notr="true">background-color: rgb(63, 63, 63);
+color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>40</y>
-      <width>211</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 30px;</string>
-    </property>
-    <property name="text">
-     <string>PARLE !!</string>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>720</width>
+     <width>373</width>
      <height>21</height>
     </rect>
    </property>

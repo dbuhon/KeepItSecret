@@ -15,5 +15,6 @@ NewAccountWindow::~NewAccountWindow()
 
 void NewAccountWindow::on_pushButton_clicked()
 {
+    //TODO Création du compte et persistance fichier local
     this->close();
 }

@@ -6,70 +6,92 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>720</width>
-    <height>1280</height>
+    <width>443</width>
+    <height>511</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(143, 160, 255);</string>
+   <string notr="true">background-color: rgb(63, 63, 63);
+color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="listWidget_devices">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>130</y>
-      <width>721</width>
-      <height>1131</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: whitesmoke;
-font-size: 25px;</string>
-    </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <property name="text">
-      <string>iPhone38</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Patrick's Phone</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>AndroidDeveve</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>20</y>
-      <width>231</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">text-align:center;
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="2" column="1">
+         <widget class="QListWidget" name="listWidget_devices">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: whitesmoke;
+font-size: 25px;
+color: black;</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>iPhone38</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Patrick's Phone</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>AndroidDeveve</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>-1</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">text-align:center;
 font-size: 30px;</string>
-    </property>
-    <property name="text">
-     <string>Choose a device</string>
-    </property>
-   </widget>
+          </property>
+          <property name="text">
+           <string>Selection d'un périphérique</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>720</width>
+     <width>443</width>
      <height>21</height>
     </rect>
    </property>

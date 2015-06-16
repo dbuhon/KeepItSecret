@@ -20,6 +20,7 @@ void NewContactWindow::openDeviceSelectionView(){
 
 void NewContactWindow::on_pushButton_createContact_clicked()
 {
+    // TODO Sauvegarder le contact, persistance locale fichier
     this->close();
 }
 

@@ -24,7 +24,7 @@ void ContactsWindow::openDiscussionView()
 {
    // Test bluetooth chat
     chat = new Chat();
-    connect(chat, SIGNAL(accepted()),this, SLOT(quit()));
+    connect(chat, SIGNAL(accepted()), this, SLOT(close()));
     chat->show();
 
    /*discussionWindow = new DiscussionWindow();
@@ -38,10 +38,6 @@ void ContactsWindow::on_pushButton_newContact_clicked()
 
 void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
 {
+    Q_UNUSED(index)
     openDiscussionView();
-}
-
-void ContactsWindow::quit()
-{
-    // Do something
 }
