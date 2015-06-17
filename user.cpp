@@ -1,12 +1,11 @@
 #include "user.h"
 
-user::user(const QString &_login, const QString &_password) : login(_login), password(_password){
+user::user(const QString &_login, const QString &_password) : login(_login), password(_password), id(){
+    this->id = id.createUuid();
 }
 
 bool user::save(){
-    // TODO Vérification n'existe pas déjà
-    // TODO Implementation persistance, serialization
-    // QFile, QVariant, QSqlite ?
+    // TODO save
     return false;
 }
 

@@ -1,4 +1,7 @@
 #include <QString>
+#include <QFile>
+#include <QFileInfo>
+#include <QUuid>
 #ifndef USER_H
 #define USER_H
 
@@ -10,6 +13,7 @@ public:
     ~user();
 
 private:
+    QUuid id;
     QString login;
     QString password;
 };
