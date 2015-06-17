@@ -1,21 +1,13 @@
 #include "user.h"
 
-user::user()
-{
-
+user::user(const QString &_login, const QString &_password) : login(_login), password(_password){
 }
 
-user::user(const char*& _login, const char*& _password1, const char*& _password2){
-    if (_password1 != _password2)
-        return;
-
-    this->login = _login;
-    this->password = _password;
-}
-
-user::save(){
+bool user::save(){
+    // TODO Vérification n'existe pas déjà
     // TODO Implementation persistance, serialization
     // QFile, QVariant, QSqlite ?
+    return false;
 }
 
 user::~user()

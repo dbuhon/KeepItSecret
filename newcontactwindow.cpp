@@ -13,7 +13,8 @@ NewContactWindow::~NewContactWindow()
     delete ui;
 }
 
-void NewContactWindow::openDeviceSelectionView(){
+void NewContactWindow::openDeviceSelectionView()
+{
     deviceSelectionWindow = new DeviceSelectionWindow;
     deviceSelectionWindow->show();
 }

@@ -1,18 +1,17 @@
+#include <QString>
 #ifndef USER_H
 #define USER_H
-
 
 class user
 {
 public:
-    user();
-    user(const char*& _login, const char*& _password1, const char*& _password2);
+    user(const QString &_login, const QString &_password);
     bool save();
     ~user();
 
 private:
-    char* login;
-    char* password;
+    QString login;
+    QString password;
 };
 
 #endif // USER_H
