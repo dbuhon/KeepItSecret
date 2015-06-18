@@ -52,6 +52,7 @@ FORMS    += \
     chat.ui \
     remoteselector.ui
 
-CONFIG += mobility
+CONFIG += mobility \
+       += crypto
 MOBILITY = 
 
