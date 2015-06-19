@@ -1,14 +1,14 @@
-#include "user.h"
+#include "kis_user.h"
 #include "dbtools.h"
 
-user::user(const QString &_login, const QString &_password) : login(_login), password(_password){
+kis_user::kis_user(const QString &_login, const QString &_password) : login(_login), password(_password){
 }
 
-bool user::save(){
+bool kis_user::save(){
     bool isUnique = true;
-    /*QSet<user>::iterator it;
+    /*QSet<kis_user>::iterator it;
     for (it = DBTools.Instance().listUser.begin(); it != DBTools.Instance().listUser.end(); it++){
-        if (this->login == ((user) *it).login){
+        if (this->login == ((kis_user) *it).login){
             isUnique = false;
             break;
         }
@@ -20,7 +20,7 @@ bool user::save(){
     return isUnique;
 }
 
-user::~user()
+kis_user::~kis_user()
 {
 
 }

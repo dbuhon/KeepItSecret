@@ -6,7 +6,7 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QApplication>
-#include "user.h"
+#include "kis_user.h"
 
 #ifndef DBTOOLS_H
 #define DBTOOLS_H
@@ -16,7 +16,7 @@ class DBTools
 public:
     static DBTools& Instance();
     void loadDatabase();
-    QSet<user> listUser;
+    QSet<kis_user> listUser;
 
 private:
     DBTools();
