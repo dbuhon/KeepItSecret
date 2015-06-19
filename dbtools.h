@@ -1,21 +1,31 @@
-#include <QtSql/QSqlDatabase>
+#include <QSet>
+#include <QMainWindow>
+#include <QtSql>
+#include <QtDebug>
+#include <QFileInfo>
+#include <QCoreApplication>
+#include <QMessageBox>
+#include <QApplication>
+#include "user.h"
 
 #ifndef DBTOOLS_H
 #define DBTOOLS_H
 
-
 class DBTools
 {
 public:
-    static DBTools& Instance();
+    DBTools Instance();
+    void loadDatabase();
+
+    QSet<user> listUser;
 
 private:
-    DBTools& operator=(const DBTools&){}
-    DBTools (const DBTools&){}
-
-    static DBTools m_instance;
     DBTools();
     ~DBTools();
+
+    static DBTools m_instance;
+    bool initDB();
+    QString databasePath;
 };
 
 #endif // DBTOOLS_H

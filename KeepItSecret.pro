@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui bluetooth widgets
+QT       += core gui bluetooth widgets sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
