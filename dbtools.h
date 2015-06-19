@@ -14,18 +14,19 @@
 class DBTools
 {
 public:
-    DBTools Instance();
+    static DBTools& Instance();
     void loadDatabase();
-
     QSet<user> listUser;
 
 private:
     DBTools();
     ~DBTools();
+    DBTools& operator=(const DBTools&);
+    DBTools (const DBTools&);
 
     static DBTools m_instance;
-    bool initDB();
     QString databasePath;
+    bool initDB();
 };
 
 #endif // DBTOOLS_H
