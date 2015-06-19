@@ -5,19 +5,15 @@ kis_user::kis_user(const QString &_login, const QString &_password) : login(_log
 }
 
 bool kis_user::save(){
-    bool isUnique = true;
-    /*QSet<kis_user>::iterator it;
-    for (it = DBTools.Instance().listUser.begin(); it != DBTools.Instance().listUser.end(); it++){
-        if (this->login == ((kis_user) *it).login){
-            isUnique = false;
-            break;
-        }
-    }
 
-    if (isUnique)
-        DBTools.Instance().listUser.insert(this);*/
+}
 
-    return isUnique;
+QString kis_user::getLogin() const{
+    return this->login;
+}
+
+QString kis_user::getPassword() const{
+    return this->password;
 }
 
 kis_user::~kis_user()

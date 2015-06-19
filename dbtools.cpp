@@ -80,6 +80,23 @@ void DBTools::loadDatabase(){
     }
 }
 
+
+bool DBTools::addUser(const kis_user &user){
+    bool isUnique = true;
+    QSetIterator<kis_user> it(listUser);
+    while (it.hasNext()){
+        if (user.getLogin() == it.next().getLogin()){
+            isUnique = false;
+            break;
+        }
+    }
+
+    if (isUnique)
+        listUser.insert(user);
+
+    return isUnique;
+}
+
 DBTools::~DBTools()
 {
 }
