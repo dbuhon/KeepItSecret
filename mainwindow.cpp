@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "dbtools.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,7 +28,11 @@ void MainWindow::openContactsView()
 
 void MainWindow::on_pushButton_submit_clicked()
 {
-    openContactsView();
+    QString login = ui->lineEdit_login->text();
+    QString password = ui->lineEdit_password->text();
+
+    if (DBTools::Instance().tryToSignIn(login, password))
+        openContactsView();
 }
 
 void MainWindow::on_pushButton_newAccount_clicked()

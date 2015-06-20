@@ -6,7 +6,6 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QApplication>
-#include <QSet>
 #include <QSetIterator>
 #include "kis_user.h"
 
@@ -19,6 +18,7 @@ public:
     static DBTools& Instance();
     void loadDatabase();
     bool addUser(const kis_user &user);
+    bool tryToSignIn(const QString &login, const QString &password) const;
 
 private:
     DBTools();
@@ -27,7 +27,7 @@ private:
     DBTools (const DBTools&);
 
     static DBTools m_instance;
-    QSet<kis_user> listUser;
+    std::list<kis_user> listUser;
     QString databasePath;
     bool initDB();
 };

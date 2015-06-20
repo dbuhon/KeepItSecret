@@ -1,7 +1,6 @@
 #ifndef CRYPTOTOOLS_H
 #define CRYPTOTOOLS_H
 
-
 class CryptoTools
 {
 public:

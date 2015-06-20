@@ -55,5 +55,5 @@ FORMS    += \
 CONFIG += mobility \
        += c++11 \
        += crypto
-MOBILITY = 
+MOBILITY =
 

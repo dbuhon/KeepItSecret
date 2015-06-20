@@ -83,18 +83,23 @@ void DBTools::loadDatabase(){
 
 bool DBTools::addUser(const kis_user &user){
     bool isUnique = true;
-    QSetIterator<kis_user> it(listUser);
-    while (it.hasNext()){
-        if (user.getLogin() == it.next().getLogin()){
+    for (auto it : listUser){
+        if (((kis_user)it).getLogin() == user.getLogin())
             isUnique = false;
-            break;
-        }
     }
 
     if (isUnique)
-        listUser.insert(user);
+        listUser.push_back(user);
 
     return isUnique;
+}
+
+bool DBTools::tryToSignIn(const QString &login, const QString &password) const{
+    for (auto it : listUser){
+        if (((kis_user)it).getLogin() == login && ((kis_user)it).getPassword() == password)
+            return true;
+    }
+    return false;
 }
 
 DBTools::~DBTools()

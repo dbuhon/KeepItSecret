@@ -5,7 +5,9 @@ kis_user::kis_user(const QString &_login, const QString &_password) : login(_log
 }
 
 bool kis_user::save(){
-
+    DBTools::Instance().addUser(*this);
+    // DBTools::Instance().saveDatabase;
+    return true;
 }
 
 QString kis_user::getLogin() const{

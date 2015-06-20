@@ -18,6 +18,7 @@ void NewAccountWindow::on_pushButton_clicked()
     // If both passwords lineEdit match
     if (ui->lineEdit_pwd2->text() == ui->lineEdit_pwd2->text()){
         kis_user u(ui->lineEdit_log->text(), ui->lineEdit_pwd2->text());
+        // If save is effective
         if (u.save())
             this->close();
     }
