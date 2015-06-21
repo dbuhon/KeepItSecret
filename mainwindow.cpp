@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dbtools.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,6 +34,11 @@ void MainWindow::on_pushButton_submit_clicked()
 
     if (DBTools::Instance().tryToSignIn(login, password))
         openContactsView();
+    else{
+        QMessageBox mb;
+        mb.setText("Vos identifiants sont invalides.\nRééssayez ou créez un nouveau compte.");
+        mb.exec();
+    }
 }
 
 void MainWindow::on_pushButton_newAccount_clicked()

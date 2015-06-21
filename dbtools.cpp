@@ -4,7 +4,9 @@ DBTools DBTools::m_instance=DBTools();
 
 DBTools::DBTools()
 {
-    initDB();
+    if (initDB())
+        loadDatabase();
+    else qDebug() << "ECHEC LORS DE L INITIALISATION DE LA BASE DE DONNEES : INITDB";
 }
 
 DBTools& DBTools::Instance(){
@@ -32,17 +34,12 @@ bool DBTools::initDB(){
 
 void DBTools::loadDatabase(){
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-    QMessageBox mb;
     QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
 
     if(!myDB.isValid())
     {
         // This shows a message Box if Database Connection Fails.
         QString str;
-        str = this->databasePath;
-        str.prepend(" Cannot Add database ");
-        mb.setText(str);
-        mb.exec();
     }
 
     myDB.setDatabaseName(this->databasePath);
@@ -50,14 +47,12 @@ void DBTools::loadDatabase(){
     //myDB.setPassword("password");
     if (!myDB.open())
     {
-        // This shows a message if System is unable to Open created Database
-        mb.setText(" Cannot open database  ");
-        mb.exec();
+        // This shows a message if System cannot Open created Database
     }
 
     else
     {
-        QString qryStr;
+        /*QString qryStr;
         QSqlQuery query(myDB);
         qryStr = QString("SELECT Id,  Name, Description FROM Table1");
         query.prepare(qryStr);
@@ -75,7 +70,7 @@ void DBTools::loadDatabase(){
                     .arg(query.value("Description").toString()));
                 mb.exec();
             }
-        }
+        }*/
         QApplication::restoreOverrideCursor();
     }
 }

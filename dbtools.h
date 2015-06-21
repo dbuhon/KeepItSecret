@@ -1,10 +1,8 @@
 #include <QSet>
 #include <QMainWindow>
 #include <QtSql>
-#include <QtDebug>
 #include <QFileInfo>
 #include <QCoreApplication>
-#include <QMessageBox>
 #include <QApplication>
 #include <QSetIterator>
 #include "kis_user.h"
