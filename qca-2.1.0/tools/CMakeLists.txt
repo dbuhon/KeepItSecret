@@ -1,5 +1,0 @@
-if(Qt5Core_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Core_EXECUTABLE_COMPILE_FLAGS}")
-endif()
-add_subdirectory(mozcerts)
-add_subdirectory(qcatool)
