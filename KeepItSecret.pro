@@ -53,7 +53,7 @@ FORMS    += \
     remoteselector.ui
 
 CONFIG += mobility \
-       += c++11 \
-       += crypto
+       += c++11
+
 MOBILITY =
 
