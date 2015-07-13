@@ -5,6 +5,10 @@
 #include <QCoreApplication>
 #include <QApplication>
 #include <QSetIterator>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QDebug>
 #include "kis_user.h"
 
 #ifndef DBTOOLS_H
@@ -14,7 +18,7 @@ class DBTools
 {
 public:
     static DBTools& Instance();
-    void loadDatabase();
+    bool loadDatabase();
     bool addUser(const kis_user &user);
     bool tryToSignIn(const QString &login, const QString &password) const;
 
@@ -25,9 +29,7 @@ private:
     DBTools (const DBTools&);
 
     static DBTools m_instance;
-    std::list<kis_user> listUser;
-    QString databasePath;
-    bool initDB();
+    QSqlDatabase myDB;
 };
 
 #endif // DBTOOLS_H
