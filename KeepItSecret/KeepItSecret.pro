@@ -19,10 +19,6 @@ SOURCES += main.cpp\
     newcontactwindow.cpp \
     deviceselectionwindow.cpp \
     discussionwindow.cpp \
-    chat.cpp \
-    chatclient.cpp \
-    chatserver.cpp \
-    remoteselector.cpp \
     cryptotools.cpp \
     dbtools.cpp \
     kis_user.cpp \
