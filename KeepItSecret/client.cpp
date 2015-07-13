@@ -27,7 +27,7 @@ void Client::sendMessage(QString login, QString msg){
     flux << login << "|#|" << msg << endl;
 }
 
-void Client::sendSpecificMessage(QString option, QString login, QString password)
+void Client::sendCommand(QString option, QString login, QString password)
 {
     QTextStream flux(&socket);
     flux << option << "|#|" << login << "|#|" << password << endl;

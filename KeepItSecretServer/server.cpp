@@ -18,26 +18,41 @@ void Server::newConnection()
     QTcpSocket *socket = this->nextPendingConnection();
 
     // Message from client
-    connect(client, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
+    connect(client, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
     connect(socket, SIGNAL(readyRead()),this, SLOT(readClient()));
 }
 
+/**
+ * Read what the client sent and do something
+ * @brief Server::readClient
+ */
 void Server::readClient()
 {
     QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
-        if (!client)
-            return;
+    if (!client)
+        return;
 
     QString line;
 
+    // Read what the client sent
     while(client->canReadLine())
     {
         line = client->readLine();
     }
 
-    QString option = line.split("|#|").at(0);
+    executeInstructions(line);
 
+    clientConnections.append(client);
+}
+
+/**
+ * Execute instructions giving a command line
+ * @brief Server::executeInstructions
+ * @param line
+ */
+void Server::executeInstructions(QString line){
+    QString option = line.split("|#|").at(0);
     if (option == "adduser" && line.split("|#|").length() >= 3){
         QString login(ligne.split("|#|").at(1);
         QString password(ligne.split("|#|").at(2);
@@ -60,17 +75,14 @@ void Server::readClient()
         QString login(ligne.split("|#|").at(1);
         QString msg(lign.split("|#|").at(2));
 
-        // TODO send message (through HashMap)
+        // TODO send message (through with the HashMap)
 
         // QTextStream flux(&receiver);
-        //flux << ligne << endl;
-
+        //flux << login << " : " << msg << endl;
     }
-    clientConnections.append(client);
-
 }
 
-void Server::clientDisconnected()
+void Server::clientDisconnection()
 {
     QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
@@ -85,5 +97,4 @@ Server::~Server()
 {
 
 }
-
 
