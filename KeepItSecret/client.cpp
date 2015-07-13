@@ -4,7 +4,7 @@
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
-    socket.connectToHost(serverAddr, 9999);
+    socket->connectToHost("127.0.0.1", 9999);
     connect(socket, SIGNAL(readyToRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
@@ -12,31 +12,29 @@ Client::Client(QObject *parent) : QObject(parent)
 void Client::readyToRead()
 {
     QString line;
-    while(socket.canReadLine())
+    while(socket->canReadLine())
     {
-        line = socket.readLine();
+        line = socket->readLine();
         qDebug() << line << endl;
     }
 
-    QTextStream flux(&socket);
+    QTextStream flux(socket);
     flux << line << endl;
 }
 
 void Client::sendMessage(QString login, QString msg){
-    QTextStream flux(&socket);
+    QTextStream flux(socket);
     flux << login << "|#|" << msg << endl;
 }
 
 void Client::sendCommand(QString option, QString login, QString password)
 {
-    QTextStream flux(&socket);
+    QTextStream flux(socket);
     flux << option << "|#|" << login << "|#|" << password << endl;
 }
 
 void Client::disconnect()
 {
-    qDebug() << socketDescriptor << "Disconnected";
-
     socket->deleteLater();
     exit(0);
 }
