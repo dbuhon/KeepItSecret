@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <dbtools.h>
 
 class Server : public QTcpServer
 {
