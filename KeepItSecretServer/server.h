@@ -14,10 +14,10 @@ public:
     Server();
     ~Server();
 public slots:
-    void newConnection();
+    void connectionHandler();
     void readClient();
     void clientDisconnection();
-    void executeInstructions(QString line);
+    void executeInstructions(QString line, QTcpSocket *client);
 
 private:
     QList<QTcpSocket *> clientConnections;
