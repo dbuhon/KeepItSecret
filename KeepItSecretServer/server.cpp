@@ -57,25 +57,31 @@ void Server::executeInstructions(QString line){
         QString login(ligne.split("|#|").at(1);
         QString password(ligne.split("|#|").at(2);
 
-        // TODO dbtools add user to db
-
         QTextStream flux(&client);
-        flux << "User added to the database" << endl;
+
+        kis_user user(login, password);
+
+        if (user.save())
+            flux << "|#|[i]adduser success|#|" << endl;
+        else
+            flux << "|#|[x]adduser fail|#|" << endl;
     }
     else if (option == "signin" && line.split("|#|").length() >= 2){
         QString login(ligne.split("|#|").at(1);
         QString password(ligne.split("|#|").at(2);
 
-        // TODO dbtools try to signin
-
         QTextStream flux(&client);
-        flux << "User logged in" << endl;
+
+        if (DBTools::Instance().tryToSignIn(login, password))
+            flux << "|#|[i]signin success|#|" << endl;
+        else
+            flux << "|#|[x]signin fail|#|" << endl;
     }
     else if (line.split("|#|").length() >= 2){
-        QString login(ligne.split("|#|").at(1);
-        QString msg(lign.split("|#|").at(2));
+        QString login(ligne.split("|#|").at(0);
+        QString msg(line.split("|#|").at(1));
 
-        // TODO send message (through with the HashMap)
+        // TODO send message (using the HashMap)
 
         // QTextStream flux(&receiver);
         //flux << login << " : " << msg << endl;
