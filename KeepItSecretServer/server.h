@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <dbtools.h>
+#include <kis_user.h>
 
 class Server : public QTcpServer
 {
