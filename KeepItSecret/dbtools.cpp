@@ -5,7 +5,7 @@ DBTools DBTools::m_instance=DBTools();
 DBTools::DBTools()
 {
     if (!loadDatabase())
-       qDebug() << "ECHEC LORS DE L INITIALISATION DE LA BASE DE DONNEES : INITDB";
+       qDebug() << "[x]Error" << "Cannot load the database";
 }
 
 DBTools& DBTools::Instance(){
@@ -23,7 +23,7 @@ bool DBTools::loadDatabase(){
     }
     else
     {
-        qDebug() << "[x]Success" << "Database opened";
+        qDebug() << "[v]Success" << "Database opened";
 
 
         QString qryStr;
@@ -37,7 +37,6 @@ bool DBTools::loadDatabase(){
     }
     return true;
 }
-
 
 bool DBTools::addUser(const kis_user &user){
     QString qryStr;
