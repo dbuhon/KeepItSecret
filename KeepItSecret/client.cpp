@@ -19,8 +19,16 @@ void Client::readyToRead()
         qDebug() << line << endl;
     }
 
-    QTextStream flux(socket);
-    flux << line << endl;
+    // Fill the listUsers with users connected to the server
+    if (line.split("|#|").length() >= 1 && line.split("|#|").at(0) == "listuser"){
+        for (int i = 0; i < line.split("|#|").length(); i++){
+            this->listUsers.append(line.split("|#|").at(i));
+        }
+    }
+    else{
+        QTextStream flux(socket);
+        flux << line << endl;
+    }
 }
 
 void Client::sendMessage(QString login, QString msg){
@@ -34,7 +42,7 @@ void Client::sendCommand(QString option, QString login, QString password)
     flux << option << "|#|" << login << "|#|" << password << endl;
 }
 
-void Client::disconnect()
+void Client::disconnected()
 {
     socket->deleteLater();
     exit(0);

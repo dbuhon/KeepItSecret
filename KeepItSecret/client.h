@@ -16,10 +16,11 @@ public:
 
 public slots:
     void readyToRead();
-    void disconnect();
+    void disconnected();
 
 private:
     QTcpSocket *socket;
+    QList<QString> listUsers;
 };
 
 #endif // CLIENT_H
