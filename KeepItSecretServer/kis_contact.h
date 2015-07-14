@@ -4,13 +4,13 @@
 #define CONTACT_H
 
 
-class Contact : public QTcpSocket
+class kis_contact : public QTcpSocket
 {
 public:
-    Contact();
-    ~Contact();
+    kis_contact();
+    ~kis_contact();
 
-    Contact(const QString &_login, const QTcpSocket &_socket);
+    kis_contact(const QString &_login, const QTcpSocket &_socket);
     bool save();
     QString getLogin() const;
     QTcpSocket getSocket() const;

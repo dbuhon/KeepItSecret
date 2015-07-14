@@ -27,6 +27,7 @@ void Server::newConnection()
     socket->flush();
 
     // Get ready to read
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     connect(socket, SIGNAL(readyRead()),this, SLOT(readClient()));
 }
 
@@ -38,7 +39,7 @@ void Server::readClient()
 {
     qDebug() << "readClient";
 
-    Contact *client = qobject_cast<Contact *>(sender());
+    kis_contact *client = qobject_cast<kis_contact *>(sender());
 
     if (!client)
         return;
@@ -62,14 +63,14 @@ void Server::readClient()
  * @brief Server::executeInstructions
  * @param line
  */
-void Server::executeInstructions(QString line, Contact *client){
+void Server::executeInstructions(QString line, kis_contact *client){
     QString option = line.split("|#|").at(0);
     if (option == "showlistuser" && line.split("|#|").length() >= 1){
         QTextStream flux(client);
 
         flux << "listuser|#|";
 
-        QListIterator<Contact*> iter(clientConnections);
+        QListIterator<kis_contact*> iter(clientConnections);
         while (iter.hasNext()){
             flux << iter.next()->login << "|#|";
 
@@ -118,13 +119,12 @@ void Server::executeInstructions(QString line, Contact *client){
  */
 void Server::disconnected()
 {
-    Contact *client = qobject_cast<Contact *>(sender());
+    kis_contact *client = qobject_cast<kis_contact *>(sender());
 
     if (!client)
         return;
 
     clientConnections.removeAll(client);
-
     client->deleteLater();
 }
 
