@@ -23,7 +23,7 @@ bool DBTools::loadDatabase(){
     }
     else
     {
-        qDebug() << "[v]Success" << "Database opened";
+        qDebug() << "[i]Success" << "Database opened";
 
 
         QString qryStr;

@@ -6,6 +6,7 @@
 #include <QTcpSocket>
 #include <dbtools.h>
 #include <kis_user.h>
+#include <contact.h>
 
 class Server : public QTcpServer
 {
@@ -14,13 +15,13 @@ public:
     Server();
     ~Server();
 public slots:
-    void connectionHandler();
+    void newConnection();
     void readClient();
-    void clientDisconnection();
+    void disconnected();
     void executeInstructions(QString line, QTcpSocket *client);
 
 private:
-    QList<QTcpSocket *> clientConnections;
+    QList<Contact *> clientConnections;
     QMap<QTcpSocket*, QTcpSocket*> conversations;
 };
 

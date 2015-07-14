@@ -50,3 +50,6 @@ CONFIG += mobility \
 
 MOBILITY =
 
+RESOURCES += \
+    res.qrc
+

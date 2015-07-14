@@ -20,6 +20,7 @@ public slots:
 
 private:
     QTcpSocket *socket;
+    QList<QString> listUsers;
 };
 
 #endif // CLIENT_H

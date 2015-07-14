@@ -15,11 +15,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         server.cpp \
         dbtools.cpp \
-        kis_user.cpp
+        kis_user.cpp \
+    contact.cpp
 
 HEADERS  += mainwindow.h \
         server.h \
         dbtools.h \
-        kis_user.h
+        kis_user.h \
+    contact.h
 
 FORMS    += mainwindow.ui
