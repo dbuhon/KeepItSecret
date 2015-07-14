@@ -3,6 +3,7 @@
 
 #include "newaccountwindow.h"
 #include "contactswindow.h"
+#include "client.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ private:
     Ui::MainWindow *ui;
     NewAccountWindow *newAccountWindow;
     ContactsWindow *contactsWindow;
+    Client *client;
 };
 
 #endif // MAINWINDOW_H

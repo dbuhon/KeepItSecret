@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui bluetooth widgets sql
+QT       += core gui bluetooth widgets sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,13 +19,10 @@ SOURCES += main.cpp\
     newcontactwindow.cpp \
     deviceselectionwindow.cpp \
     discussionwindow.cpp \
-    chat.cpp \
-    chatclient.cpp \
-    chatserver.cpp \
-    remoteselector.cpp \
     cryptotools.cpp \
     dbtools.cpp \
-    kis_user.cpp
+    kis_user.cpp \
+    client.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -34,13 +31,10 @@ HEADERS  += \
     newcontactwindow.h \
     deviceselectionwindow.h \
     discussionwindow.h \
-    chat.h \
-    chatclient.h \
-    chatserver.h \
-    remoteselector.h \
     cryptotools.h \
     dbtools.h \
-    kis_user.h
+    kis_user.h \
+    client.h
 
 FORMS    += \
     mainwindow.ui \
@@ -49,11 +43,13 @@ FORMS    += \
     newcontactwindow.ui \
     deviceselectionwindow.ui \
     discussionwindow.ui \
-    chat.ui \
-    remoteselector.ui
+    chat.ui
 
 CONFIG += mobility \
        += c++11
 
 MOBILITY =
+
+RESOURCES += \
+    res.qrc
 
