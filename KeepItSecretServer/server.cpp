@@ -38,7 +38,7 @@ void Server::readClient()
 {
     qDebug() << "readClient";
 
-    QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
+    Contact *client = qobject_cast<Contact *>(sender());
 
     if (!client)
         return;
@@ -53,12 +53,7 @@ void Server::readClient()
 
     executeInstructions(line, client);
 
-
-    // TEST TO CHANGE
-    Contact *c = new Contact("test_login", *client);
-    clientConnections.append(c);
-
-    //clientConnections.append(client);
+    clientConnections.append(client);
 
 }
 
@@ -67,16 +62,16 @@ void Server::readClient()
  * @brief Server::executeInstructions
  * @param line
  */
-void Server::executeInstructions(QString line, QTcpSocket *client){
+void Server::executeInstructions(QString line, Contact *client){
     QString option = line.split("|#|").at(0);
     if (option == "showlistuser" && line.split("|#|").length() >= 1){
-        QTextStream flux(&*client);
+        QTextStream flux(client);
 
         flux << "listuser|#|";
 
         QListIterator<Contact*> iter(clientConnections);
         while (iter.hasNext()){
-            flux << iter.next()->getLogin() << "|#|";
+            flux << iter.next()->login << "|#|";
 
         }
         flux << endl;
@@ -85,7 +80,7 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
         QString login(line.split("|#|").at(1));
         QString password(line.split("|#|").at(2));
 
-        QTextStream flux(&*client);
+        QTextStream flux(client);
 
         kis_user user(login, password);
 
@@ -99,7 +94,7 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
         QString login(line.split("|#|").at(1));
         QString password(line.split("|#|").at(2));
 
-        QTextStream flux(&*client);
+        QTextStream flux(client);
 
         if (DBTools::Instance().tryToSignIn(login, password))
             flux << "|#|[i]signin success|#|" << endl;
@@ -123,17 +118,12 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
  */
 void Server::disconnected()
 {
-    QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
+    Contact *client = qobject_cast<Contact *>(sender());
 
     if (!client)
         return;
 
-
-    // TEST TO CHANGE
-    Contact *c = new Contact("test_login", *client);
-
-    clientConnections.removeAll(c);
-    //clientConnections.removeAll(client);
+    clientConnections.removeAll(client);
 
     client->deleteLater();
 }

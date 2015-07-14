@@ -4,7 +4,7 @@
 #define CONTACT_H
 
 
-class Contact
+class Contact : public QTcpSocket
 {
 public:
     Contact();
@@ -15,9 +15,8 @@ public:
     QString getLogin() const;
     QTcpSocket getSocket() const;
 
-protected:
+public:
     QString login;
-    QTcpSocket socket;
 };
 
 #endif // CONTACT_H

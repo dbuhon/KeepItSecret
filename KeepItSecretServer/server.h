@@ -18,11 +18,11 @@ public slots:
     void newConnection();
     void readClient();
     void disconnected();
-    void executeInstructions(QString line, QTcpSocket *client);
+    void executeInstructions(QString line, Contact* contact);
 
 private:
-    QList<Contact *> clientConnections;
-    QMap<QTcpSocket*, QTcpSocket*> conversations;
+    QList<Contact*> clientConnections;
+    QMap<Contact*, Contact*> conversations;
 };
 
 #endif // SERVER_H
