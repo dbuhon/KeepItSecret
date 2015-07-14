@@ -1,10 +1,11 @@
 #include "client.h"
 #include <QTextStream>
+#include <QHostAddress>
 
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
-    socket->connectToHost("127.0.0.1", 9999);
+    socket->connectToHost(QHostAddress::LocalHost, 9999);
     connect(socket, SIGNAL(readyToRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
