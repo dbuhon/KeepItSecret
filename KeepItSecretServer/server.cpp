@@ -3,8 +3,8 @@
 Server::Server()
 {
     // Emits a signal when a user connects
-    connect(this, SIGNAL(newConnection()),
-            this, SLOT(newConnection()));
+    connect(this, SIGNAL(connectionHandler()),
+            this, SLOT(connectionHandler()));
 
     if(!this->listen(QHostAddress::Any, 9999))
         qDebug() << "Server could not start";
@@ -16,28 +16,22 @@ Server::Server()
  * Handle the connections
  * @brief Server::connectionHandler
  */
-void Server::newConnection()
+void Server::connectionHandler()
 {
-    qDebug() << "New connection";
-
     // Get next pending connection
     QTcpSocket *socket = this->nextPendingConnection();
 
-    socket->write("Hello client\r\n");
-    socket->flush();
-
-    // Get ready to read
+    // Message from client
+    //connect(client, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
     connect(socket, SIGNAL(readyRead()),this, SLOT(readClient()));
 }
 
 /**
- * Read what the client sent and execute instructions
+ * Read what the client sent and do something
  * @brief Server::readClient
  */
 void Server::readClient()
 {
-    qDebug() << "readClient";
-
     QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
     if (!client)
@@ -63,16 +57,7 @@ void Server::readClient()
  */
 void Server::executeInstructions(QString line, QTcpSocket *client){
     QString option = line.split("|#|").at(0);
-    if (option == "showlistuser" && line.split("|#|").length() >= 1){
-        QTextStream flux(&*client);
-
-        flux << "listuser|#|";
-        for (Contact c : clientConnections){
-            flux << c.getLogin() << "|#|";
-        }
-        flux << endl;
-    }
-    else if (option == "adduser" && line.split("|#|").length() >= 3){
+    if (option == "adduser" && line.split("|#|").length() >= 3){
         QString login(line.split("|#|").at(1));
         QString password(line.split("|#|").at(2));
 
@@ -83,10 +68,9 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
         if (user.save())
             flux << "|#|[i]adduser success|#|" << endl;
         else
-            flux << "|#|[x]adduser fail"
-                    "|#|" << endl;
+            flux << "|#|[x]adduser fail|#|" << endl;
     }
-    else if (option == "signin" && line.split("|#|").length() >= 3){
+    else if (option == "signin" && line.split("|#|").length() >= 2){
         QString login(line.split("|#|").at(1));
         QString password(line.split("|#|").at(2));
 
@@ -101,10 +85,10 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
         QString login(line.split("|#|").at(0));
         QString msg(line.split("|#|").at(1));
 
-        //TODO send message (using the HashMap)
+        // TODO send message (using the HashMap)
 
         // QTextStream flux(&receiver);
-        // flux << login << " : " << msg << endl;
+        //flux << login << " : " << msg << endl;
     }
 }
 
@@ -112,7 +96,7 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
  * Handle disconnections
  * @brief Server::clientDisconnection
  */
-void Server::disconnected()
+void Server::clientDisconnection()
 {
     QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 

@@ -1,7 +1,6 @@
 #include <QString>
 #include <QFile>
 #include <QFileInfo>
-#include <contact.h>
 
 #ifndef KIS_USER_H
 #define KIS_USER_H
@@ -17,8 +16,7 @@ public:
 
 private:
     QString login;
-    QString password;    
-    QList<Contact *> contacts;
+    QString password;
 };
 
 #endif // KIS_USER_H

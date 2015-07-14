@@ -1,13 +1,12 @@
 #include "client.h"
 #include <QTextStream>
-#include <QHostAddress>
 
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
-    socket->connectToHost(QHostAddress::Any, 9999);
+    socket->connectToHost("127.0.0.1", 9999);
     connect(socket, SIGNAL(readyToRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
-    //connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
 
 void Client::readyToRead()
@@ -19,16 +18,8 @@ void Client::readyToRead()
         qDebug() << line << endl;
     }
 
-    // Fill the listUsers with users connected to the server
-    if (line.split("|#|").length() >= 1 && line.split("|#|").at(0) == "listuser"){
-        for (int i = 0; i < line.split("|#|").length(); i++){
-            this->listUsers.append(line.split("|#|").at(i));
-        }
-    }
-    else{
-        QTextStream flux(socket);
-        flux << line << endl;
-    }
+    QTextStream flux(socket);
+    flux << line << endl;
 }
 
 void Client::sendMessage(QString login, QString msg){

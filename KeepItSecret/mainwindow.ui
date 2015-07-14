@@ -6,15 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
+    <width>742</width>
     <height>778</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
-  </property>
-  <property name="autoFillBackground">
-   <bool>false</bool>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(63, 63, 63);
@@ -42,10 +39,9 @@ color: rgb(255, 255, 255);</string>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-margin-top: 100%;
+margin-top: 20%;
 height: 50px;
-margin-left:50px;
-margin-right:50px;</string>
+</string>
           </property>
           <property name="placeholderText">
            <string>Identifiant</string>
@@ -65,15 +61,10 @@ margin-right:50px;</string>
 border-radius: 5px;
 text-align: left;
 color: orange;
-margin-top: 150%;
-margin-left:50px;
-margin-right:50px;</string>
+margin-top: 40%;</string>
           </property>
           <property name="text">
            <string>Créer un nouveau compte</string>
-          </property>
-          <property name="autoExclusive">
-           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -99,9 +90,6 @@ margin-right:50px;</string>
             <kerning>true</kerning>
            </font>
           </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
           <property name="text">
            <string>Keep It Secret</string>
           </property>
@@ -124,22 +112,13 @@ margin-right:50px;</string>
           <property name="font">
            <font>
             <pointsize>11</pointsize>
-            <kerning>true</kerning>
            </font>
-          </property>
-          <property name="mouseTracking">
-           <bool>true</bool>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 height: 50px;
-margin-top:100%;
-margin-left:50px;
-margin-right:50px;</string>
-          </property>
-          <property name="frame">
-           <bool>true</bool>
+margin-top:60%;</string>
           </property>
           <property name="placeholderText">
            <string>Mot de passe</string>
@@ -166,23 +145,15 @@ margin-right:50px;</string>
             <height>0</height>
            </size>
           </property>
-          <property name="focusPolicy">
-           <enum>Qt::StrongFocus</enum>
-          </property>
-          <property name="acceptDrops">
-           <bool>false</bool>
-          </property>
           <property name="autoFillBackground">
            <bool>false</bool>
           </property>
           <property name="styleSheet">
            <string notr="true">border-radius: 5px;
 background-color: rgb(255, 190, 133);
-margin-top: 75%;
+margin-top: 60%;
 height: 50px;
-color: black;
-margin-left:50px;
-margin-right:50px;</string>
+color: black;</string>
           </property>
           <property name="text">
            <string>Connexion</string>
@@ -192,9 +163,6 @@ margin-right:50px;</string>
             <width>16</width>
             <height>16</height>
            </size>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
           </property>
           <property name="flat">
            <bool>false</bool>
