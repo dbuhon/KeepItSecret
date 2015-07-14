@@ -4,7 +4,7 @@ Server::Server()
 {
     // Emits a signal when a user connects
     connect(this, SIGNAL(newConnection()),
-            this, SLOT(newConnection()));
+            this, SLOT(clientConnection()));
 
     if(!this->listen(QHostAddress::Any, 9999))
         qDebug() << "Server could not start";
@@ -16,18 +16,18 @@ Server::Server()
  * Handle the connections
  * @brief Server::connectionHandler
  */
-void Server::newConnection()
+void Server::clientConnection()
 {
     qDebug() << "New connection";
 
     // Get next pending connection
     QTcpSocket *socket = this->nextPendingConnection();
 
-    socket->write("Hello client\r\n");
-    socket->flush();
+    /*socket->write("Hello client\r\n");
+    socket->flush();*/
 
     // Get ready to read
-    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
     connect(socket, SIGNAL(readyRead()),this, SLOT(readClient()));
 }
 
@@ -54,7 +54,7 @@ void Server::readClient()
 
     executeInstructions(line, client);
 
-    clientConnections.append(client);
+    connectedUsers.append(client);
 
 }
 
@@ -70,7 +70,7 @@ void Server::executeInstructions(QString line, kis_contact *client){
 
         flux << "listuser|#|";
 
-        QListIterator<kis_contact*> iter(clientConnections);
+        QListIterator<kis_contact*> iter(connectedUsers);
         while (iter.hasNext()){
             flux << iter.next()->login << "|#|";
 
@@ -117,14 +117,14 @@ void Server::executeInstructions(QString line, kis_contact *client){
  * Handle disconnections
  * @brief Server::clientDisconnection
  */
-void Server::disconnected()
+void Server::clientDisconnection()
 {
     kis_contact *client = qobject_cast<kis_contact *>(sender());
 
     if (!client)
         return;
 
-    clientConnections.removeAll(client);
+    connectedUsers.removeAll(client);
     client->deleteLater();
 }
 

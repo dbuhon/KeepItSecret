@@ -1,9 +1,7 @@
 #include <QSet>
-#include <QMainWindow>
 #include <QtSql>
 #include <QFileInfo>
 #include <QCoreApplication>
-#include <QApplication>
 #include <QSetIterator>
 #include <QSqlDatabase>
 #include <QSqlQuery>

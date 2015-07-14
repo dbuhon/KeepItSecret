@@ -15,13 +15,13 @@ public:
     Server();
     ~Server();
 public slots:
-    void newConnection();
+    void clientConnection();
     void readClient();
-    void disconnected();
+    void clientDisconnection();
     void executeInstructions(QString line, kis_contact *contact);
 
 private:
-    QList<kis_contact *> clientConnections;
+    QList<kis_contact *> connectedUsers;
     QMap<kis_contact*, kis_contact*> conversations;
 };
 

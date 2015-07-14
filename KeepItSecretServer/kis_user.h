@@ -1,3 +1,4 @@
+#include <QObject>
 #include <QString>
 #include <QFile>
 #include <QFileInfo>
@@ -18,7 +19,7 @@ public:
 private:
     QString login;
     QString password;    
-    QList<kis_contact*> contacts;
+    QList<kis_contact *> contacts;
 };
 
 #endif // KIS_USER_H
