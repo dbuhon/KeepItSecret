@@ -6,6 +6,7 @@ DBTools::DBTools()
 {
     if (!loadDatabase())
        qDebug() << "[x]Error" << "Cannot load the database";
+    client = new Client;
 }
 
 DBTools& DBTools::Instance(){
@@ -69,6 +70,7 @@ bool DBTools::tryToSignIn(const QString &login, const QString &password) const{
             return false;
     }
     return true;
+
 }
 
 DBTools::~DBTools()

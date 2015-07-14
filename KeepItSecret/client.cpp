@@ -1,12 +1,14 @@
 #include "client.h"
 #include <QTextStream>
 #include <QHostAddress>
+#include <QDebug>
+
 
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
     socket->connectToHost(QHostAddress::LocalHost, 9999);
-    connect(socket, SIGNAL(readyToRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
 

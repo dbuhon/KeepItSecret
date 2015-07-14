@@ -27,7 +27,7 @@ private:
     Ui::MainWindow *ui;
     NewAccountWindow *newAccountWindow;
     ContactsWindow *contactsWindow;
-    Client *client;
+    //Client *client;
 };
 
 #endif // MAINWINDOW_H

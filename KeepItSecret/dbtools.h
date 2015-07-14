@@ -9,6 +9,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include "client.h"
 #include "kis_user.h"
 
 #ifndef DBTOOLS_H
@@ -21,6 +22,7 @@ public:
     bool loadDatabase();
     bool addUser(const kis_user &user);
     bool tryToSignIn(const QString &login, const QString &password) const;
+    Client *client;
 
 private:
     DBTools();

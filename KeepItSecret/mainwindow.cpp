@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    client = new Client;
+    //client = new Client;
 }
 
 MainWindow::~MainWindow()
@@ -29,9 +29,10 @@ void MainWindow::openContactsView()
 }
 
 void MainWindow::on_pushButton_submit_clicked()
-{
+{    
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
+
 
     if (DBTools::Instance().tryToSignIn(login, password))
         openContactsView();

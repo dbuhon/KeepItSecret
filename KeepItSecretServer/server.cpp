@@ -23,8 +23,8 @@ void Server::clientConnection()
     // Get next pending connection
     QTcpSocket *socket = this->nextPendingConnection();
 
-    /*socket->write("Hello client\r\n");
-    socket->flush();*/
+    socket->write("Hello client\r\n");
+    socket->flush();
 
     // Get ready to read
     connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
@@ -50,6 +50,8 @@ void Server::readClient()
     while(client->canReadLine())
     {
         line = client->readLine();
+
+        qDebug() << line;
     }
 
     executeInstructions(line, client);
@@ -65,10 +67,9 @@ void Server::readClient()
  */
 void Server::executeInstructions(QString line, kis_contact *client){
     QString option = line.split("|#|").at(0);
-    if (option == "showlistuser" && line.split("|#|").length() >= 1){
+    if (option == "*showlistuser*" && line.split("|#|").length() >= 1){
         QTextStream flux(client);
-
-        flux << "listuser|#|";
+        flux << "*listuser*|#|";
 
         QListIterator<kis_contact*> iter(connectedUsers);
         while (iter.hasNext()){
@@ -77,7 +78,7 @@ void Server::executeInstructions(QString line, kis_contact *client){
         }
         flux << endl;
     }
-    else if (option == "adduser" && line.split("|#|").length() >= 3){
+    else if (option == "*adduser*" && line.split("|#|").length() >= 3){
         QString login(line.split("|#|").at(1));
         QString password(line.split("|#|").at(2));
 
@@ -86,26 +87,26 @@ void Server::executeInstructions(QString line, kis_contact *client){
         kis_user user(login, password);
 
         if (user.save())
-            flux << "|#|[i]adduser success|#|" << endl;
+            flux << "*[i]adduser success*" << endl;
         else
-            flux << "|#|[x]adduser fail"
-                    "|#|" << endl;
+            flux << "*[x]adduser fail*" << endl;
     }
-    else if (option == "signin" && line.split("|#|").length() >= 3){
+    else if (option == "*signin*" && line.split("|#|").length() >= 3){
         QString login(line.split("|#|").at(1));
         QString password(line.split("|#|").at(2));
 
         QTextStream flux(client);
 
         if (DBTools::Instance().tryToSignIn(login, password))
-            flux << "|#|[i]signin success|#|" << endl;
+            flux << "*[i]signin success*" << endl;
         else
-            flux << "|#|[x]signin fail|#|" << endl;
+            flux << "*[x]signin fail*" << endl;
     }
     else if (line.split("|#|").length() >= 2){
         QString login(line.split("|#|").at(0));
         QString msg(line.split("|#|").at(1));
 
+        qDebug() << "Un message !";
         //TODO send message (using the HashMap)
 
         // QTextStream flux(&receiver);
