@@ -9,14 +9,9 @@ class kis_contact : public QTcpSocket
 public:
     kis_contact();
     ~kis_contact();
-
-    kis_contact(const QString &_login, const QTcpSocket &_socket);
-    bool save();
-    QString getLogin() const;
-    QTcpSocket getSocket() const;
-
-public:
     QString login;
+    bool save();
+
 };
 
 #endif // CONTACT_H
