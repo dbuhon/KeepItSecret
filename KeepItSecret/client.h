@@ -16,7 +16,7 @@ public:
 
 public slots:
     void readyToRead();
-    void disconnect();
+    void disconnected();
 
 private:
     QTcpSocket *socket;

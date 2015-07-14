@@ -5,9 +5,9 @@
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
-    socket->connectToHost(QHostAddress::Any, 9999);
+    socket->connectToHost(QHostAddress::LocalHost, 9999);
     connect(socket, SIGNAL(readyToRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
-    //connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
 
 void Client::readyToRead()
@@ -42,7 +42,7 @@ void Client::sendCommand(QString option, QString login, QString password)
     flux << option << "|#|" << login << "|#|" << password << endl;
 }
 
-void Client::disconnect()
+void Client::disconnected()
 {
     socket->deleteLater();
     exit(0);
