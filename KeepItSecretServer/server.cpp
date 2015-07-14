@@ -53,13 +53,13 @@ void Server::readClient()
 
     executeInstructions(line, client);
 
-<<<<<<< HEAD
+
     // TEST TO CHANGE
     Contact *c = new Contact("test_login", *client);
     clientConnections.append(c);
-=======
-    clientConnections.append(client);
->>>>>>> master
+
+    //clientConnections.append(client);
+
 }
 
 /**
@@ -73,15 +73,11 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
         QTextStream flux(&*client);
 
         flux << "listuser|#|";
-<<<<<<< HEAD
 
         QListIterator<Contact*> iter(clientConnections);
         while (iter.hasNext()){
             flux << iter.next()->getLogin() << "|#|";
-=======
-        for (Contact c : clientConnections){
-            flux << c.getLogin() << "|#|";
->>>>>>> master
+
         }
         flux << endl;
     }
@@ -132,14 +128,13 @@ void Server::disconnected()
     if (!client)
         return;
 
-<<<<<<< HEAD
+
     // TEST TO CHANGE
     Contact *c = new Contact("test_login", *client);
 
     clientConnections.removeAll(c);
-=======
-    clientConnections.removeAll(client);
->>>>>>> master
+    //clientConnections.removeAll(client);
+
     client->deleteLater();
 }
 
