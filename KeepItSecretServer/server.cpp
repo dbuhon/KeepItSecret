@@ -39,11 +39,9 @@ void Server::clientConnection()
  */
 void Server::readClient()
 {
-    qDebug() << "I can read something from the client";
-
     kis_contact *client = qobject_cast<kis_contact *>(sender());
 
-    if (client < 0)
+    if (!client)
         return;
 
     QString line;
