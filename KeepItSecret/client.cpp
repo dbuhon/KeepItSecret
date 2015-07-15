@@ -8,7 +8,7 @@
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
-    socket->connectToHost(QHostAddress::Any, 9999);
+    socket->connectToHost(QHostAddress::LocalHost, 9999);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnection()));
 }
@@ -16,6 +16,7 @@ Client::Client(QObject *parent) : QObject(parent)
 void Client::readyToRead()
 {
     QString line;
+
     while(socket->canReadLine())
     {
         line = socket->readLine();
