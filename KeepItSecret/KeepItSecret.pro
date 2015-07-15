@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     cryptotools.cpp \
     dbtools.cpp \
     kis_user.cpp \
-    client.cpp
+    client.cpp \
+    clientutils.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -34,7 +35,8 @@ HEADERS  += \
     cryptotools.h \
     dbtools.h \
     kis_user.h \
-    client.h
+    client.h \
+    clientutils.h
 
 FORMS    += \
     mainwindow.ui \

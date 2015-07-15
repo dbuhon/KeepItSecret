@@ -1,5 +1,7 @@
 #include "server.h"
 
+#define SEPARATOR "[|#|]"
+
 Server::Server()
 {
     // Emits a signal when a user connects
@@ -37,7 +39,7 @@ void Server::clientConnection()
  */
 void Server::readClient()
 {
-    qDebug() << "readClient";
+    qDebug() << "I can red something from the client";
 
     kis_contact *client = qobject_cast<kis_contact *>(sender());
 
@@ -57,7 +59,6 @@ void Server::readClient()
     executeInstructions(line, client);
 
     connectedUsers.append(client);
-
 }
 
 /**
@@ -66,47 +67,56 @@ void Server::readClient()
  * @param line
  */
 void Server::executeInstructions(QString line, kis_contact *client){
-    QString option = line.split("|#|").at(0);
-    if (option == "*showlistuser*" && line.split("|#|").length() >= 1){
+    QString option = line.split(SEPARATOR).at(0);
+
+
+    if (option == "*showlistuser*" && line.split(SEPARATOR).length() >= 1){
+
         QTextStream flux(client);
-        flux << "*listuser*|#|";
+        flux << "*listuser*" << SEPARATOR;
 
         QListIterator<kis_contact*> iter(connectedUsers);
         while (iter.hasNext()){
-            flux << iter.next()->login << "|#|";
-
+            flux << iter.next()->login << SEPARATOR;
         }
         flux << endl;
     }
-    else if (option == "*adduser*" && line.split("|#|").length() >= 3){
-        QString login(line.split("|#|").at(1));
-        QString password(line.split("|#|").at(2));
+
+    else if (option == "*adduser*" && line.split(SEPARATOR).length() >= 3){
+        QString login(line.split(SEPARATOR).at(1));
+        QString password(line.split(SEPARATOR).at(2));
+
+        // User creation
+        kis_user user(login, password);
 
         QTextStream flux(client);
 
-        kis_user user(login, password);
-
+        // Try to save in the database
         if (user.save())
             flux << "*[i]adduser success*" << endl;
         else
             flux << "*[x]adduser fail*" << endl;
     }
-    else if (option == "*signin*" && line.split("|#|").length() >= 3){
-        QString login(line.split("|#|").at(1));
-        QString password(line.split("|#|").at(2));
+
+    else if (option == "*signin*" && line.split(SEPARATOR).length() >= 3){
+        QString login(line.split(SEPARATOR).at(1));
+        QString password(line.split(SEPARATOR).at(2));
 
         QTextStream flux(client);
 
+        // Try to log in
         if (DBTools::Instance().tryToSignIn(login, password))
             flux << "*[i]signin success*" << endl;
         else
             flux << "*[x]signin fail*" << endl;
     }
-    else if (line.split("|#|").length() >= 2){
-        QString login(line.split("|#|").at(0));
-        QString msg(line.split("|#|").at(1));
 
-        qDebug() << "Un message !";
+    else if (line.split(SEPARATOR).length() >= 2){
+        QString login(line.split(SEPARATOR).at(0));
+        QString msg(line.split(SEPARATOR).at(1));
+
+        qDebug() << "A message was sent";
+
         //TODO send message (using the HashMap)
 
         // QTextStream flux(&receiver);

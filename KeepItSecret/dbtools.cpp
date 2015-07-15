@@ -6,7 +6,6 @@ DBTools::DBTools()
 {
     if (!loadDatabase())
        qDebug() << "[x]Error" << "Cannot load the database";
-    client = new Client;
 }
 
 DBTools& DBTools::Instance(){

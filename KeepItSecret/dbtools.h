@@ -22,7 +22,6 @@ public:
     bool loadDatabase();
     bool addUser(const kis_user &user);
     bool tryToSignIn(const QString &login, const QString &password) const;
-    Client *client;
 
 private:
     DBTools();

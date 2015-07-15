@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "dbtools.h"
 #include <QMessageBox>
+#include "clientutils.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,7 +30,10 @@ void MainWindow::openContactsView()
 }
 
 void MainWindow::on_pushButton_submit_clicked()
-{    
+{
+    // TEST TO SEND A MESSAGE TO THE SERVER
+    ClientUtils::Instance().client->sendMessage("test", "test");
+
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
 

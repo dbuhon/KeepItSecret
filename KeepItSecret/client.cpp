@@ -3,13 +3,14 @@
 #include <QHostAddress>
 #include <QDebug>
 
+#define SEPARATOR "[|#|]"
 
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
     socket->connectToHost(QHostAddress::LocalHost, 9999);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
-    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnection()));
 }
 
 void Client::readyToRead()
@@ -22,9 +23,9 @@ void Client::readyToRead()
     }
 
     // Fill the listUsers with users connected to the server
-    if (line.split("|#|").length() >= 1 && line.split("|#|").at(0) == "listuser"){
-        for (int i = 0; i < line.split("|#|").length(); i++){
-            this->listUsers.append(line.split("|#|").at(i));
+    if (line.split(SEPARATOR).length() >= 1 && line.split(SEPARATOR).at(0) == "listuser"){
+        for (int i = 0; i < line.split(SEPARATOR).length(); i++){
+            this->listUsers.append(line.split(SEPARATOR).at(i));
         }
     }
     else{
@@ -35,16 +36,16 @@ void Client::readyToRead()
 
 void Client::sendMessage(QString login, QString msg){
     QTextStream flux(socket);
-    flux << login << "|#|" << msg << endl;
+    flux << login << SEPARATOR << msg << endl;
 }
 
 void Client::sendCommand(QString option, QString login, QString password)
 {
     QTextStream flux(socket);
-    flux << option << "|#|" << login << "|#|" << password << endl;
+    flux << "*" << option << "*" << SEPARATOR << login << SEPARATOR << password << endl;
 }
 
-void Client::disconnected()
+void Client::disconnection()
 {
     socket->deleteLater();
     exit(0);
