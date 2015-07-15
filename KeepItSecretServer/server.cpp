@@ -39,7 +39,9 @@ void Server::clientConnection()
  */
 void Server::readClient()
 {
-    kis_contact *client = qobject_cast<kis_contact *>(sender());
+    // TODO faire fonctionner avec kis_contact
+    //kis_contact *client = qobject_cast<kis_contact *>(sender());
+    QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
     if (!client)
         return;
@@ -52,9 +54,10 @@ void Server::readClient()
         line = client->readLine();
 
         qDebug() << line;
+        //executeInstructions(line, client);
     }
 
-    executeInstructions(line, client);
+
 }
 
 /**

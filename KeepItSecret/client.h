@@ -14,6 +14,7 @@ public:
     void sendCommand(QString option, QString login, QString password);
     ~Client();
 
+    void addUser(QString login, QString password);
 public slots:
     void readyToRead();
     void disconnection();

@@ -46,6 +46,11 @@ void Client::sendCommand(QString option, QString login, QString password)
     flux << "*" << option << "*" << SEPARATOR << login << SEPARATOR << password << endl;
 }
 
+void Client::addUser(QString login, QString password){
+    QTextStream flux(socket);
+    flux << "*adduser*" << SEPARATOR << login << SEPARATOR << password << endl;
+}
+
 void Client::disconnection()
 {
     socket->deleteLater();

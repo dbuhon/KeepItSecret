@@ -29,14 +29,18 @@ void NewAccountWindow::on_pushButton_clicked()
         // Create a kis_user
         kis_user user(login, pwd1);
 
+        /* CREATE LOCAL USER
         // If save is effective
         if (user.save())
             this->close();
-
         else{
             mb.setText("Un compte avec ce nom existe déjà.");
             mb.exec();
         }
+        */
+
+        client->sendMessage("NEWACCOUNTWINDOW", "TESTOLATA");
+        client->addUser(login, pwd1);
     }
     else{
         mb.setText("Les champs du formulaire ne sont pas bien remplis.");
