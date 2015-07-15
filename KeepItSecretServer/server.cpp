@@ -20,13 +20,13 @@ Server::Server()
  */
 void Server::clientConnection()
 {
-    qDebug() << "New connection";
+    qDebug() << "New client connection";
 
     // Get next pending connection
     QTcpSocket *socket = this->nextPendingConnection();
 
-    socket->write("Hello client\r\n");
-    socket->flush();
+    QTextStream flux(socket);
+    flux << "Hello !" << endl;
 
     // Get ready to read
     connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
@@ -39,7 +39,7 @@ void Server::clientConnection()
  */
 void Server::readClient()
 {
-    qDebug() << "I can red something from the client";
+    qDebug() << "I can read something from the client";
 
     kis_contact *client = qobject_cast<kis_contact *>(sender());
 
