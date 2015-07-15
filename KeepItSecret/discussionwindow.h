@@ -14,9 +14,11 @@ class DiscussionWindow : public QMainWindow
 public:
     explicit DiscussionWindow(QWidget *parent = 0);
     ~DiscussionWindow();
+    void setClient(Client *_client);
 
 private:
     Ui::DiscussionWindow *ui;
+    Client *client;
 };
 
 #endif // DISCUSSIONWINDOW_H

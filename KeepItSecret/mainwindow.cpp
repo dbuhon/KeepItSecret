@@ -2,14 +2,13 @@
 #include "ui_mainwindow.h"
 #include "dbtools.h"
 #include <QMessageBox>
-#include "clientutils.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //client = new Client;
+    client = new Client;
 }
 
 MainWindow::~MainWindow()
@@ -20,23 +19,21 @@ MainWindow::~MainWindow()
 void MainWindow::openNewAccountView()
 {
    newAccountWindow = new NewAccountWindow(); // Be sure to destroy you window somewhere
+   newAccountWindow->setClient(client);
    newAccountWindow->show();
 }
 
 void MainWindow::openContactsView()
 {
    contactsWindow = new ContactsWindow();
+   contactsWindow->setClient(client);
    contactsWindow->show();
 }
 
 void MainWindow::on_pushButton_submit_clicked()
 {
-    // TEST TO SEND A MESSAGE TO THE SERVER
-    ClientUtils::Instance().client->sendMessage("test", "test");
-
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
-
 
     if (DBTools::Instance().tryToSignIn(login, password))
         openContactsView();

@@ -14,12 +14,14 @@ class NewAccountWindow : public QMainWindow
 public:
     explicit NewAccountWindow(QWidget *parent = 0);
     ~NewAccountWindow();
+    void setClient(Client *_client);
 
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::NewAccountWindow *ui;
+    Client *client;
 };
 
 #endif // NEWACCOUNTWINDOW_H

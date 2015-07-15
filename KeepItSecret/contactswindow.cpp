@@ -16,12 +16,18 @@ ContactsWindow::~ContactsWindow()
 void ContactsWindow::openNewContactView()
 {
    newContactWindow = new NewContactWindow();
+   newContactWindow->setClient(client);
    newContactWindow->show();
 }
 
 void ContactsWindow::openDiscussionView()
 {
     // TODO open chat window
+}
+
+void ContactsWindow::setClient(Client *_client)
+{
+    client = _client;
 }
 
 void ContactsWindow::on_pushButton_newContact_clicked()

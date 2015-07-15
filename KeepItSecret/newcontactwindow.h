@@ -24,6 +24,7 @@ private slots:
 private:
     Ui::NewContactWindow *ui;
     DeviceSelectionWindow *deviceSelectionWindow;
+    Client *client;
 };
 
 #endif // NEWCONTACTWINDOW_H

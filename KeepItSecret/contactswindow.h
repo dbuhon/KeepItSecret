@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "newcontactwindow.h"
 #include "discussionwindow.h"
+#include "client.h"
 
 class Chat;
 
@@ -20,6 +21,7 @@ public:
     ~ContactsWindow();
     void openNewContactView();
     void openDiscussionView();
+    void setClient(Client *_client);
 
 private slots:
     void on_pushButton_newContact_clicked();
@@ -30,6 +32,7 @@ private:
     NewContactWindow *newContactWindow;
     DiscussionWindow *discussionWindow;
     Chat *chat;
+    Client *client;
 };
 
 #endif // CONTACTSWINDOW_H

@@ -16,6 +16,7 @@ NewContactWindow::~NewContactWindow()
 void NewContactWindow::openDeviceSelectionView()
 {
     deviceSelectionWindow = new DeviceSelectionWindow;
+    deviceSelectionWindow->setClient(client);
     deviceSelectionWindow->show();
 }
 
