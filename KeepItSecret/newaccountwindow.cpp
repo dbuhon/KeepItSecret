@@ -43,3 +43,8 @@ void NewAccountWindow::on_pushButton_clicked()
         mb.exec();
     }
 }
+
+void NewAccountWindow::setClient(Client *_client)
+{
+    client = _client;
+}

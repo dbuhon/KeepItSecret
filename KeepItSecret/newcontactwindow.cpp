@@ -30,3 +30,8 @@ void NewContactWindow::on_pushButton_sync_clicked()
 {
     openDeviceSelectionView();
 }
+
+void NewContactWindow::setClient(Client *_client)
+{
+    client = _client;
+}

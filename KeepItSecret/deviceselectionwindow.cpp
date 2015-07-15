@@ -19,5 +19,9 @@ void DeviceSelectionWindow::on_listWidget_devices_clicked(const QModelIndex &ind
     this->close();
 }
 
+void DeviceSelectionWindow::setClient(Client *_client)
+{
+    client = _client;
+}
 
 

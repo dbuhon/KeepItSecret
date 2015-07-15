@@ -2,6 +2,7 @@
 #define DEVICESELECTIONWINDOW_H
 
 #include <QMainWindow>
+#include "client.h"
 
 namespace Ui {
 class DeviceSelectionWindow;

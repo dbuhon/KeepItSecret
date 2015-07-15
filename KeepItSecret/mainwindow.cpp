@@ -32,6 +32,9 @@ void MainWindow::openContactsView()
 
 void MainWindow::on_pushButton_submit_clicked()
 {
+    // TEST MSG SERV
+    client->sendMessage("A simple client", "Hello server !");
+
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
 

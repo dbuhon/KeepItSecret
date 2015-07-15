@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "deviceselectionwindow.h"
+#include "client.h"
 
 namespace Ui {
 class NewContactWindow;
@@ -15,6 +16,7 @@ class NewContactWindow : public QMainWindow
 public:
     explicit NewContactWindow(QWidget *parent = 0);
     ~NewContactWindow();
+    void setClient(Client *_client);
     void openDeviceSelectionView();
 
 private slots:

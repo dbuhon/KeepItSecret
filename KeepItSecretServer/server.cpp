@@ -20,13 +20,13 @@ Server::Server()
  */
 void Server::clientConnection()
 {
-    qDebug() << "New client connection";
+    qDebug() << "A new client arrived !";
 
     // Get next pending connection
     QTcpSocket *socket = this->nextPendingConnection();
 
     QTextStream flux(socket);
-    flux << "Hello !" << endl;
+    flux << "Hello client!" << endl;
 
     // Get ready to read
     connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
@@ -43,7 +43,7 @@ void Server::readClient()
 
     kis_contact *client = qobject_cast<kis_contact *>(sender());
 
-    if (!client)
+    if (client < 0)
         return;
 
     QString line;
@@ -57,8 +57,6 @@ void Server::readClient()
     }
 
     executeInstructions(line, client);
-
-    connectedUsers.append(client);
 }
 
 /**
@@ -69,58 +67,65 @@ void Server::readClient()
 void Server::executeInstructions(QString line, kis_contact *client){
     QString option = line.split(SEPARATOR).at(0);
 
+    // Need to be logged in
+    if (connectedUsers.contains(client)){
 
-    if (option == "*showlistuser*" && line.split(SEPARATOR).length() >= 1){
+        if (option == "*showlistuser*" && line.split(SEPARATOR).length() >= 1){
 
-        QTextStream flux(client);
-        flux << "*listuser*" << SEPARATOR;
+            QTextStream flux(client);
+            flux << "*listuser*" << SEPARATOR;
 
-        QListIterator<kis_contact*> iter(connectedUsers);
-        while (iter.hasNext()){
-            flux << iter.next()->login << SEPARATOR;
+            QListIterator<kis_contact*> iter(connectedUsers);
+            while (iter.hasNext()){
+                flux << iter.next()->login << SEPARATOR;
+            }
+            flux << endl;
         }
-        flux << endl;
+        // Send message
+        else if (line.split(SEPARATOR).length() >= 2){
+            QString login(line.split(SEPARATOR).at(0));
+            QString msg(line.split(SEPARATOR).at(1));
+
+            qDebug() << "A message was sent";
+
+            //TODO send message (using the HashMap)
+
+            // QTextStream flux(&receiver);
+            // flux << login << " : " << msg << endl;
+        }
     }
+    else{
+        if (option == "*signin*" && line.split(SEPARATOR).length() >= 3){
+            QString login(line.split(SEPARATOR).at(1));
+            QString password(line.split(SEPARATOR).at(2));
 
-    else if (option == "*adduser*" && line.split(SEPARATOR).length() >= 3){
-        QString login(line.split(SEPARATOR).at(1));
-        QString password(line.split(SEPARATOR).at(2));
+            QTextStream flux(client);
 
-        // User creation
-        kis_user user(login, password);
+            // Try to log in
+            if (DBTools::Instance().tryToSignIn(login, password)){
+                flux << "*[i]signin success*" << endl;
+                client->login = login;
+                connectedUsers.append(client);
+            }
+            else
+                flux << "*[x]signin fail*" << endl;
+        }
 
-        QTextStream flux(client);
+        else if (option == "*adduser*" && line.split(SEPARATOR).length() >= 3){
+            QString login(line.split(SEPARATOR).at(1));
+            QString password(line.split(SEPARATOR).at(2));
 
-        // Try to save in the database
-        if (user.save())
-            flux << "*[i]adduser success*" << endl;
-        else
-            flux << "*[x]adduser fail*" << endl;
-    }
+            // User creation
+            kis_user user(login, password);
 
-    else if (option == "*signin*" && line.split(SEPARATOR).length() >= 3){
-        QString login(line.split(SEPARATOR).at(1));
-        QString password(line.split(SEPARATOR).at(2));
+            QTextStream flux(client);
 
-        QTextStream flux(client);
-
-        // Try to log in
-        if (DBTools::Instance().tryToSignIn(login, password))
-            flux << "*[i]signin success*" << endl;
-        else
-            flux << "*[x]signin fail*" << endl;
-    }
-
-    else if (line.split(SEPARATOR).length() >= 2){
-        QString login(line.split(SEPARATOR).at(0));
-        QString msg(line.split(SEPARATOR).at(1));
-
-        qDebug() << "A message was sent";
-
-        //TODO send message (using the HashMap)
-
-        // QTextStream flux(&receiver);
-        // flux << login << " : " << msg << endl;
+            // Try to save in the database
+            if (user.save())
+                flux << "*[i]adduser success*" << endl;
+            else
+                flux << "*[x]adduser fail*" << endl;
+        }
     }
 }
 

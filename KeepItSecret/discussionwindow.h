@@ -2,6 +2,7 @@
 #define DISCUSSIONWINDOW_H
 
 #include <QMainWindow>
+#include "client.h"
 
 namespace Ui {
 class DiscussionWindow;
