@@ -5,14 +5,14 @@
 #ifndef KIS_USER_H
 #define KIS_USER_H
 
-class kis_user
+class UserKIS
 {
 public:
-    kis_user(const QString &_login, const QString &_password);
+    UserKIS(const QString &_login, const QString &_password);
     bool save();
     QString getLogin() const;
     QString getPassword() const;
-    ~kis_user();
+    ~UserKIS();
 
 private:
     QString login;

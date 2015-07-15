@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <dbtools.h>
-#include <kis_user.h>
-#include <kis_contact.h>
+#include "dbtools.h"
+#include "kis_user.h"
+#include "kis_socket.h"
 
 class Server : public QTcpServer
 {
@@ -18,11 +18,11 @@ public slots:
     void clientConnection();
     void readClient();
     void clientDisconnection();
-    void executeInstructions(QString line, kis_contact *contact);
+    void executeInstructions(QString line, SocketKIS *contact);
 
 private:
-    QList<kis_contact *> connectedUsers;
-    QMap<kis_contact*, kis_contact*> conversations;
+    QList<SocketKIS *> connectedUsers;
+    QMap<SocketKIS*, SocketKIS*> conversations;
 };
 
 #endif // SERVER_H

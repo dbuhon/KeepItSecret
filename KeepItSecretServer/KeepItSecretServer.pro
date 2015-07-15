@@ -16,12 +16,12 @@ SOURCES += main.cpp\
         server.cpp \
         dbtools.cpp \
         kis_user.cpp \
-    kis_qtcpsocket.cpp
+    kis_socket.cpp
 
 HEADERS  += mainwindow.h \
         server.h \
         dbtools.h \
         kis_user.h \
-    kis_qtcpsocket.h
+    kis_socket.h
 
 FORMS    += mainwindow.ui

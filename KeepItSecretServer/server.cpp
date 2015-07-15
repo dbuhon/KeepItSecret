@@ -23,7 +23,9 @@ void Server::clientConnection()
     qDebug() << "A new client arrived !";
 
     // Get next pending connection
+    //SocketKIS *socket = qobject_cast<SocketKIS *>(this->nextPendingConnection());
     QTcpSocket *socket = this->nextPendingConnection();
+
 
     QTextStream flux(socket);
     flux << "Hello client!" << endl;
@@ -39,8 +41,8 @@ void Server::clientConnection()
  */
 void Server::readClient()
 {
-    // TODO faire fonctionner avec kis_contact
-    //kis_contact *client = qobject_cast<kis_contact *>(sender());
+    // TODO faire fonctionner avec SocketKIS
+    //SocketKIS *client = qobject_cast<SocketKIS *>(sender());
     QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
     if (!client)
@@ -65,7 +67,7 @@ void Server::readClient()
  * @brief Server::executeInstructions
  * @param line
  */
-void Server::executeInstructions(QString line, kis_contact *client){
+void Server::executeInstructions(QString line, SocketKIS *client){
     QString option = line.split(SEPARATOR).at(0);
 
     // Need to be logged in
@@ -76,7 +78,7 @@ void Server::executeInstructions(QString line, kis_contact *client){
             QTextStream flux(client);
             flux << "*listuser*" << SEPARATOR;
 
-            QListIterator<kis_contact*> iter(connectedUsers);
+            QListIterator<SocketKIS*> iter(connectedUsers);
             while (iter.hasNext()){
                 flux << iter.next()->login << SEPARATOR;
             }
@@ -117,7 +119,7 @@ void Server::executeInstructions(QString line, kis_contact *client){
             QString password(line.split(SEPARATOR).at(2));
 
             // User creation
-            kis_user user(login, password);
+            UserKIS user(login, password);
 
             QTextStream flux(client);
 
@@ -136,7 +138,7 @@ void Server::executeInstructions(QString line, kis_contact *client){
  */
 void Server::clientDisconnection()
 {
-    kis_contact *client = qobject_cast<kis_contact *>(sender());
+    SocketKIS *client = qobject_cast<SocketKIS *>(sender());
 
     if (!client)
         return;

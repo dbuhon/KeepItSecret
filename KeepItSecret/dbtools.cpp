@@ -38,7 +38,7 @@ bool DBTools::loadDatabase(){
     return true;
 }
 
-bool DBTools::addUser(const kis_user &user){
+bool DBTools::addUser(const UserKIS &user){
     QString qryStr;
     QSqlQuery query(myDB);
     qryStr = "INSERT INTO KIS_USER ( Login, Password ) VALUES ('" + user.getLogin() + "', '" + user.getPassword() + "')";

@@ -20,7 +20,7 @@ class DBTools
 public:
     static DBTools& Instance();
     bool loadDatabase();
-    bool addUser(const kis_user &user);
+    bool addUser(const UserKIS &user);
     bool tryToSignIn(const QString &login, const QString &password) const;
 
 private:

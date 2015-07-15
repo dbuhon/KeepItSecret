@@ -27,7 +27,7 @@ void NewAccountWindow::on_pushButton_clicked()
             && pwd1.compare(pwd2) == 0){
 
         // Create a kis_user
-        kis_user user(login, pwd1);
+        UserKIS user(login, pwd1);
 
         /* CREATE LOCAL USER
         // If save is effective

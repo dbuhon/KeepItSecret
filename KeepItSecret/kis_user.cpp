@@ -1,7 +1,7 @@
 #include "kis_user.h"
 #include "dbtools.h"
 
-kis_user::kis_user(const QString &_login, const QString &_password){
+UserKIS::UserKIS(const QString &_login, const QString &_password){
     if (!_login.isNull() && !_login.isEmpty() &&
             !_password.isNull() && !_password.isEmpty()){
         login = _login;
@@ -9,19 +9,19 @@ kis_user::kis_user(const QString &_login, const QString &_password){
     }
 }
 
-bool kis_user::save(){
+bool UserKIS::save(){
     return DBTools::Instance().addUser(*this);
 }
 
-QString kis_user::getLogin() const{
+QString UserKIS::getLogin() const{
     return this->login;
 }
 
-QString kis_user::getPassword() const{
+QString UserKIS::getPassword() const{
     return this->password;
 }
 
-kis_user::~kis_user()
+UserKIS::~UserKIS()
 {
 
 }
