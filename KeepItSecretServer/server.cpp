@@ -52,8 +52,8 @@ void Server::readClient()
     while(client->canReadLine())
     {
         line = client->readLine();
-        executeInstructions(line, client);
     }
+    executeInstructions(line, client);
 }
 
 

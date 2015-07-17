@@ -217,6 +217,12 @@ margin-right:50px;</string>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_login</tabstop>
+  <tabstop>lineEdit_password</tabstop>
+  <tabstop>pushButton_submit</tabstop>
+  <tabstop>pushButton_newAccount</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

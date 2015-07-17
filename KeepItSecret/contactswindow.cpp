@@ -39,6 +39,7 @@ void ContactsWindow::on_pushButton_newContact_clicked()
 
 void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
 {
+    Q_UNUSED(index);
     openDiscussionView();
 }
 
