@@ -59,12 +59,10 @@ void Client::readInstructions(QString line){
         if (result == "OK\n"){
            // TRAITEMENT
            emit signinSignal(true);
-           qDebug() << "emit signinSignal(true)";
         }
         else {
             // TRAITEMENT
             emit signinSignal(false);
-            qDebug() << "emit signinSignal(false)";
          }
     }
 

@@ -20,7 +20,7 @@ public:
 
 Q_SIGNALS:
     void signinSignal(bool isOk);
-    void addUserSignal(bool isOk);
+    void addUserSignal(bool isAdded);
 
 public slots:
     void readyToRead();

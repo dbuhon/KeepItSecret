@@ -6,7 +6,8 @@
 NewAccountWindow::NewAccountWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::NewAccountWindow)
 {
-    ui->setupUi(this);
+    ui->setupUi(this);    
+    connect(client,SIGNAL(addUserSignal(bool)),this,SLOT(adduser(bool)));
 }
 
 NewAccountWindow::~NewAccountWindow()
@@ -16,24 +17,22 @@ NewAccountWindow::~NewAccountWindow()
 
 void NewAccountWindow::on_pushButton_clicked()
 {
+    QMessageBox mb;
     QString login = ui->lineEdit_log->text();
     QString pwd1 = ui->lineEdit_pwd1->text();
     QString pwd2 = ui->lineEdit_pwd2->text();
 
-    QMessageBox mb;
+
     if (!login.isNull() && !login.isEmpty()
             && !pwd1.isNull() && !pwd1.isEmpty()
             && !pwd2.isNull() && !pwd2.isEmpty()
             && pwd1.compare(pwd2) == 0){
 
-        // Create a kis_user
-        UserKIS user(login, pwd1);
-
         client->addUser(login, pwd1);
 
         /*
         //CREATE LOCAL USER
-        // If save is effective
+        UserKIS user(login, pwd1);
         if (user.save())
             this->close();
         else{
@@ -51,4 +50,14 @@ void NewAccountWindow::on_pushButton_clicked()
 void NewAccountWindow::setClient(Client *_client)
 {
     client = _client;
+}
+
+void NewAccountWindow::adduser(bool isAdded){
+    if (isAdded)
+        this->close();
+    else {
+        QMessageBox mb;
+        mb.setText("Un compte avec ce nom existe déjà.");
+        mb.exec();
+    }
 }

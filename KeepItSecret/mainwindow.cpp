@@ -19,7 +19,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::openNewAccountView()
 {
-   newAccountWindow = new NewAccountWindow(); // Be sure to destroy you window somewhere
+   newAccountWindow = new NewAccountWindow();
    newAccountWindow->setClient(client);
    newAccountWindow->show();
 }

@@ -19,6 +19,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void adduser(bool isAdded);
 
 private:
     Ui::NewAccountWindow *ui;
