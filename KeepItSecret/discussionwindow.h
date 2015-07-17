@@ -19,6 +19,7 @@ public:
 
 private:
     Ui::DiscussionWindow *ui;
+
     Client *client;
 };
 
