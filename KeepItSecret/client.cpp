@@ -57,11 +57,9 @@ void Client::readInstructions(QString line){
         QString result = line.split(SEPARATOR).at(1);
 
         if (result == "OK\n"){
-           // TRAITEMENT
            emit signinSignal(true);
         }
         else {
-            // TRAITEMENT
             emit signinSignal(false);
          }
     }
@@ -73,11 +71,9 @@ void Client::readInstructions(QString line){
         QString result = line.split(SEPARATOR).at(1);
 
          if (result == "OK\n"){
-            // TRAITEMENT
             emit addUserSignal(true);
          }
          else {
-             // TRAITEMENT
              emit addUserSignal(false);
          }
     }

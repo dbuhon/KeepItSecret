@@ -6,8 +6,7 @@
 NewAccountWindow::NewAccountWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::NewAccountWindow)
 {
-    ui->setupUi(this);    
-    connect(client,SIGNAL(addUserSignal(bool)),this,SLOT(adduser(bool)));
+    ui->setupUi(this);
 }
 
 NewAccountWindow::~NewAccountWindow()
@@ -50,6 +49,7 @@ void NewAccountWindow::on_pushButton_clicked()
 void NewAccountWindow::setClient(Client *_client)
 {
     client = _client;
+    connect(client,SIGNAL(addUserSignal(bool)),this,SLOT(adduser(bool)));
 }
 
 void NewAccountWindow::adduser(bool isAdded){
