@@ -36,10 +36,10 @@ void MainWindow::on_pushButton_submit_clicked()
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
 
-    //client->tryToSignIn(login, password);
+    client->tryToSignIn(login, password);
 
     // TO TEST ALL THE COMMANDS
-    client->sendCommand(login);
+    //client->sendCommand(login);
 
     // TRAITEMENT
     // openContactsView();
@@ -63,4 +63,11 @@ void MainWindow::on_pushButton_newAccount_clicked()
 void MainWindow::signin(bool isOk)
 {
     // TRAITEMENT
+    if (isOk)
+        openContactsView();
+    else {
+        QMessageBox mb;
+        mb.setText("Vos identifiants sont invalides.\nRééssayez ou créez un nouveau compte.");
+        mb.exec();
+    }
 }

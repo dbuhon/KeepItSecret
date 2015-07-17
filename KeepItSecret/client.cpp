@@ -54,13 +54,17 @@ void Client::readInstructions(QString line){
       * Get the result of SIGNIN command
       */
     else if (line.split(SEPARATOR).length() == 2 && option == "*SIGNIN*"){
-        if (line.split(SEPARATOR).at(1) == "OK"){
+        QString result = line.split(SEPARATOR).at(1);
+
+        if (result == "OK\n"){
            // TRAITEMENT
-           //emit signinSignal(true);
+           emit signinSignal(true);
+           qDebug() << "emit signinSignal(true)";
         }
-        else if (line.split(SEPARATOR).at(1) == "NOK"){
+        else {
             // TRAITEMENT
-            //emit signinSignal(false)
+            emit signinSignal(false);
+            qDebug() << "emit signinSignal(false)";
          }
     }
 
@@ -68,17 +72,22 @@ void Client::readInstructions(QString line){
       * Get the result of ADDUSER command
       */
     else if (line.split(SEPARATOR).length() == 2 && option == "*ADDUSER*"){
-         if (line.split(SEPARATOR).at(1) == "OK"){
+        QString result = line.split(SEPARATOR).at(1);
+
+         if (result == "OK\n"){
             // TRAITEMENT
-            //emit addUserSignal(true);
+            emit addUserSignal(true);
          }
-         else if (line.split(SEPARATOR).at(1) == "NOK"){
+         else {
              // TRAITEMENT
-             //emit addUserSignal(false);
+             emit addUserSignal(false);
          }
     }
 
     else if (line.split(SEPARATOR).length() >= 2 && option == "*MSG*"){
+        QString login = line.split(SEPARATOR).at(1);
+        QString msg = line.split(SEPARATOR).at(2);
+
         // TRAITEMENT
     }
 
