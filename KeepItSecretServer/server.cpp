@@ -15,7 +15,7 @@ Server::Server()
 }
 
 /**
- * Handle the connections
+ * Handle client connections
  * @brief Server::connectionHandler
  */
 void Server::clientConnection()
@@ -23,12 +23,10 @@ void Server::clientConnection()
     qDebug() << "A new client arrived !";
 
     // Get next pending connection
-    //SocketKIS *socket = qobject_cast<SocketKIS *>(this->nextPendingConnection());
     QTcpSocket *socket = this->nextPendingConnection();
 
-
     QTextStream flux(socket);
-    flux << "Hello client!" << endl;
+    flux << "You are now connected to the server." << endl;
 
     // Get ready to read
     connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
@@ -41,8 +39,6 @@ void Server::clientConnection()
  */
 void Server::readClient()
 {
-    // TODO faire fonctionner avec SocketKIS
-    //SocketKIS *client = qobject_cast<SocketKIS *>(sender());
     QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
     if (!client)
@@ -54,12 +50,8 @@ void Server::readClient()
     while(client->canReadLine())
     {
         line = client->readLine();
-
-        qDebug() << line;
-        //executeInstructions(line, client);
+        executeInstructions(line, client);
     }
-
-
 }
 
 /**
@@ -67,27 +59,34 @@ void Server::readClient()
  * @brief Server::executeInstructions
  * @param line
  */
-void Server::executeInstructions(QString line, SocketKIS *client){
+void Server::executeInstructions(QString line, QTcpSocket *client){
+    qDebug() << line;
+
     QString option = line.split(SEPARATOR).at(0);
 
-    // Need to be logged in
+    // Commands that need to be logged in first
     if (connectedUsers.contains(client)){
-
-        if (option == "*showlistuser*" && line.split(SEPARATOR).length() >= 1){
+        /**
+          * The client asked for the list of connected users
+          */
+        if (option == "*SHOWUSERS*" && line.split(SEPARATOR).length() == 2){
 
             QTextStream flux(client);
-            flux << "*listuser*" << SEPARATOR;
+            flux << "*SHOWUSERS*" << SEPARATOR;
 
-            QListIterator<SocketKIS*> iter(connectedUsers);
+            QListIterator<QTcpSocket*> iter(connectedUsers);
             while (iter.hasNext()){
-                flux << iter.next()->login << SEPARATOR;
+                flux << iter.next()->objectName() << SEPARATOR;
             }
             flux << endl;
         }
-        // Send message
-        else if (line.split(SEPARATOR).length() >= 2){
-            QString login(line.split(SEPARATOR).at(0));
-            QString msg(line.split(SEPARATOR).at(1));
+        /**
+          * The client asked to send a message
+          */
+        else if (option == "*MSG*" && line.split(SEPARATOR).length() >= 3){
+
+            QString login(line.split(SEPARATOR).at(1));
+            QString msg(line.split(SEPARATOR).at(2));
 
             qDebug() << "A message was sent";
 
@@ -97,48 +96,57 @@ void Server::executeInstructions(QString line, SocketKIS *client){
             // flux << login << " : " << msg << endl;
         }
     }
-    else{
-        if (option == "*signin*" && line.split(SEPARATOR).length() >= 3){
-            QString login(line.split(SEPARATOR).at(1));
-            QString password(line.split(SEPARATOR).at(2));
 
-            QTextStream flux(client);
 
-            // Try to log in
-            if (DBTools::Instance().tryToSignIn(login, password)){
-                flux << "*[i]signin success*" << endl;
-                client->login = login;
-                connectedUsers.append(client);
-            }
-            else
-                flux << "*[x]signin fail*" << endl;
+    // Command that can be executed without being logged in
+
+    /**
+      * The client asked for a connection
+      */
+    if (option == "*SIGNIN*" && line.split(SEPARATOR).length() == 3){
+
+        QString login(line.split(SEPARATOR).at(1));
+        QString password(line.split(SEPARATOR).at(2));
+
+        QTextStream flux(client);
+
+        // Try to log in
+        if (DBTools::Instance().tryToSignIn(login, password)){
+            flux << "*SIGNIN*" << SEPARATOR << "OK" << endl;
+            client->setObjectName(login);
+            connectedUsers.append(client);
         }
+        else
+            flux << "*SIGNIN*" << SEPARATOR << "NOK" << endl;
+    }
+    /**
+      * The client asked for the server to add in its database a user
+      */
+    else if (option == "*ADDUSER*" && line.split(SEPARATOR).length() == 3){
 
-        else if (option == "*adduser*" && line.split(SEPARATOR).length() >= 3){
-            QString login(line.split(SEPARATOR).at(1));
-            QString password(line.split(SEPARATOR).at(2));
+        QString login(line.split(SEPARATOR).at(1));
+        QString password(line.split(SEPARATOR).at(2));
 
-            // User creation
-            UserKIS user(login, password);
+        // User creation
+        UserKIS user(login, password);
 
-            QTextStream flux(client);
+        QTextStream flux(client);
 
-            // Try to save in the database
-            if (user.save())
-                flux << "*[i]adduser success*" << endl;
-            else
-                flux << "*[x]adduser fail*" << endl;
-        }
+        // Try to save in the database
+        if (user.save())
+            flux << "*ADDUSER*" << SEPARATOR << "OK" << endl;
+        else
+            flux << "*ADDUSER*" << SEPARATOR << "NOK" << endl;
     }
 }
 
 /**
- * Handle disconnections
+ * Handle client disconnection
  * @brief Server::clientDisconnection
  */
 void Server::clientDisconnection()
 {
-    SocketKIS *client = qobject_cast<SocketKIS *>(sender());
+    QTcpSocket *client = qobject_cast<QTcpSocket *>(sender());
 
     if (!client)
         return;

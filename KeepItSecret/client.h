@@ -11,13 +11,21 @@ class Client : public QObject
 public:
     explicit Client(QObject *parent = 0);
     void sendMessage(QString login, QString msg);
-    void sendCommand(QString option, QString login, QString password);
+    void sendCommand(QString command);
     ~Client();
-
     void addUser(QString login, QString password);
+    void tryToSignIn(QString login, QString password);
+    void showUsers();
+    QString login;
+
+Q_SIGNALS:
+    void signinSignal(bool isOk);
+    void addUserSignal(bool isOk);
+
 public slots:
     void readyToRead();
     void disconnection();
+    void readInstructions(QString line);
 
 private:
     QTcpSocket *socket;

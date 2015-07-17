@@ -22,6 +22,7 @@ public:
 private slots:
     void on_pushButton_submit_clicked();
     void on_pushButton_newAccount_clicked();
+    void signin(bool isOk);
 
 private:
     Ui::MainWindow *ui;

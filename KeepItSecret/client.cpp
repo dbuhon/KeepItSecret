@@ -13,44 +13,6 @@ Client::Client(QObject *parent) : QObject(parent)
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnection()));
 }
 
-void Client::readyToRead()
-{
-    QString line;
-
-    while(socket->canReadLine())
-    {
-        line = socket->readLine();
-        qDebug() << line << endl;
-    }
-
-    // Fill the listUsers with users connected to the server
-    if (line.split(SEPARATOR).length() >= 1 && line.split(SEPARATOR).at(0) == "listuser"){
-        for (int i = 0; i < line.split(SEPARATOR).length(); i++){
-            this->listUsers.append(line.split(SEPARATOR).at(i));
-        }
-    }
-    else{
-        QTextStream flux(socket);
-        flux << line << endl;
-    }
-}
-
-void Client::sendMessage(QString login, QString msg){
-    QTextStream flux(socket);
-    flux << login << SEPARATOR << msg << endl;
-}
-
-void Client::sendCommand(QString option, QString login, QString password)
-{
-    QTextStream flux(socket);
-    flux << "*" << option << "*" << SEPARATOR << login << SEPARATOR << password << endl;
-}
-
-void Client::addUser(QString login, QString password){
-    QTextStream flux(socket);
-    flux << "*adduser*" << SEPARATOR << login << SEPARATOR << password << endl;
-}
-
 void Client::disconnection()
 {
     socket->deleteLater();
@@ -61,3 +23,115 @@ Client::~Client()
 {
 
 }
+
+void Client::readyToRead()
+{
+    QString line;
+
+    while(socket->canReadLine())
+    {
+        line = socket->readLine();
+        readInstructions(line);
+    }
+}
+
+void Client::readInstructions(QString line){
+    qDebug() << line;
+
+    QString option = line.split(SEPARATOR).at(0);
+
+    /**
+     * Get the result of SHOWUSERS command and fil the listUsers with it
+     */
+    if (line.split(SEPARATOR).length() >= 1 && option == "*SHOWUSERS*"){
+        // TRAITEMENT
+        for (int i = 0; i < line.split(SEPARATOR).length(); i++){
+            this->listUsers.append(line.split(SEPARATOR).at(i));
+        }
+    }
+
+    /**
+      * Get the result of SIGNIN command
+      */
+    else if (line.split(SEPARATOR).length() == 2 && option == "*SIGNIN*"){
+        if (line.split(SEPARATOR).at(1) == "OK"){
+           // TRAITEMENT
+           //emit signinSignal(true);
+        }
+        else if (line.split(SEPARATOR).at(1) == "NOK"){
+            // TRAITEMENT
+            //emit signinSignal(false)
+         }
+    }
+
+    /**
+      * Get the result of ADDUSER command
+      */
+    else if (line.split(SEPARATOR).length() == 2 && option == "*ADDUSER*"){
+         if (line.split(SEPARATOR).at(1) == "OK"){
+            // TRAITEMENT
+            //emit addUserSignal(true);
+         }
+         else if (line.split(SEPARATOR).at(1) == "NOK"){
+             // TRAITEMENT
+             //emit addUserSignal(false);
+         }
+    }
+
+    else if (line.split(SEPARATOR).length() >= 2 && option == "*MSG*"){
+        // TRAITEMENT
+    }
+
+    else{
+        QTextStream flux(socket);
+        flux << line << endl;
+    }
+}
+
+void Client::sendMessage(QString login, QString msg){
+    QTextStream flux(socket);
+    flux << "*MSG*" << SEPARATOR << login << SEPARATOR << msg << endl;
+}
+
+void Client::sendCommand(QString command)
+{
+    QTextStream flux(socket);
+    flux << command << endl;
+}
+
+/**
+ * Ask the server to add in its database a user
+ * @brief Client::addUser
+ * @param login
+ * @param password
+ */
+void Client::addUser(QString login, QString password){
+    QTextStream flux(socket);
+    flux << "*ADDUSER*" << SEPARATOR << login << SEPARATOR << password << endl;
+}
+
+/**
+ * Ask the server if the giving login and password are correct to log in
+ * @brief Client::tryToSignIn
+ * @param login
+ * @param password
+ */
+void Client::tryToSignIn(QString login, QString password){
+    QTextStream flux(socket);
+    flux << "*SIGNIN*" << SEPARATOR << login << SEPARATOR << password << endl;
+}
+
+/**
+ * Ask the server to return a list which contains all the connected users
+ * @brief Client::showUsers
+ */
+void Client::showUsers(){
+    QTextStream flux(socket);
+    flux << "*SHOWUSERS*" << SEPARATOR << endl;
+}
+
+
+
+
+
+

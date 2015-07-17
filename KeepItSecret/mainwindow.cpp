@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     client = new Client;
+    connect(client,SIGNAL(signinSignal(bool)),this,SLOT(signin(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -32,12 +33,18 @@ void MainWindow::openContactsView()
 
 void MainWindow::on_pushButton_submit_clicked()
 {
-    // TEST MSG SERV
-    client->sendMessage("A simple client", "Hello server !");
-
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
 
+    //client->tryToSignIn(login, password);
+
+    // TO TEST ALL THE COMMANDS
+    client->sendCommand(login);
+
+    // TRAITEMENT
+    // openContactsView();
+
+    /*
     if (DBTools::Instance().tryToSignIn(login, password))
         openContactsView();
     else{
@@ -45,9 +52,15 @@ void MainWindow::on_pushButton_submit_clicked()
         mb.setText("Vos identifiants sont invalides.\nRééssayez ou créez un nouveau compte.");
         mb.exec();
     }
+    */
 }
 
 void MainWindow::on_pushButton_newAccount_clicked()
 {
     openNewAccountView();
+}
+
+void MainWindow::signin(bool isOk)
+{
+    // TRAITEMENT
 }
