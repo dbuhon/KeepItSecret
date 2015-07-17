@@ -6,6 +6,7 @@ NewContactWindow::NewContactWindow(QWidget *parent) :
     ui(new Ui::NewContactWindow)
 {
     ui->setupUi(this);
+
 }
 
 NewContactWindow::~NewContactWindow()

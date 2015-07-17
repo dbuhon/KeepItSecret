@@ -28,6 +28,8 @@ void ContactsWindow::openDiscussionView()
 void ContactsWindow::setClient(Client *_client)
 {
     client = _client;
+    connect(client,SIGNAL(populateListContactsSignal()),this,SLOT(populateContacts()));
+    client->showUsers();
 }
 
 void ContactsWindow::on_pushButton_newContact_clicked()
@@ -41,4 +43,8 @@ void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
     openDiscussionView();
 }
 
+void ContactsWindow::populateContacts(){
+    ui->listWidget_contacts->clear();
+    ui->listWidget_contacts->addItems(client->getUsers());
+}
 

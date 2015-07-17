@@ -14,15 +14,17 @@ class Server : public QTcpServer
 public:
     Server();
     ~Server();
+
 public slots:
     void clientConnection();
     void readClient();
     void clientDisconnection();
-    void executeInstructions(QString line, QTcpSocket *contact);
 
 private:
     QList<QTcpSocket *> connectedUsers;
     QMap<QTcpSocket*, QTcpSocket*> conversations;
+    void executeInstructions(QString line, QTcpSocket *contact);
+    void sendNewUserListToClients();
 };
 
 #endif // SERVER_H

@@ -16,11 +16,13 @@ public:
     void addUser(QString login, QString password);
     void tryToSignIn(QString login, QString password);
     void showUsers();
+    QStringList getUsers();
     QString login;
 
 Q_SIGNALS:
     void signinSignal(bool isOk);
     void addUserSignal(bool isAdded);
+    void populateListContactsSignal();
 
 public slots:
     void readyToRead();
@@ -29,7 +31,7 @@ public slots:
 
 private:
     QTcpSocket *socket;
-    QList<QString> listUsers;
+    QStringList listUsers;
 };
 
 #endif // CLIENT_H

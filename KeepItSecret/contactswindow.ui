@@ -50,26 +50,6 @@ height: 50px;</string>
 font-size: 25px;
 color: black;</string>
           </property>
-          <item>
-           <property name="text">
-            <string>Tom</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Laura</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Camille</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Paul</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item row="1" column="1">

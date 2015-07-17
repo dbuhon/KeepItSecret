@@ -112,12 +112,14 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
 
         // Try to log in
         if (DBTools::Instance().tryToSignIn(login, password)){
-            flux << "*SIGNIN*" << SEPARATOR << "OK" << endl;
+            flux << "*SIGNIN*" << SEPARATOR << "OK" << SEPARATOR << login << SEPARATOR << endl;
             client->setObjectName(login);
             connectedUsers.append(client);
+
+            sendNewUserListToClients();
         }
         else
-            flux << "*SIGNIN*" << SEPARATOR << "NOK" << endl;
+            flux << "*SIGNIN*" << SEPARATOR << "NOK" << SEPARATOR << SEPARATOR << endl;
     }
     /**
       * The client asked for the server to add in its database a user
@@ -153,10 +155,30 @@ void Server::clientDisconnection()
 
     connectedUsers.removeAll(client);
     client->deleteLater();
+
+    sendNewUserListToClients();
 }
 
 Server::~Server()
 {
 
+}
+
+/**
+ * Send to the clients the new list of connectedUsers
+ * @brief Server::sendNewUserList
+ */
+void Server::sendNewUserListToClients(){
+    QListIterator<QTcpSocket*> iter(connectedUsers);
+    while (iter.hasNext()){
+        QTextStream flux(iter.next());
+
+        flux << "*SHOWUSERS*" << SEPARATOR;
+        QListIterator<QTcpSocket*> it(connectedUsers);
+        while (it.hasNext()){
+            flux << it.next()->objectName() << SEPARATOR;
+        }
+        flux << endl;
+    }
 }
 

@@ -44,19 +44,27 @@ void Client::readInstructions(QString line){
      * Get the result of SHOWUSERS command and fil the listUsers with it
      */
     if (line.split(SEPARATOR).length() >= 1 && option == "*SHOWUSERS*"){
-        // TRAITEMENT
-        for (int i = 0; i < line.split(SEPARATOR).length(); i++){
-            this->listUsers.append(line.split(SEPARATOR).at(i));
+        this->listUsers.clear();
+        if (this->login.isEmpty()) return;
+
+        for (int i = 1; i < line.split(SEPARATOR).length() - 1; i++){
+            QString user = line.split(SEPARATOR).at(i);
+
+            if (this->login.compare(user) != 0)
+                this->listUsers.append(user);
         }
+        emit populateListContactsSignal();
     }
 
     /**
       * Get the result of SIGNIN command
       */
-    else if (line.split(SEPARATOR).length() == 2 && option == "*SIGNIN*"){
+    else if (line.split(SEPARATOR).length() == 4 && option == "*SIGNIN*"){
         QString result = line.split(SEPARATOR).at(1);
+        QString login = line.split(SEPARATOR).at(2);
 
-        if (result == "OK\n"){
+        if (result == "OK"){
+           this->login = login;
            emit signinSignal(true);
         }
         else {
@@ -131,6 +139,11 @@ void Client::tryToSignIn(QString login, QString password){
 void Client::showUsers(){
     QTextStream flux(socket);
     flux << "*SHOWUSERS*" << SEPARATOR << endl;
+}
+
+QStringList Client::getUsers()
+{
+    return this->listUsers;
 }
 
 
