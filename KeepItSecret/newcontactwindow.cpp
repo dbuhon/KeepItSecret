@@ -14,22 +14,12 @@ NewContactWindow::~NewContactWindow()
     delete ui;
 }
 
-void NewContactWindow::openDeviceSelectionView()
-{
-    deviceSelectionWindow = new DeviceSelectionWindow;
-    deviceSelectionWindow->setClient(client);
-    deviceSelectionWindow->show();
-}
-
 void NewContactWindow::on_pushButton_createContact_clicked()
 {
-    // TODO Sauvegarder le contact, persistance locale fichier
-    this->close();
-}
+    QString contact = ui->lineEdit_contactLogin->text();
 
-void NewContactWindow::on_pushButton_sync_clicked()
-{
-    openDeviceSelectionView();
+    if (!contact.isNull() && !contact.isEmpty())
+        client->addContact(contact);
 }
 
 void NewContactWindow::setClient(Client *_client)

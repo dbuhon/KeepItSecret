@@ -9,10 +9,6 @@ UserKIS::UserKIS(const QString &_login, const QString &_password){
     }
 }
 
-bool UserKIS::save(){
-    return DBTools::Instance().addUser(*this);
-}
-
 QString UserKIS::getLogin() const{
     return this->login;
 }

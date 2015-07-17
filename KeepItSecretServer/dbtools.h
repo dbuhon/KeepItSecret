@@ -19,6 +19,8 @@ public:
     bool loadDatabase();
     bool addUser(const UserKIS &user);
     bool tryToSignIn(const QString &login, const QString &password) const;
+    bool insertContact(const QString &contact, const QString &login) const;
+    QStringList getContacts(QString &login);
 
 private:
     DBTools();

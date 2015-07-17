@@ -14,6 +14,7 @@ public:
     void sendCommand(QString command);
     ~Client();
     void addUser(QString login, QString password);
+    void addContact(QString contact);
     void tryToSignIn(QString login, QString password);
     void showUsers();
     QStringList getUsers();

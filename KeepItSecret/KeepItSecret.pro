@@ -17,10 +17,8 @@ SOURCES += main.cpp\
     contactswindow.cpp \
     newaccountwindow.cpp \
     newcontactwindow.cpp \
-    deviceselectionwindow.cpp \
     discussionwindow.cpp \
     cryptotools.cpp \
-    dbtools.cpp \
     kis_user.cpp \
     client.cpp
 
@@ -29,10 +27,8 @@ HEADERS  += \
     contactswindow.h \
     newaccountwindow.h \
     newcontactwindow.h \
-    deviceselectionwindow.h \
     discussionwindow.h \
     cryptotools.h \
-    dbtools.h \
     kis_user.h \
     client.h
 
@@ -41,7 +37,6 @@ FORMS    += \
     contactswindow.ui \
     newaccountwindow.ui \
     newcontactwindow.ui \
-    deviceselectionwindow.ui \
     discussionwindow.ui \
     chat.ui
 

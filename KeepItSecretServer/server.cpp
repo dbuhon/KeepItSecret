@@ -14,6 +14,7 @@ Server::Server()
         qDebug() << "Server started";
 }
 
+
 /**
  * Handle client connections
  * @brief Server::connectionHandler
@@ -32,6 +33,7 @@ void Server::clientConnection()
     connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnection()));
     connect(socket, SIGNAL(readyRead()),this, SLOT(readClient()));
 }
+
 
 /**
  * Read what the client sent and execute instructions
@@ -54,6 +56,7 @@ void Server::readClient()
     }
 }
 
+
 /**
  * Execute instructions giving a command line
  * @brief Server::executeInstructions
@@ -66,9 +69,8 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
 
     // Commands that need to be logged in first
     if (connectedUsers.contains(client)){
-        /**
-          * The client asked for the list of connected users
-          */
+
+        // The client asked for the list of connected users
         if (option == "*SHOWUSERS*" && line.split(SEPARATOR).length() == 2){
 
             QTextStream flux(client);
@@ -80,9 +82,8 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
             }
             flux << endl;
         }
-        /**
-          * The client asked to send a message
-          */
+
+        // The client asked to send a message
         else if (option == "*MSG*" && line.split(SEPARATOR).length() >= 3){
 
             QString login(line.split(SEPARATOR).at(1));
@@ -95,15 +96,28 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
             // QTextStream flux(&receiver);
             // flux << login << " : " << msg << endl;
         }
+
+        // The client asked to add a contact in its list
+        else if (option == "*ADDCONTACT*" && line.split(SEPARATOR).length() == 3){
+            QString contact(line.split(SEPARATOR).at(1));
+
+            QTextStream flux(client);
+            flux << "*ADDCONTACT*" << SEPARATOR;
+
+            if (DBTools::Instance().insertContact(contact, client->objectName())){
+                flux << "OK" << SEPARATOR << endl;
+            }
+            else
+                flux << "NOK" << SEPARATOR << endl;
+        }
     }
 
 
     // Command that can be executed without being logged in
 
-    /**
-      * The client asked for a connection
-      */
-    if (option == "*SIGNIN*" && line.split(SEPARATOR).length() == 3){
+
+    // The client asked for a connection
+    if (option == "*SIGNIN*" && line.split(SEPARATOR).length() == 4){
 
         QString login(line.split(SEPARATOR).at(1));
         QString password(line.split(SEPARATOR).at(2));
@@ -133,10 +147,9 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
         }
         flux << "*SIGNIN*" << SEPARATOR << "NOK" << SEPARATOR << SEPARATOR << endl;
     }
-    /**
-      * The client asked for the server to add in its database a user
-      */
-    else if (option == "*ADDUSER*" && line.split(SEPARATOR).length() == 3){
+
+    // The client asked for the server to add in its database a user
+    else if (option == "*ADDUSER*" && line.split(SEPARATOR).length() == 4){
 
         QString login(line.split(SEPARATOR).at(1));
         QString password(line.split(SEPARATOR).at(2));
@@ -148,11 +161,12 @@ void Server::executeInstructions(QString line, QTcpSocket *client){
 
         // Try to save in the database
         if (user.save())
-            flux << "*ADDUSER*" << SEPARATOR << "OK" << endl;
+            flux << "*ADDUSER*" << SEPARATOR << "OK" << SEPARATOR << endl;
         else
-            flux << "*ADDUSER*" << SEPARATOR << "NOK" << endl;
+            flux << "*ADDUSER*" << SEPARATOR << "NOK" << SEPARATOR << endl;
     }
 }
+
 
 /**
  * Handle client disconnection
@@ -175,6 +189,7 @@ Server::~Server()
 {
 
 }
+
 
 /**
  * Send to the clients the new list of connectedUsers

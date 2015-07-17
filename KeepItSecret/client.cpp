@@ -40,9 +40,8 @@ void Client::readInstructions(QString line){
 
     QString option = line.split(SEPARATOR).at(0);
 
-    /**
-     * Get the result of SHOWUSERS command and fil the listUsers with it
-     */
+
+    // Get the result of SHOWUSERS command and fil the listUsers with it
     if (line.split(SEPARATOR).length() >= 1 && option == "*SHOWUSERS*"){
         this->listUsers.clear();
         if (this->login.isEmpty()) return;
@@ -56,9 +55,8 @@ void Client::readInstructions(QString line){
         emit populateListContactsSignal();
     }
 
-    /**
-      * Get the result of SIGNIN command
-      */
+
+    // Get the result of SIGNIN command
     else if (line.split(SEPARATOR).length() == 4 && option == "*SIGNIN*"){
         QString result = line.split(SEPARATOR).at(1);
         QString login = line.split(SEPARATOR).at(2);
@@ -72,13 +70,12 @@ void Client::readInstructions(QString line){
          }
     }
 
-    /**
-      * Get the result of ADDUSER command
-      */
-    else if (line.split(SEPARATOR).length() == 2 && option == "*ADDUSER*"){
+
+    // Get the result of ADDUSER command
+    else if (line.split(SEPARATOR).length() == 3 && option == "*ADDUSER*"){
         QString result = line.split(SEPARATOR).at(1);
 
-         if (result == "OK\n"){
+         if (result == "OK"){
             emit addUserSignal(true);
          }
          else {
@@ -118,7 +115,7 @@ void Client::sendCommand(QString command)
  */
 void Client::addUser(QString login, QString password){
     QTextStream flux(socket);
-    flux << "*ADDUSER*" << SEPARATOR << login << SEPARATOR << password << endl;
+    flux << "*ADDUSER*" << SEPARATOR << login << SEPARATOR << password << SEPARATOR << endl;
 }
 
 /**
@@ -129,7 +126,7 @@ void Client::addUser(QString login, QString password){
  */
 void Client::tryToSignIn(QString login, QString password){
     QTextStream flux(socket);
-    flux << "*SIGNIN*" << SEPARATOR << login << SEPARATOR << password << endl;
+    flux << "*SIGNIN*" << SEPARATOR << login << SEPARATOR << password << SEPARATOR << endl;
 }
 
 /**
@@ -139,6 +136,11 @@ void Client::tryToSignIn(QString login, QString password){
 void Client::showUsers(){
     QTextStream flux(socket);
     flux << "*SHOWUSERS*" << SEPARATOR << endl;
+}
+
+void Client::addContact(QString contact){
+    QTextStream flux(socket);
+    flux << "*ADDCONTACT*" << SEPARATOR << contact << SEPARATOR << endl;
 }
 
 QStringList Client::getUsers()

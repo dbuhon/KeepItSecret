@@ -23,12 +23,17 @@ bool DBTools::loadDatabase(){
     }
     else
     {
-        qDebug() << "[v]Success" << "Database opened";
+        qDebug() << "[i]Success" << "Database opened";
 
 
         QString qryStr;
         QSqlQuery query(myDB);
         qryStr = "CREATE TABLE IF NOT EXISTS KIS_USER ( Login varchar(255) PRIMARY KEY, Password varchar(255) )";
+        query.prepare(qryStr);
+        if(!query.exec(qryStr))
+            qDebug() << query.lastError().text();
+
+        qryStr = "CREATE TABLE IF NOT EXISTS KIS_CONTACT (Contact varchar(255), User varchar(255), FOREIGN KEY (Contact) REFERENCES KIS_USER(login), FOREIGN KEY (User) REFERENCES KIS_USER(login))";
         query.prepare(qryStr);
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
@@ -42,6 +47,20 @@ bool DBTools::addUser(const UserKIS &user){
     QString qryStr;
     QSqlQuery query(myDB);
     qryStr = "INSERT INTO KIS_USER ( Login, Password ) VALUES ('" + user.getLogin() + "', '" + user.getPassword() + "')";
+    query.prepare(qryStr);
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+bool DBTools::insertContact(const QString &contact, const QString &login) const{
+    QString qryStr;
+    QSqlQuery query(myDB);
+    qryStr = "INSERT INTO KIS_CONTACT ( Contact, User ) VALUES ('" + contact + "', '" + login + "')";
     query.prepare(qryStr);
     if(!query.exec(qryStr))
     {
@@ -69,6 +88,26 @@ bool DBTools::tryToSignIn(const QString &login, const QString &password) const{
             return false;
     }
     return true;
+}
+
+QStringList DBTools::getContacts(QString &login){
+    QStringList listContacts;
+
+    QString qryStr;
+    QSqlQuery query(myDB);
+    qryStr = "SELECT DISTINCT Contact FROM KIS_CONTACT WHERE Login = '" + login + "'";
+    query.prepare(qryStr);
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+    }
+    else
+    {
+        query.next();
+            listContacts.append(query.value(0).toString());
+    }
+
+    return listContacts;
 }
 
 DBTools::~DBTools()
