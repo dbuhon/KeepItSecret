@@ -21,7 +21,7 @@ public:
     bool tryToSignIn(const QString &login, const QString &password) const;
     bool insertContact(const QString &contact, const QString &login) const;
     QStringList getContacts(QString &login);
-
+    bool userExistsInKIS_USER(const QString &user) const;
 private:
     DBTools();
     ~DBTools();

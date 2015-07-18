@@ -28,12 +28,12 @@ bool DBTools::loadDatabase(){
 
         QString qryStr;
         QSqlQuery query(myDB);
-        qryStr = "CREATE TABLE IF NOT EXISTS KIS_USER ( Login varchar(255) PRIMARY KEY, Password varchar(255) )";
+        qryStr = "CREATE TABLE IF NOT EXISTS KIS_USER ( Login varchar(255) NOT NULL PRIMARY KEY, Password varchar(255) NOT NULL)";
         query.prepare(qryStr);
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
 
-        qryStr = "CREATE TABLE IF NOT EXISTS KIS_CONTACT (Contact varchar(255), User varchar(255), FOREIGN KEY (Contact) REFERENCES KIS_USER(login), FOREIGN KEY (User) REFERENCES KIS_USER(login))";
+        qryStr = "CREATE TABLE IF NOT EXISTS KIS_CONTACT (Contact varchar(255) NOT NULL, User varchar(255) NOT NULL, PRIMARY KEY (Contact,User), FOREIGN KEY (Contact) REFERENCES KIS_USER(login), FOREIGN KEY (User) REFERENCES KIS_USER(login))";
         query.prepare(qryStr);
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
@@ -60,7 +60,11 @@ bool DBTools::addUser(const UserKIS &user){
 bool DBTools::insertContact(const QString &contact, const QString &login) const{
     QString qryStr;
     QSqlQuery query(myDB);
-    qryStr = "INSERT INTO KIS_CONTACT ( Contact, User ) VALUES ('" + contact + "', '" + login + "')";
+
+    if (!userExistsInKIS_USER(contact) || !userExistsInKIS_USER(login) || contact.compare(login) == 0)
+        return false;
+
+    qryStr = "INSERT INTO KIS_CONTACT ( Contact, User ) VALUES ( (SELECT Login FROM KIS_USER WHERE Login='" + contact + "'), (SELECT Login FROM KIS_USER WHERE Login='" + login + "'))";
     query.prepare(qryStr);
     if(!query.exec(qryStr))
     {
@@ -68,6 +72,26 @@ bool DBTools::insertContact(const QString &contact, const QString &login) const{
         return false;
     }
 
+    return true;
+}
+
+bool DBTools::userExistsInKIS_USER(const QString &user) const{
+    QString qryStr;
+    QSqlQuery query(myDB);
+
+    qryStr="SELECT COUNT(*) FROM KIS_USER WHERE Login='" + user + "'";
+    query.prepare(qryStr);
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+        return false;
+    }
+    else
+    {
+        query.next();
+        if(query.value(0).toInt() == 0)
+            return false;
+    }
     return true;
 }
 
