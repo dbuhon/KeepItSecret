@@ -32,7 +32,6 @@ void Client::readyToRead()
     while(socket->canReadLine())
     {
         line = socket->readLine();
-
         Options options(this);
         options.parseLine(line);
     }

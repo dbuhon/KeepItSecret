@@ -7,12 +7,13 @@
 #include "dbtools.h"
 #include "kis_user.h"
 #include "kis_socket.h"
+#include <QTextEdit>
 
 class Server : public QTcpServer
 {
     Q_OBJECT
 public:
-    Server();
+    Server(QTextEdit *_logger);
     ~Server();
 
 public slots:
@@ -21,6 +22,7 @@ public slots:
     void clientDisconnection();
 
 private:
+    QTextEdit* logger;
     QList<QTcpSocket *> connectedUsers;
     QMap<QTcpSocket*, QTcpSocket*> conversations;
     void executeInstructions(QString line, QTcpSocket *contact);

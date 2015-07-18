@@ -17,7 +17,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(63, 63, 63);
+   <string notr="true">background-color: rgb(35, 35, 35);
 color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -208,14 +208,6 @@ margin-right:50px;</string>
     </item>
    </layout>
   </widget>
-  <action name="actionQuitter">
-   <property name="text">
-    <string>Quitter</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
@@ -225,22 +217,5 @@ margin-right:50px;</string>
   <tabstop>pushButton_newAccount</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>actionQuitter</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>472</x>
-     <y>278</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

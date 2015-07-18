@@ -3,16 +3,17 @@
 
 #define SEPARATOR "[|#|]"
 
-Server::Server()
+Server::Server(QTextEdit *_logger)
 {
+    logger = _logger;
     // Emits a signal when a user connects
     connect(this, SIGNAL(newConnection()),
             this, SLOT(clientConnection()));
 
     if(!this->listen(QHostAddress::Any, 9999))
-        qDebug() << "Server could not start";
+        logger->append("Server could not start\n");
     else
-        qDebug() << "Server started";
+        logger->append("Server started\n");
 }
 
 
@@ -22,7 +23,7 @@ Server::Server()
  */
 void Server::clientConnection()
 {
-    qDebug() << "A new client arrived !";
+    logger->append("A new client arrived !\n");
 
     // Get next pending connection
     QTcpSocket *socket = this->nextPendingConnection();
@@ -55,7 +56,7 @@ void Server::readClient()
         line = client->readLine();
     }
 
-    Options options(client, &connectedUsers);
+    Options options(client, &connectedUsers, logger);
     options.parseLine(line);
 }
 
@@ -73,8 +74,10 @@ void Server::clientDisconnection()
 
     connectedUsers.removeAll(client);
 
-    Options options(client, &connectedUsers);
+    Options options(client, &connectedUsers, logger);
     options.sendUserListToClients();
+
+    logger->append("A client disconnected : " + client->objectName());
 }
 
 Server::~Server()

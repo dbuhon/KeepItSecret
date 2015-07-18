@@ -3,10 +3,12 @@
 
 #define SEPARATOR "[|#|]"
 
-Options::Options(QTcpSocket *_client, QList<QTcpSocket *> *_connectedUsers)
+Options::Options(QTcpSocket *_client, QList<QTcpSocket *> *_connectedUsers, QTextEdit *_logger)
 {
+    loggedin = false;
     client = _client;
     connectedUsers = _connectedUsers;
+    logger = _logger;
 
     if (connectedUsers->contains(client))
         loggedin = true;
@@ -42,18 +44,22 @@ void Options::parseLine(const QString &line){
  * Send his contacts list to the requester
  * @brief Options::treatmentShowUsers
  */
-void Options::treatmentShowUsers(){
+void Options::treatmentShowUsers(){    
     if (!loggedin)
         return;
 
     QTextStream flux(client);
 
+    logger->append("SHOWUSERS : ");
     flux << "*SHOWUSERS*" << SEPARATOR;
     QListIterator<QTcpSocket*> iteratorOthers(*connectedUsers);
     while (iteratorOthers.hasNext()){
-        flux << iteratorOthers.next()->objectName() << SEPARATOR;
+        QString username = iteratorOthers.next()->objectName();
+        flux << username << SEPARATOR;
+        logger->append("   - " + username);
     }
     flux << endl;
+    logger->append("");
 
     /*
     // SHOW CONNECTED CONTACTS
@@ -90,10 +96,14 @@ void Options::treatmentAddUser(const QString &line){
         UserKIS user(login, password);
 
         // Try to save in the database
-        if (user.save())
+        if (user.save()){
             flux << "*ADDUSER*" << SEPARATOR << "OK" << SEPARATOR << endl;
-        else
-            flux << "*ADDUSER*" << SEPARATOR << "NOK" << SEPARATOR << endl;
+            logger->append("ADDUSER (" + login + ") : OK\n");
+        }
+        else{
+            flux << "*ADDUSER*" << SEPARATOR << "NOK" << SEPARATOR << endl;            
+            logger->append("ADDUSER (" + login + ") : NOK\n");
+        }
     }
 }
 
@@ -110,12 +120,15 @@ void Options::treatmentAddContact(const QString &line){
     QString contact(line.split(SEPARATOR).at(1));
 
     QTextStream flux(client);
-    flux << "*ADDCONTACT*" << SEPARATOR;
 
-    if (DBTools::Instance().insertContact(contact, client->objectName()))
-        flux << "OK" << SEPARATOR << endl;
-    else
-        flux << "NOK" << SEPARATOR << endl;
+    if (DBTools::Instance().insertContact(contact, client->objectName())){
+        flux << "*ADDCONTACT*" << SEPARATOR << "OK" << SEPARATOR << endl;
+        logger->append("ADDCONTACT (" + contact + " : " + client->objectName() + ") : OK\n");
+    }
+    else{
+        flux << "*ADDCONTACT*" << SEPARATOR << "NOK" << SEPARATOR << endl;
+        logger->append("ADDCONTACT (" + contact + " : " + client->objectName() + ") : NOK\n");
+    }
 }
 
 /**
@@ -145,6 +158,8 @@ void Options::treatmentSignIn(const QString &line){
 
         if (isNotConnectedYet){
             flux << "*SIGNIN*" << SEPARATOR << "OK" << SEPARATOR << login << SEPARATOR << endl;
+            logger->append("SIGNIN (" + login + ") : OK\n");
+
             client->setObjectName(login);
             connectedUsers->append(client);
 
@@ -152,7 +167,8 @@ void Options::treatmentSignIn(const QString &line){
             return;
         }
     }
-    flux << "*SIGNIN*" << SEPARATOR << "NOK" << SEPARATOR << SEPARATOR << endl;
+    flux << "*SIGNIN*" << SEPARATOR << "NOK" << SEPARATOR << SEPARATOR << endl;    
+    logger->append("SIGNIN (" + login + ") : NOK\n");
 }
 
 
@@ -168,7 +184,7 @@ void Options::treatmentMessage(const QString &line){
     QString login(line.split(SEPARATOR).at(1));
     QString msg(line.split(SEPARATOR).at(2));
 
-    qDebug() << "Debug : [to " << login << "] " << msg;
+    logger->append("Debug : [to " + login + "] " + msg + "\n");
 }
 
 
@@ -193,8 +209,10 @@ void Options::sendContactListToClients(){
             QTcpSocket *contact = iteratorContacts.next();
             QString contactname = contact->objectName();
 
-            if (DBTools::Instance().isAContact(username, contactname))
-                flux << iteratorContacts.next()->objectName() << SEPARATOR;
+            if (DBTools::Instance().isAContact(username, contactname)){
+                QString contactname = iteratorContacts.next()->objectName();
+                flux << contactname << SEPARATOR;
+            }
         }
         flux << endl;
     }
