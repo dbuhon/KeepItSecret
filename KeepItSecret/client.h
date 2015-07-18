@@ -23,6 +23,7 @@ public:
 Q_SIGNALS:
     void signinSignal(bool isOk);
     void addUserSignal(bool isAdded);
+    void addContactSignal(bool isAdded);
     void populateListContactsSignal();
 
 public slots:

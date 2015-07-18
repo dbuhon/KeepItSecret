@@ -22,11 +22,14 @@ public:
     void openNewContactView();
     void openDiscussionView();
     void setClient(Client *_client);
+Q_SIGNALS:
+    void contactsWindowClosedSignal(bool isClosed);
 
 private slots:
     void on_pushButton_newContact_clicked();
     void on_listWidget_contacts_clicked(const QModelIndex &index);
     void populateContacts();
+
 
 private:
     Ui::ContactsWindow *ui;

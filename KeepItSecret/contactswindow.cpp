@@ -10,6 +10,7 @@ ContactsWindow::ContactsWindow(QWidget *parent) :
 
 ContactsWindow::~ContactsWindow()
 {
+    emit contactsWindowClosedSignal(true);
     delete ui;
 }
 

@@ -1,5 +1,6 @@
 #include "newcontactwindow.h"
 #include "ui_newcontactwindow.h"
+#include <QMessageBox>
 
 NewContactWindow::NewContactWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,4 +26,15 @@ void NewContactWindow::on_pushButton_createContact_clicked()
 void NewContactWindow::setClient(Client *_client)
 {
     client = _client;
+    connect(client,SIGNAL(addContactSignal(bool)),this,SLOT(addcontact(bool)));
+}
+
+void NewContactWindow::addcontact(bool isAdded){
+    if (isAdded)
+        this->close();
+    else {
+        QMessageBox mb;
+        mb.setText("Impossible d'ajouter ce contact, l'identifiant saisit n'est pas valide.");
+        mb.exec();
+    }
 }

@@ -83,6 +83,18 @@ void Client::readInstructions(QString line){
          }
     }
 
+    // Get the result of ADDCONTACT command
+    else if (line.split(SEPARATOR).length() == 3 && option == "*ADDCONTACT*"){
+        QString result = line.split(SEPARATOR).at(1);
+
+         if (result == "OK"){
+            emit addContactSignal(true);
+         }
+         else {
+             emit addContactSignal(false);
+         }
+    }
+
     else if (line.split(SEPARATOR).length() >= 2 && option == "*MSG*"){
         QString login = line.split(SEPARATOR).at(1);
         QString msg = line.split(SEPARATOR).at(2);

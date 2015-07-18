@@ -29,6 +29,7 @@ void MainWindow::openContactsView()
    contactsWindow = new ContactsWindow();
    contactsWindow->setClient(client);
    contactsWindow->show();
+   connect(contactsWindow,SIGNAL(contactsWindowClosedSignal(bool)),this,SLOT(contactwindowclosed(bool)));
 }
 
 void MainWindow::on_pushButton_submit_clicked()
@@ -37,22 +38,6 @@ void MainWindow::on_pushButton_submit_clicked()
     QString password = ui->lineEdit_password->text();
 
     client->tryToSignIn(login, password);
-
-    // TO TEST ALL THE COMMANDS
-    //client->sendCommand(login);
-
-    // TRAITEMENT
-    // openContactsView();
-
-    /*
-    if (DBTools::Instance().tryToSignIn(login, password))
-        openContactsView();
-    else{
-        QMessageBox mb;
-        mb.setText("Vos identifiants sont invalides.\nRééssayez ou créez un nouveau compte.");
-        mb.exec();
-    }
-    */
 }
 
 void MainWindow::on_pushButton_newAccount_clicked()
@@ -69,5 +54,12 @@ void MainWindow::signin(bool isOk)
         QMessageBox mb;
         mb.setText("Vos identifiants sont invalides.\nRééssayez ou créez un nouveau compte.");
         mb.exec();
+    }
+}
+
+void MainWindow::contactwindowclosed(bool isClosed)
+{
+    if (isClosed){
+        delete ui;
     }
 }

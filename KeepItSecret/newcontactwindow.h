@@ -19,6 +19,7 @@ public:
     void setClient(Client *_client);
 
 private slots:
+    void addcontact(bool isAdded);
     void on_pushButton_createContact_clicked();
 
 private:
