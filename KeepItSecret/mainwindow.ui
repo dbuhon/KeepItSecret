@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
-    <height>778</height>
+    <width>474</width>
+    <height>732</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,8 +64,8 @@ margin-right:50px;</string>
            <string notr="true">background-color: none;
 border-radius: 5px;
 text-align: left;
-color: orange;
-margin-top: 150%;
+color: rgb(84, 249, 141);
+margin-top: 100%;
 margin-left:50px;
 margin-right:50px;</string>
           </property>
@@ -93,9 +93,10 @@ margin-right:50px;</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <family>Lobster 1.4</family>
+            <pointsize>35</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
             <kerning>true</kerning>
            </font>
           </property>
@@ -103,7 +104,7 @@ margin-right:50px;</string>
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>Keep It Secret</string>
+           <string>Keep it Secret</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -177,7 +178,7 @@ margin-right:50px;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">border-radius: 5px;
-background-color: rgb(255, 190, 133);
+background-color: rgb(84, 249, 141);
 margin-top: 75%;
 height: 50px;
 color: black;

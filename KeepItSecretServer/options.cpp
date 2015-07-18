@@ -18,7 +18,7 @@ void Options::parseLine(const QString &line){
 
     if (command.compare("*SHOWUSERS*") == 0){
         option_showusers = true;
-        treatmentShowUsers(line);
+        treatmentShowUsers();
     }
     else if (command.compare("*ADDUSER*") == 0){
         option_adduser = true;
@@ -42,10 +42,21 @@ void Options::parseLine(const QString &line){
  * Send his contacts list to the requester
  * @brief Options::treatmentShowUsers
  */
-void Options::treatmentShowUsers(const QString &line){
+void Options::treatmentShowUsers(){
     if (!loggedin)
         return;
 
+    QTextStream flux(client);
+
+    flux << "*SHOWUSERS*" << SEPARATOR;
+    QListIterator<QTcpSocket*> iteratorOthers(*connectedUsers);
+    while (iteratorOthers.hasNext()){
+        flux << iteratorOthers.next()->objectName() << SEPARATOR;
+    }
+    flux << endl;
+
+    /*
+    // SHOW CONNECTED CONTACTS
     QTextStream flux(client);
     flux << "*SHOWUSERS*" << SEPARATOR;
 
@@ -58,6 +69,7 @@ void Options::treatmentShowUsers(const QString &line){
             flux << iteratorContacts.next()->objectName() << SEPARATOR;
     }
     flux << endl;
+    */
 }
 
 
@@ -136,7 +148,7 @@ void Options::treatmentSignIn(const QString &line){
             client->setObjectName(login);
             connectedUsers->append(client);
 
-            sendContactListToClients();
+            sendUserListToClients();
             return;
         }
     }

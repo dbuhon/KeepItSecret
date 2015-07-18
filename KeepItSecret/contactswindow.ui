@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>386</width>
-    <height>744</height>
+    <width>368</width>
+    <height>555</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@ color: rgb(255, 255, 255);</string>
           <property name="styleSheet">
            <string notr="true">color: black;
 border-radius: 5px;
-background-color: rgb(255, 190, 133);
+background-color: rgb(115, 194, 251);
 margin-top: 60%;
 height: 50px;</string>
           </property>
@@ -62,9 +62,10 @@ color: black;</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <family>Lobster 1.4</family>
+            <pointsize>26</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
             <kerning>true</kerning>
            </font>
           </property>

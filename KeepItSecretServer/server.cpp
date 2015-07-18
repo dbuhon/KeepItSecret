@@ -74,7 +74,7 @@ void Server::clientDisconnection()
     connectedUsers.removeAll(client);
 
     Options options(client, &connectedUsers);
-    options.sendContactListToClients();
+    options.sendUserListToClients();
 }
 
 Server::~Server()

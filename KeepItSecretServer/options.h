@@ -29,7 +29,7 @@ public:
     void sendUserListToClients();
 
 private:
-    void treatmentShowUsers(const QString &line);
+    void treatmentShowUsers();
     void treatmentAddUser(const QString &line);
     void treatmentAddContact(const QString &line);
     void treatmentSignIn(const QString &line);

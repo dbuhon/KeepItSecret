@@ -95,6 +95,3 @@ QTcpSocket *Client::getSocket()
     return this->socket;
 }
 
-
-
-

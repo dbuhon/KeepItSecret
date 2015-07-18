@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>619</width>
-    <height>562</height>
+    <width>357</width>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@ color: rgb(255, 255, 255);</string>
          <widget class="QPushButton" name="pushButton">
           <property name="styleSheet">
            <string notr="true">border-radius: 5px;
-background-color: rgb(255, 190, 133);
+background-color: rgb(252, 93, 93);
 margin-top: 60%;
 height: 50px;
 color: black;</string>
@@ -47,9 +47,10 @@ color: black;</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <family>Lobster 1.4</family>
+            <pointsize>26</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
             <kerning>true</kerning>
            </font>
           </property>
