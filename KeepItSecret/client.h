@@ -10,15 +10,18 @@ class Client : public QObject
     Q_OBJECT
 public:
     explicit Client(QObject *parent = 0);
+    ~Client();
+
     void sendMessage(QString login, QString msg);
     void sendCommand(QString command);
-    ~Client();
     void addUser(QString login, QString password);
     void addContact(QString contact);
     void tryToSignIn(QString login, QString password);
     void showUsers();
-    QStringList getUsers();
+
+    QTcpSocket* getSocket();
     QString login;
+    QStringList listUsers;
 
 Q_SIGNALS:
     void signinSignal(bool isOk);
@@ -29,11 +32,9 @@ Q_SIGNALS:
 public slots:
     void readyToRead();
     void disconnection();
-    void readInstructions(QString line);
 
 private:
     QTcpSocket *socket;
-    QStringList listUsers;
 };
 
 #endif // CLIENT_H

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     discussionwindow.cpp \
     cryptotools.cpp \
     kis_user.cpp \
-    client.cpp
+    client.cpp \
+    options.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -30,7 +31,8 @@ HEADERS  += \
     discussionwindow.h \
     cryptotools.h \
     kis_user.h \
-    client.h
+    client.h \
+    options.h
 
 FORMS    += \
     mainwindow.ui \

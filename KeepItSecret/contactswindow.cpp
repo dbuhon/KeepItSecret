@@ -46,6 +46,6 @@ void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
 
 void ContactsWindow::populateContacts(){
     ui->listWidget_contacts->clear();
-    ui->listWidget_contacts->addItems(client->getUsers());
+    ui->listWidget_contacts->addItems(client->listUsers);
 }
 
