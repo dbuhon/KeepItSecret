@@ -25,6 +25,7 @@ private:
     QMap<QTcpSocket*, QTcpSocket*> conversations;
     void executeInstructions(QString line, QTcpSocket *contact);
     void sendNewUserListToClients();
+    void sendContactListToClients();
 };
 
 #endif // SERVER_H

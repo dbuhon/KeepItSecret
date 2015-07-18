@@ -95,6 +95,26 @@ bool DBTools::userExistsInKIS_USER(const QString &user) const{
     return true;
 }
 
+bool DBTools::isAContact(const QString &contact, const QString &user) const{
+    QString qryStr;
+    QSqlQuery query(myDB);
+
+    qryStr="SELECT COUNT(*) FROM KIS_CONTACT WHERE Contact='" + contact + "' AND User='" + user + "'";
+    query.prepare(qryStr);
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+        return false;
+    }
+    else
+    {
+        query.next();
+        if(query.value(0).toInt() == 0)
+            return false;
+    }
+    return true;
+}
+
 bool DBTools::tryToSignIn(const QString &login, const QString &password) const{
     QString qryStr;
     QSqlQuery query(myDB);

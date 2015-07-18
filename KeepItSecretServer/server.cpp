@@ -1,4 +1,5 @@
 #include "server.h"
+#include "options.h"
 
 #define SEPARATOR "[|#|]"
 
@@ -53,118 +54,9 @@ void Server::readClient()
     {
         line = client->readLine();
     }
-    executeInstructions(line, client);
-}
 
-
-/**
- * Execute instructions giving a command line
- * @brief Server::executeInstructions
- * @param line
- */
-void Server::executeInstructions(QString line, QTcpSocket *client){
-    qDebug() << line;
-
-    QString option = line.split(SEPARATOR).at(0);
-
-    // Commands that need to be logged in first
-    if (connectedUsers.contains(client)){
-
-        // The client asked for the list of connected users
-        if (option == "*SHOWUSERS*" && line.split(SEPARATOR).length() == 2){
-
-            QTextStream flux(client);
-            flux << "*SHOWUSERS*" << SEPARATOR;
-
-            QListIterator<QTcpSocket*> iter(connectedUsers);
-            while (iter.hasNext()){
-                flux << iter.next()->objectName() << SEPARATOR;
-            }
-            flux << endl;
-        }
-
-        // The client asked to send a message
-        else if (option == "*MSG*" && line.split(SEPARATOR).length() >= 3){
-
-            QString login(line.split(SEPARATOR).at(1));
-            QString msg(line.split(SEPARATOR).at(2));
-
-            qDebug() << "A message was sent";
-
-            //TODO send message (using the HashMap)
-
-            // QTextStream flux(&receiver);
-            // flux << login << " : " << msg << endl;
-        }
-
-        // The client asked to add a contact in its list
-        else if (option == "*ADDCONTACT*" && line.split(SEPARATOR).length() == 3){
-            QString contact(line.split(SEPARATOR).at(1));
-
-            QTextStream flux(client);
-            flux << "*ADDCONTACT*" << SEPARATOR;
-
-            if (DBTools::Instance().insertContact(contact, client->objectName())){
-                flux << "OK" << SEPARATOR << endl;
-            }
-            else
-                flux << "NOK" << SEPARATOR << endl;
-        }
-    }
-
-
-    // Command that can be executed without being logged in
-
-
-    // The client asked for a connection
-    if (option == "*SIGNIN*" && line.split(SEPARATOR).length() == 4){
-
-        QString login(line.split(SEPARATOR).at(1));
-        QString password(line.split(SEPARATOR).at(2));
-
-        QTextStream flux(client);
-
-        // Try to log in
-        if (DBTools::Instance().tryToSignIn(login, password)){
-
-            bool isNotConnectedYet = true;
-
-            // Vérification que l'utilisateur n'est pas déjà connecté
-            QListIterator<QTcpSocket*> iter(connectedUsers);
-            while (iter.hasNext()){
-                if (iter.next()->objectName().compare(login) == 0)
-                    isNotConnectedYet = false;
-            }
-
-            if (isNotConnectedYet){
-                flux << "*SIGNIN*" << SEPARATOR << "OK" << SEPARATOR << login << SEPARATOR << endl;
-                client->setObjectName(login);
-                connectedUsers.append(client);
-
-                sendNewUserListToClients();
-            }
-            return;
-        }
-        flux << "*SIGNIN*" << SEPARATOR << "NOK" << SEPARATOR << SEPARATOR << endl;
-    }
-
-    // The client asked for the server to add in its database a user
-    else if (option == "*ADDUSER*" && line.split(SEPARATOR).length() == 4){
-
-        QString login(line.split(SEPARATOR).at(1));
-        QString password(line.split(SEPARATOR).at(2));
-
-        // User creation
-        UserKIS user(login, password);
-
-        QTextStream flux(client);
-
-        // Try to save in the database
-        if (user.save())
-            flux << "*ADDUSER*" << SEPARATOR << "OK" << SEPARATOR << endl;
-        else
-            flux << "*ADDUSER*" << SEPARATOR << "NOK" << SEPARATOR << endl;
-    }
+    Options options(client, &connectedUsers);
+    options.parseLine(line);
 }
 
 
@@ -180,32 +72,12 @@ void Server::clientDisconnection()
         return;
 
     connectedUsers.removeAll(client);
-    client->deleteLater();
 
-    sendNewUserListToClients();
+    Options options(client, &connectedUsers);
+    options.sendContactListToClients();
 }
 
 Server::~Server()
 {
 
 }
-
-
-/**
- * Send to the clients the new list of connectedUsers
- * @brief Server::sendNewUserList
- */
-void Server::sendNewUserListToClients(){
-    QListIterator<QTcpSocket*> iter(connectedUsers);
-    while (iter.hasNext()){
-        QTextStream flux(iter.next());
-
-        flux << "*SHOWUSERS*" << SEPARATOR;
-        QListIterator<QTcpSocket*> it(connectedUsers);
-        while (it.hasNext()){
-            flux << it.next()->objectName() << SEPARATOR;
-        }
-        flux << endl;
-    }
-}
-
