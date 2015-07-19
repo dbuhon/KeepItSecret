@@ -3,6 +3,7 @@
 #include <QHostAddress>
 #include <QDebug>
 #include "options.h"
+#include "cryptoutils.h"
 
 #define SEPARATOR "[|#|]"
 
@@ -38,6 +39,14 @@ void Client::readyToRead()
         Options options(this);
         options.parseLine(line);
     }
+
+    /*
+    if (socket->canReadLine()){
+        line = socket->readLine();
+        Options options(this);
+        options.parseLine(line);
+    }
+    */
 }
 
 void Client::sendMessage(QString login, QString date, QString msg){
@@ -69,8 +78,16 @@ void Client::addUser(QString login, QString password){
  * @param password
  */
 void Client::tryToSignIn(QString login, QString password){
+    CryptoUtils crypto;
+    this->secretKey = crypto.getSecretKey(password);
+
     QTextStream flux(socket);
     flux << "*SIGNIN*" << SEPARATOR << login << SEPARATOR << password << SEPARATOR << endl;
+
+    QString crypt = crypto.encrypt(secretKey, login);
+    qDebug() << login;
+    qDebug() << crypt;
+    qDebug() << crypto.decrypt(secretKey, crypt);
 }
 
 /**

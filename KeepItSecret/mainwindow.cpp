@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include "cryptoutils.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,7 +38,13 @@ void MainWindow::on_pushButton_submit_clicked()
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
 
-    client->tryToSignIn(login, password);
+    if (login.isNull() || login.isEmpty() || password.isNull() || password.isEmpty()){
+        QMessageBox mb;
+        mb.setText("Le formulaire n'est pas correctement remplis.");
+        mb.exec();
+    }
+    else
+        client->tryToSignIn(login, password);
 }
 
 void MainWindow::on_pushButton_newAccount_clicked()

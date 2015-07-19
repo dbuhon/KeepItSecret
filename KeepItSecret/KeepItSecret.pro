@@ -17,20 +17,23 @@ SOURCES += main.cpp\
     contactswindow.cpp \
     newaccountwindow.cpp \
     newcontactwindow.cpp \
-    cryptotools.cpp \
     client.cpp \
     options.cpp \
-    chatdialog.cpp
+    chatdialog.cpp \
+    qblowfish.cpp \
+    cryptoutils.cpp
 
 HEADERS  += \
     mainwindow.h \
     contactswindow.h \
     newaccountwindow.h \
     newcontactwindow.h \
-    cryptotools.h \
     client.h \
     options.h \
-    chatdialog.h
+    chatdialog.h \
+    qblowfish.h \
+    qblowfish_p.h \
+    cryptoutils.h
 
 FORMS    += \
     mainwindow.ui \

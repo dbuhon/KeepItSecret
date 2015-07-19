@@ -36,7 +36,14 @@ void ChatDialog::on_sendButton_clicked()
     QString text = ui->sendText->text();
 
     if (!text.isNull() && !text.isEmpty()){
-        client->sendMessage(partner, currentDate, text);
+        CryptoUtils crypto;
+        QString encryptedMsg = crypto.encrypt(client->secretKey, text);
+
+        qDebug() << encryptedMsg;
+        qDebug() << crypto.decrypt(client->secretKey, encryptedMsg);
+
+        client->sendMessage(partner, currentDate, encryptedMsg);
+
         chat->append("Vous : [" + currentDate + "] : " + text);
     }
 }

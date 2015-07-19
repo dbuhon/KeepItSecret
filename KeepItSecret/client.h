@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QDebug>
+#include "cryptoutils.h"
 
 class Client : public QObject
 {
@@ -21,6 +22,7 @@ public:
 
     QTcpSocket* getSocket();
     QString login;
+    QBlowfish secretKey;
     QStringList listUsers;
 
 Q_SIGNALS:
