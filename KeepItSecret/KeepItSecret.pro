@@ -37,8 +37,7 @@ FORMS    += \
     contactswindow.ui \
     newaccountwindow.ui \
     newcontactwindow.ui \
-    discussionwindow.ui \
-    chat.ui
+    discussionwindow.ui
 
 CONFIG += mobility \
        += c++11
