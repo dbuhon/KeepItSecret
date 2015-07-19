@@ -61,6 +61,7 @@ void Options::treatmentShowUsers(){
     flux << endl;
     logger->append("");
 
+
     /*
     // SHOW CONNECTED CONTACTS
     QTextStream flux(client);
@@ -124,6 +125,7 @@ void Options::treatmentAddContact(const QString &line){
     if (DBTools::Instance().insertContact(contact, client->objectName())){
         flux << "*ADDCONTACT*" << SEPARATOR << "OK" << SEPARATOR << endl;
         logger->append("ADDCONTACT (" + contact + " : " + client->objectName() + ") : OK\n");
+        treatmentShowUsers();
     }
     else{
         flux << "*ADDCONTACT*" << SEPARATOR << "NOK" << SEPARATOR << endl;
@@ -178,13 +180,14 @@ void Options::treatmentSignIn(const QString &line){
  * @param line
  */
 void Options::treatmentMessage(const QString &line){
-    if (!loggedin || line.split(SEPARATOR).length() < 3)
+    if (!loggedin || line.split(SEPARATOR).length() < 4)
         return;
 
     QString login(line.split(SEPARATOR).at(1));
-    QString msg(line.split(SEPARATOR).at(2));
+    QString date(line.split(SEPARATOR).at(2));
+    QString msg(line.split(SEPARATOR).at(3));
 
-    logger->append("Debug : [to " + login + "] " + msg + "\n");
+    logger->append("Debug : to " + login + "[" + date + "] :" + msg + "\n");
 }
 
 
@@ -204,9 +207,9 @@ void Options::sendContactListToClients(){
         QTextStream flux(user);
 
         flux << "*SHOWUSERS*" << SEPARATOR;
-        QListIterator<QTcpSocket*> iteratorContacts(*connectedUsers);
-        while (iteratorContacts.hasNext()){
-            QTcpSocket *contact = iteratorContacts.next();
+        QListIterator<QTcpSocket*> iteratorOthers(*connectedUsers);
+        while (iteratorOthers.hasNext()){
+            QTcpSocket *contact = iteratorOthers.next();
             QString contactname = contact->objectName();
 
             if (DBTools::Instance().isAContact(contactname, username)){

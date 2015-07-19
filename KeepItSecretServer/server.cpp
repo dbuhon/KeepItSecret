@@ -77,7 +77,7 @@ void Server::clientDisconnection()
     Options options(client, &connectedUsers, logger);
     options.sendUserListToClients();
 
-    logger->append("A client disconnected : " + client->objectName());
+    logger->append("A client logged out : " + client->objectName());
 }
 
 Server::~Server()

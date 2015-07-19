@@ -12,7 +12,7 @@ public:
     explicit Client(QObject *parent = 0);
     ~Client();
 
-    void sendMessage(QString login, QString msg);
+    void sendMessage(QString login, QString date, QString msg);
     void sendCommand(QString command);
     void addUser(QString login, QString password);
     void addContact(QString contact);

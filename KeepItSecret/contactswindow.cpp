@@ -1,5 +1,6 @@
 #include "contactswindow.h"
 #include "ui_contactswindow.h"
+#include "chatdialog.h"
 
 ContactsWindow::ContactsWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,9 +22,12 @@ void ContactsWindow::openNewContactView()
    newContactWindow->show();
 }
 
-void ContactsWindow::openDiscussionView()
+void ContactsWindow::openChatDialogView(QString partner)
 {
-    // TODO open chat window
+    ChatDialog *chatDialog = new ChatDialog();
+    chatDialog->setClient(client);
+    chatDialog->setPartner(partner);
+    chatDialog->show();
 }
 
 void ContactsWindow::setClient(Client *_client)
@@ -40,8 +44,8 @@ void ContactsWindow::on_pushButton_newContact_clicked()
 
 void ContactsWindow::on_listWidget_contacts_clicked(const QModelIndex &index)
 {
-    Q_UNUSED(index);
-    openDiscussionView();
+    QString partner = index.model()->data(index, Qt::DisplayRole).toString();
+    openChatDialogView(partner);
 }
 
 void ContactsWindow::populateContacts(){

@@ -17,27 +17,27 @@ SOURCES += main.cpp\
     contactswindow.cpp \
     newaccountwindow.cpp \
     newcontactwindow.cpp \
-    discussionwindow.cpp \
     cryptotools.cpp \
     client.cpp \
-    options.cpp
+    options.cpp \
+    chatdialog.cpp
 
 HEADERS  += \
     mainwindow.h \
     contactswindow.h \
     newaccountwindow.h \
     newcontactwindow.h \
-    discussionwindow.h \
     cryptotools.h \
     client.h \
-    options.h
+    options.h \
+    chatdialog.h
 
 FORMS    += \
     mainwindow.ui \
     contactswindow.ui \
     newaccountwindow.ui \
     newcontactwindow.ui \
-    discussionwindow.ui
+    chatdialog.ui
 
 CONFIG += mobility \
        += c++11

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "newcontactwindow.h"
-#include "discussionwindow.h"
+#include "chatdialog.h"
 #include "client.h"
 
 class Chat;
@@ -20,7 +20,7 @@ public:
     explicit ContactsWindow(QWidget *parent = 0);
     ~ContactsWindow();
     void openNewContactView();
-    void openDiscussionView();
+    void openChatDialogView(QString partner);
     void setClient(Client *_client);
 Q_SIGNALS:
     void contactsWindowClosedSignal(bool isClosed);
@@ -30,12 +30,9 @@ private slots:
     void on_listWidget_contacts_clicked(const QModelIndex &index);
     void populateContacts();
 
-
 private:
     Ui::ContactsWindow *ui;
     NewContactWindow *newContactWindow;
-    DiscussionWindow *discussionWindow;
-    Chat *chat;
     Client *client;
 };
 

@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Chat</class>
- <widget class="QDialog" name="Chat">
+ <class>ChatDialog</class>
+ <widget class="QDialog" name="ChatDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
-    <height>572</height>
+    <width>412</width>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Bluetooth Chat</string>
+   <string>Dialog</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(35, 35, 35);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QLabel" name="partnerLabel">
+     <property name="font">
+      <font>
+       <family>Lobster 1.4</family>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
+     </property>
+     <property name="text">
+      <string>Partner</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTextEdit" name="chat">
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(217, 232, 245);</string>
+      <string notr="true">background-color: rgb(217, 232, 245);
+color: black;</string>
      </property>
     </widget>
    </item>
@@ -38,6 +58,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="sendButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(230, 230, 230);</string>
+       </property>
        <property name="text">
         <string>Send</string>
        </property>
@@ -49,12 +72,9 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-   </item>
-   <item>
     <widget class="QPushButton" name="quitButton">
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="text">
       <string>Quit</string>

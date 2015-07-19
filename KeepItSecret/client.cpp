@@ -8,8 +8,11 @@
 
 Client::Client(QObject *parent) : QObject(parent)
 {
+    QString address = "192.168.1.252";
+
     socket = new QTcpSocket();
-    socket->connectToHost(QHostAddress::LocalHost, 9999);
+    //socket->connectToHost(QHostAddress::LocalHost, 9999);
+    socket->connectToHost(address, 9999);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnection()));
 }
@@ -37,9 +40,9 @@ void Client::readyToRead()
     }
 }
 
-void Client::sendMessage(QString login, QString msg){
+void Client::sendMessage(QString login, QString date, QString msg){
     QTextStream flux(socket);
-    flux << "*MSG*" << SEPARATOR << login << SEPARATOR << msg << endl;
+    flux << "*MSG*" << SEPARATOR << login << SEPARATOR << date << SEPARATOR << msg << endl;
 }
 
 void Client::sendCommand(QString command)
