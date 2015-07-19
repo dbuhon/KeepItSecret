@@ -1,6 +1,7 @@
 #include "chatdialog.h"
 #include "ui_chatdialog.h"
 #include <QDateTime>
+#include <QTextCodec>
 
 ChatDialog::ChatDialog(QWidget *parent) :
     QDialog(parent),
@@ -12,6 +13,7 @@ ChatDialog::ChatDialog(QWidget *parent) :
 void ChatDialog::setClient(Client *_client)
 {
     client = _client;
+    connect(client,SIGNAL(newMessageSignal(QString,QString,QString)),SLOT(newmessage(QString,QString,QString)));
 }
 
 void ChatDialog::setPartner(const QString &_partner)
@@ -35,6 +37,10 @@ void ChatDialog::on_sendButton_clicked()
 
     if (!text.isNull() && !text.isEmpty()){
         client->sendMessage(partner, currentDate, text);
-        chat->append(client->login + " [" + currentDate + "] : " + text);
+        chat->append("Vous : [" + currentDate + "] : " + text);
     }
+}
+
+void ChatDialog::newmessage(QString partner, QString date, QString msg){
+    ui->chat->append(partner.toUtf8() + " [" + date.toUtf8() + "] : " + msg.toUtf8().trimmed());
 }

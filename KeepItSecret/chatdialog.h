@@ -21,6 +21,7 @@ public:
 
 private slots:
     void on_sendButton_clicked();
+    void newmessage(QString partner, QString date, QString msg);
 
 private:
     Ui::ChatDialog *ui;

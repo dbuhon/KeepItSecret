@@ -58,6 +58,8 @@ void Options::parseLine(const QString &line){
  * @brief Options::treatmentShowUsers
  */
 void Options::treatmentShowUsers(const QString &line){
+    Q_UNUSED(line)
+
     if (!loggedin)
         return;
 
@@ -208,8 +210,7 @@ void Options::treatmentMessage(const QString &line){
             flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << msg << endl;
         }
     }
-
-    logger->append("Debug : to " + partner + "[" + date + "] :" + msg + "\n");
+    logger->append("Message sent from : '" + client->objectName() + "' to '" + partner + "' at [" + date + "]\n");
 }
 
 

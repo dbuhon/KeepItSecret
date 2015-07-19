@@ -42,7 +42,7 @@ void Client::readyToRead()
 
 void Client::sendMessage(QString login, QString date, QString msg){
     QTextStream flux(socket);
-    flux << "*MSG*" << SEPARATOR << login << SEPARATOR << date << SEPARATOR << msg << endl;
+    flux << "*MSG*" << SEPARATOR << login << SEPARATOR << date << SEPARATOR << msg << SEPARATOR << endl;
 }
 
 void Client::sendCommand(QString command)

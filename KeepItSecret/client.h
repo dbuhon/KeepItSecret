@@ -28,6 +28,7 @@ Q_SIGNALS:
     void addUserSignal(bool isAdded);
     void addContactSignal(bool isAdded);
     void populateListContactsSignal();
+    void newMessageSignal(QString partner,QString date,QString msg);
 
 public slots:
     void readyToRead();
