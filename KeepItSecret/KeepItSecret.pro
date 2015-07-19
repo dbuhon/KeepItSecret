@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     newcontactwindow.cpp \
     discussionwindow.cpp \
     cryptotools.cpp \
-    kis_user.cpp \
     client.cpp \
     options.cpp
 
@@ -30,7 +29,6 @@ HEADERS  += \
     newcontactwindow.h \
     discussionwindow.h \
     cryptotools.h \
-    kis_user.h \
     client.h \
     options.h
 

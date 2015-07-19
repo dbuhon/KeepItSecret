@@ -209,8 +209,7 @@ void Options::sendContactListToClients(){
             QTcpSocket *contact = iteratorContacts.next();
             QString contactname = contact->objectName();
 
-            if (DBTools::Instance().isAContact(username, contactname)){
-                QString contactname = iteratorContacts.next()->objectName();
+            if (DBTools::Instance().isAContact(contactname, username)){
                 flux << contactname << SEPARATOR;
             }
         }
