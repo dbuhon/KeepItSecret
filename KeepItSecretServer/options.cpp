@@ -5,6 +5,14 @@
 
 Options::Options(QTcpSocket *_client, QList<QTcpSocket *> *_connectedUsers, QTextEdit *_logger)
 {
+    /*
+    dictionaryActions.insert("*SHOWUSERS*", treatmentShowUsers);
+    dictionaryActions.insert("*ADDUSER*", treatmentAddUser);
+    dictionaryActions.insert("*ADDCONTACT*", treatmentAddContact);
+    dictionaryActions.insert("*SIGNIN*", treatmentSignIn);
+    dictionaryActions.insert("*MSG*", treatmentMessage);
+    */
+
     loggedin = false;
     client = _client;
     connectedUsers = _connectedUsers;
@@ -18,9 +26,14 @@ Options::Options(QTcpSocket *_client, QList<QTcpSocket *> *_connectedUsers, QTex
 void Options::parseLine(const QString &line){
     QString command = line.split(SEPARATOR).at(0);
 
+    /*
+    if (dictionaryActions.contains(command))
+        dictionaryActions.find(command)(line);
+    */
+
     if (command.compare("*SHOWUSERS*") == 0){
         option_showusers = true;
-        treatmentShowUsers();
+        treatmentShowUsers(line);
     }
     else if (command.compare("*ADDUSER*") == 0){
         option_adduser = true;
@@ -44,7 +57,7 @@ void Options::parseLine(const QString &line){
  * Send his contacts list to the requester
  * @brief Options::treatmentShowUsers
  */
-void Options::treatmentShowUsers(){    
+void Options::treatmentShowUsers(const QString &line){
     if (!loggedin)
         return;
 
@@ -125,7 +138,7 @@ void Options::treatmentAddContact(const QString &line){
     if (DBTools::Instance().insertContact(contact, client->objectName())){
         flux << "*ADDCONTACT*" << SEPARATOR << "OK" << SEPARATOR << endl;
         logger->append("ADDCONTACT (" + contact + " : " + client->objectName() + ") : OK\n");
-        treatmentShowUsers();
+        treatmentShowUsers(line);
     }
     else{
         flux << "*ADDCONTACT*" << SEPARATOR << "NOK" << SEPARATOR << endl;
@@ -183,11 +196,20 @@ void Options::treatmentMessage(const QString &line){
     if (!loggedin || line.split(SEPARATOR).length() < 4)
         return;
 
-    QString login(line.split(SEPARATOR).at(1));
+    QString partner(line.split(SEPARATOR).at(1));
     QString date(line.split(SEPARATOR).at(2));
     QString msg(line.split(SEPARATOR).at(3));
 
-    logger->append("Debug : to " + login + "[" + date + "] :" + msg + "\n");
+    QListIterator<QTcpSocket*> iter(*connectedUsers);
+    while (iter.hasNext()){
+        QTcpSocket *user = iter.next();
+        if (user->objectName().compare(partner) == 0){
+            QTextStream flux(user);
+            flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << msg << endl;
+        }
+    }
+
+    logger->append("Debug : to " + partner + "[" + date + "] :" + msg + "\n");
 }
 
 

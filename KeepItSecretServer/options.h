@@ -4,10 +4,12 @@
 #include <QListIterator>
 #include <QMap>
 #include <QTextEdit>
+//#include <functional>
 
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+//typedef void (*actionHandler)(const QString&);
 
 class Options
 {
@@ -23,7 +25,7 @@ public:
     bool loggedin;
     QTcpSocket *client;
     QList<QTcpSocket *> *connectedUsers;
-    //QMap<QString, QString> dictionaryCommands;
+    //QMap<QString, actionHandler> dictionaryActions;
 
     void parseLine(const QString &line);
     void sendContactListToClients();
@@ -31,7 +33,7 @@ public:
 
 private:
     QTextEdit *logger;
-    void treatmentShowUsers();
+    void treatmentShowUsers(const QString &line);
     void treatmentAddUser(const QString &line);
     void treatmentAddContact(const QString &line);
     void treatmentSignIn(const QString &line);

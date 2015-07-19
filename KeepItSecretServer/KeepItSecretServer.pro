@@ -27,3 +27,5 @@ HEADERS  += mainwindow.h \
     options.h
 
 FORMS    += mainwindow.ui
+
+CONFIG += c++11

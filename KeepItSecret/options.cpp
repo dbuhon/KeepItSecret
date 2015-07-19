@@ -127,7 +127,9 @@ void Options::treatmentMessage(const QString &line){
         QString date = line.split(SEPARATOR).at(2);
         QString msg = line.split(SEPARATOR).at(3);
 
+
         // TRAITEMENT
+        qDebug() << login + " : " + date + " : " + " : " + msg;
     }
 }
 
