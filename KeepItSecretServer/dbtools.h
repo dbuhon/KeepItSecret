@@ -23,6 +23,8 @@ public:
     QStringList getContacts(QString &login);
     bool userExistsInKIS_USER(const QString &user) const;
     bool isAContact(const QString &contact, const QString &user) const;
+    QString getSecret(QString &login);
+
 private:
     DBTools();
     ~DBTools();

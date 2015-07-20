@@ -35,12 +35,16 @@ void MainWindow::openContactsView()
 
 void MainWindow::on_pushButton_submit_clicked()
 {
+    QMessageBox mb;
     QString login = ui->lineEdit_login->text();
     QString password = ui->lineEdit_password->text();
 
     if (login.isNull() || login.isEmpty() || password.isNull() || password.isEmpty()){
-        QMessageBox mb;
         mb.setText("Le formulaire n'est pas correctement remplis.");
+        mb.exec();
+    }
+    else if (password.length() < 6){
+        mb.setText("Le mot de passe doit faire au moins 6 caractères.");
         mb.exec();
     }
     else

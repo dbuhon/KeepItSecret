@@ -141,6 +141,27 @@ QStringList DBTools::getContacts(QString &login){
     QSqlQuery query(myDB);
     qryStr = "SELECT DISTINCT Contact FROM KIS_CONTACT WHERE Login = '" + login + "'";
     query.prepare(qryStr);
+
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+    }
+    else
+    {
+        // TODO : FIX THIS TREATMENT
+        query.next();
+        for (int i = 0; i < query.size(); i++)
+            listContacts.append(query.value(i).toString());
+    }
+
+    return listContacts;
+}
+
+QString DBTools::getSecret(QString &login){
+    QString qryStr;
+    QSqlQuery query(myDB);
+    qryStr = "SELECT Password FROM KIS_USER WHERE Login = '" + login + "'";
+    query.prepare(qryStr);
     if(!query.exec(qryStr))
     {
         qDebug() << query.lastError().text();
@@ -148,10 +169,9 @@ QStringList DBTools::getContacts(QString &login){
     else
     {
         query.next();
-            listContacts.append(query.value(0).toString());
+        return query.value(0).toString();
     }
-
-    return listContacts;
+    return nullptr;
 }
 
 DBTools::~DBTools()

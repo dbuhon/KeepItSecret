@@ -1,5 +1,6 @@
 #include "options.h"
 #include "dbtools.h"
+#include "cryptoutils.h"
 
 #define SEPARATOR "[|#|]"
 
@@ -200,14 +201,27 @@ void Options::treatmentMessage(const QString &line){
 
     QString partner(line.split(SEPARATOR).at(1));
     QString date(line.split(SEPARATOR).at(2));
-    QString msg(line.split(SEPARATOR).at(3));
+    QString encryptedMsg(line.split(SEPARATOR).at(3));
 
     QListIterator<QTcpSocket*> iter(*connectedUsers);
     while (iter.hasNext()){
         QTcpSocket *user = iter.next();
         if (user->objectName().compare(partner) == 0){
             QTextStream flux(user);
-            flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << msg << endl;
+
+            // Handle the re-encryption of the message with the partner secret
+            QString clientName = client->objectName();
+
+            CryptoUtils crypto;
+            QString secretClient = DBTools::Instance().getSecret(clientName);
+            QString secretPartner = DBTools::Instance().getSecret(partner);
+
+            QString msg = crypto.decrypt(secretClient, encryptedMsg);
+
+            QString cryptedMsg = crypto.encrypt(secretPartner, msg);
+
+
+            flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << cryptedMsg << SEPARATOR << endl;
         }
     }
     logger->append("Message sent from : '" + client->objectName() + "' to '" + partner + "' at [" + date + "]\n");

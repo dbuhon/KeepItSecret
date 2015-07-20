@@ -122,7 +122,7 @@ void Options::treatmentSignIn(const QString &line){
  * @param line
  */
 void Options::treatmentMessage(const QString &line){
-    if (line.split(SEPARATOR).length() > 3){
+    if (line.split(SEPARATOR).length() > 4){
         QString login = line.split(SEPARATOR).at(1);
         QString date = line.split(SEPARATOR).at(2);
         QString msg = line.split(SEPARATOR).at(3);

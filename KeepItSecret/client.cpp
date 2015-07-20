@@ -83,11 +83,6 @@ void Client::tryToSignIn(QString login, QString password){
 
     QTextStream flux(socket);
     flux << "*SIGNIN*" << SEPARATOR << login << SEPARATOR << password << SEPARATOR << endl;
-
-    QString crypt = crypto.encrypt(secretKey, login);
-    qDebug() << login;
-    qDebug() << crypt;
-    qDebug() << crypto.decrypt(secretKey, crypt);
 }
 
 /**

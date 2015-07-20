@@ -24,20 +24,14 @@ void NewAccountWindow::on_pushButton_clicked()
     if (!login.isNull() && !login.isEmpty()
             && !pwd1.isNull() && !pwd1.isEmpty()
             && !pwd2.isNull() && !pwd2.isEmpty()
-            && pwd1.compare(pwd2) == 0){
+            && pwd1.compare(pwd2) == 0
+            && pwd1.length() >= 6){
 
         client->addUser(login, pwd1);
-
-        /*
-        //CREATE LOCAL USER
-        UserKIS user(login, pwd1);
-        if (user.save())
-            this->close();
-        else{
-            mb.setText("Un compte avec ce nom existe déjà.");
-            mb.exec();
-        }
-        */
+    }    
+    else if (pwd1.compare(pwd2) == 0 && pwd1.length() < 6){
+        mb.setText("Le mot de passe doit faire au moins 6 caractères.");
+        mb.exec();
     }
     else{
         mb.setText("Les champs du formulaire ne sont pas bien remplis.");
