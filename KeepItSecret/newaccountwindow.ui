@@ -6,39 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
-    <height>539</height>
+    <width>443</width>
+    <height>880</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(35, 35, 35);
 color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="4" column="1">
-         <widget class="QPushButton" name="pushButton">
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px;
-background-color: rgb(252, 93, 93);
-margin-top: 60%;
-height: 50px;
-color: black;</string>
-          </property>
-          <property name="text">
-           <string>Créer</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
          <widget class="QLabel" name="label_title">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>221</width>
@@ -48,11 +46,14 @@ color: black;</string>
           <property name="font">
            <font>
             <family>Lobster 1.4</family>
-            <pointsize>26</pointsize>
+            <pointsize>35</pointsize>
             <weight>50</weight>
             <bold>false</bold>
             <kerning>true</kerning>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Création d'un compte</string>
@@ -65,8 +66,14 @@ color: black;</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item>
          <widget class="QLineEdit" name="lineEdit_log">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
             <pointsize>11</pointsize>
@@ -75,36 +82,57 @@ color: black;</string>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-margin-top: 60%;
+margin-top: 80%;
 height: 50px;
-</string>
+margin-left:50px;
+margin-right:50px;</string>
           </property>
           <property name="placeholderText">
            <string>Identifiant</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item>
          <widget class="QLineEdit" name="lineEdit_pwd1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
             <pointsize>11</pointsize>
+            <kerning>true</kerning>
            </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-margin-top: 40%;
 height: 50px;
-</string>
+margin-top:80%;
+margin-left:50px;
+margin-right:50px;</string>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
           </property>
           <property name="placeholderText">
            <string>Mot de passe</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item>
          <widget class="QLineEdit" name="lineEdit_pwd2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
             <pointsize>11</pointsize>
@@ -113,12 +141,69 @@ height: 50px;
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-margin-top: 40%;
 height: 50px;
-</string>
+margin-top:80%;
+margin-left:50px;
+margin-right:50px;</string>
           </property>
           <property name="placeholderText">
            <string>Confirmation du mot de passe</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_submit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
+          <property name="acceptDrops">
+           <bool>false</bool>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 5px;
+background-color: rgb(255, 78, 81);
+margin-top: 75%;
+height: 50px;
+color: black;
+margin-left:50px;
+margin-right:50px;
+margin-bottom:75%;</string>
+          </property>
+          <property name="text">
+           <string>Connexion</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -128,8 +213,12 @@ height: 50px;
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_log</tabstop>
+  <tabstop>pushButton_submit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
