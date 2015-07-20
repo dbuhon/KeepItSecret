@@ -152,7 +152,7 @@ margin-right:50px;</string>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_submit">
+         <widget class="QPushButton" name="pushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -191,7 +191,7 @@ margin-right:50px;
 margin-bottom:75%;</string>
           </property>
           <property name="text">
-           <string>Connexion</string>
+           <string>Créer</string>
           </property>
           <property name="iconSize">
            <size>
@@ -217,7 +217,7 @@ margin-bottom:75%;</string>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>lineEdit_log</tabstop>
-  <tabstop>pushButton_submit</tabstop>
+  <tabstop>pushButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>412</width>
-    <height>613</height>
+    <width>1080</width>
+    <height>1920</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,15 +51,31 @@ color: black;</string>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLineEdit" name="sendText">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 1px;
+height: 100%;</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="sendButton">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(230, 230, 230);</string>
+        <string notr="true">background-color:rgb(186, 255, 149);
+border-radius: 1px;
+height: 100%;
+width: 200%;</string>
        </property>
        <property name="text">
         <string>Send</string>
@@ -73,8 +89,15 @@ color: black;</string>
    </item>
    <item>
     <widget class="QPushButton" name="quitButton">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(230, 230, 230);</string>
+      <string notr="true">background-color: rgb(230, 230, 230);
+border-radius: 1px;
+height: 100%;</string>
      </property>
      <property name="text">
       <string>Quit</string>

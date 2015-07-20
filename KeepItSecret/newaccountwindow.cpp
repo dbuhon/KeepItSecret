@@ -54,3 +54,4 @@ void NewAccountWindow::adduser(bool isAdded){
         mb.exec();
     }
 }
+
