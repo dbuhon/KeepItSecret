@@ -19,6 +19,7 @@ public:
     void addContact(QString contact);
     void tryToSignIn(QString login, QString password);
     void showUsers();
+    void askLogs(QString partner);
 
     QTcpSocket* getSocket();
     QString login;

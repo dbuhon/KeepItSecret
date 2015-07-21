@@ -1,4 +1,5 @@
 #include "dbtools.h"
+#include "kis_log.h"
 
 DBTools DBTools::m_instance=DBTools();
 
@@ -33,7 +34,7 @@ bool DBTools::loadDatabase(){
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
 
-        qryStr = "CREATE TABLE IF NOT EXISTS KIS_LOG ( ID INTEGER PRIMARY KEY AUTOINCREMENT, EncryptedMessage text NOT NULL, Date varchar(100), Sender varchar(255) NOT NULL, Receiver varchar(255) NOT NULL, FOREIGN KEY (Sender) REFERENCES KIS_USER(login), FOREIGN KEY (Receiver) REFERENCES KIS_USER(login))";
+        qryStr = "CREATE TABLE IF NOT EXISTS KIS_LOG ( ID INTEGER PRIMARY KEY AUTOINCREMENT, EncryptedMessage text NOT NULL, Date datetime, Sender varchar(255) NOT NULL, Receiver varchar(255) NOT NULL, FOREIGN KEY (Sender) REFERENCES KIS_USER(login), FOREIGN KEY (Receiver) REFERENCES KIS_USER(login))";
         query.prepare(qryStr);
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
@@ -52,6 +53,7 @@ bool DBTools::addUser(const UserKIS &user){
     QSqlQuery query(myDB);
     qryStr = "INSERT INTO KIS_USER ( Login, Password ) VALUES ('" + user.getLogin() + "', '" + user.getPassword() + "')";
     query.prepare(qryStr);
+
     if(!query.exec(qryStr))
     {
         qDebug() << query.lastError().text();
@@ -79,12 +81,12 @@ bool DBTools::insertLog(const QString &encryptedMessage, const QString &date, co
     return true;
 }
 
-QStringList DBTools::getLogs(const QString &sender, const QString &receiver) const{
-    QStringList listLogs;
+QList<LogKIS> DBTools::getLogs(const QString &partner, const QString &receiver) const{
+    QList<LogKIS> listLogs;
 
     QString qryStr;
     QSqlQuery query(myDB);
-    qryStr = "SELECT Sender, Date, EncryptedMessage FROM KIS_LOG WHERE Sender='" + sender + "' AND Receiver='" + receiver + "' LIMIT 50";
+    qryStr = "SELECT Sender, Date, EncryptedMessage FROM KIS_LOG WHERE Sender='" + partner + "' AND Receiver='" + receiver + "' ORDER BY ID DESC LIMIT 100";
     query.prepare(qryStr);
 
     if(!query.exec(qryStr))
@@ -93,13 +95,23 @@ QStringList DBTools::getLogs(const QString &sender, const QString &receiver) con
     }
     else
     {
-        // TODO : FIX THIS TREATMENT
-        query.next();
-        for (int i = 0; i < query.size(); i++)
-            listLogs.append(query.value(i).toString());
+        while (query.next()){
+            QString sender = query.value(0).toString();
+            QString date = query.value(1).toString();
+            QString encryptedMessage = query.value(2).toString();
+
+            LogKIS log (sender, date, encryptedMessage);
+            listLogs.append(log);
+        }
     }
 
-    return listLogs;
+    // Reverse list
+    QList<LogKIS> reverseLogs;
+    for (int i = listLogs.size()-1; i >= 0; --i) {
+        reverseLogs.append(listLogs[i]);
+    }
+
+    return reverseLogs;
 }
 
 bool DBTools::insertContact(const QString &contact, const QString &login) const{
@@ -116,17 +128,6 @@ bool DBTools::insertContact(const QString &contact, const QString &login) const{
         qDebug() << query.lastError().text();
         return false;
     }
-
-    /*
-    qryStr = "INSERT INTO KIS_CONTACT ( Contact, User ) VALUES ( (SELECT Login FROM KIS_USER WHERE Login='" + login + "'), (SELECT Login FROM KIS_USER WHERE Login='" + contact + "'))";
-    query.prepare(qryStr);
-    if(!query.exec(qryStr))
-    {
-        qDebug() << query.lastError().text();
-        return false;
-    }
-    */
-
     return true;
 }
 
@@ -203,10 +204,8 @@ QStringList DBTools::getContacts(QString &login){
     }
     else
     {
-        // TODO : FIX THIS TREATMENT
-        query.next();
-        for (int i = 0; i < query.size(); i++)
-            listContacts.append(query.value(i).toString());
+        while (query.next())
+            listContacts.append(query.value(0).toString());
     }
 
     return listContacts;

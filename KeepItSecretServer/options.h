@@ -21,6 +21,7 @@ public:
     bool option_addcontact;
     bool option_signin;
     bool option_message;
+    bool option_getlogs;
 
     bool loggedin;
     QTcpSocket *client;
@@ -34,6 +35,7 @@ public:
 private:
     QTextEdit *logger;
     void treatmentShowUsers(const QString &line);
+    void treatmentGetLogs(const QString &line);
     void treatmentAddUser(const QString &line);
     void treatmentAddContact(const QString &line);
     void treatmentSignIn(const QString &line);

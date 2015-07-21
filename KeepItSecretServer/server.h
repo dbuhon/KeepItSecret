@@ -6,7 +6,6 @@
 #include <QTcpSocket>
 #include "dbtools.h"
 #include "kis_user.h"
-#include "kis_socket.h"
 #include <QTextEdit>
 
 class Server : public QTcpServer

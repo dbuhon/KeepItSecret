@@ -1,6 +1,7 @@
 #include "options.h"
 #include "dbtools.h"
 #include "cryptoutils.h"
+#include "kis_log.h"
 
 #define SEPARATOR "[|#|]"
 
@@ -36,6 +37,10 @@ void Options::parseLine(const QString &line){
         option_showusers = true;
         treatmentShowUsers(line);
     }
+    else if (command.compare("*GETLOGS*") == 0){
+        option_getlogs = true;
+        treatmentGetLogs(line);
+    }
     else if (command.compare("*ADDUSER*") == 0){
         option_adduser = true;
         treatmentAddUser(line);
@@ -64,6 +69,7 @@ void Options::treatmentShowUsers(const QString &line){
     if (!loggedin)
         return;
 
+
     QTextStream flux(client);
 
     logger->append("SHOWUSERS : ");
@@ -78,23 +84,38 @@ void Options::treatmentShowUsers(const QString &line){
     logger->append("");
 
 
-    /*
+/*
     // SHOW CONNECTED CONTACTS
     QTextStream flux(client);
     flux << "*SHOWUSERS*" << SEPARATOR;
-
-    QListIterator<QTcpSocket*> iteratorContacts(*connectedUsers);
-    while (iteratorContacts.hasNext()){
-        QTcpSocket *contact = iteratorContacts.next();
-        QString contactname = contact->objectName();
-
-        if (DBTools::Instance().isAContact(client->objectName(), contactname))
-            flux << iteratorContacts.next()->objectName() << SEPARATOR;
+    QString clientName = client->objectName();
+    QStringList listContact = DBTools::Instance().getContacts(clientName);
+    for (int i = 0; i < listContact.size(); ++i) {
+        flux << listContact[i] << SEPARATOR;
     }
-    flux << endl;
-    */
+    flux << endl;*/
 }
 
+/**
+ * Send to the client its logs with a specific contact
+ * @brief treatmentGetLogs
+ * @param line
+ */
+void Options::treatmentGetLogs(const QString &line){
+    if (loggedin && line.split(SEPARATOR).length() == 3){
+        QString partner = line.split(SEPARATOR).at(1);
+
+        QList<LogKIS> listLogs = DBTools::Instance().getLogs(partner, client->objectName());
+
+        for (int i = 0; i < listLogs.size(); i++){
+            LogKIS log = listLogs[i];
+
+            QTextStream flux(client);
+            flux << "*MSG*" << SEPARATOR << log.getSender() << SEPARATOR << log.getDate() << SEPARATOR << log.getEncryptedMessage() << SEPARATOR << endl;
+        }
+        logger->append("History sent to : '" + client->objectName() + "'\n");
+    }
+}
 
 /**
  * Add a user into the database and send to the requester the result
@@ -181,7 +202,7 @@ void Options::treatmentSignIn(const QString &line){
             client->setObjectName(login);
             connectedUsers->append(client);
 
-            sendUserListToClients();
+            //sendUserListToClients();
             return;
         }
     }
@@ -247,16 +268,11 @@ void Options::sendContactListToClients(){
         QString username = user->objectName();
 
         QTextStream flux(user);
-
         flux << "*SHOWUSERS*" << SEPARATOR;
-        QListIterator<QTcpSocket*> iteratorOthers(*connectedUsers);
-        while (iteratorOthers.hasNext()){
-            QTcpSocket *contact = iteratorOthers.next();
-            QString contactname = contact->objectName();
 
-            if (DBTools::Instance().isAContact(contactname, username)){
-                flux << contactname << SEPARATOR;
-            }
+        QStringList listContact = DBTools::Instance().getContacts(username);
+        for (int i = 0; i < listContact.size(); ++i) {
+            flux << listContact[i] << SEPARATOR;
         }
         flux << endl;
     }

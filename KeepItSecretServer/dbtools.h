@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include "kis_user.h"
+#include "kis_log.h"
 
 #ifndef DBTOOLS_H
 #define DBTOOLS_H
@@ -25,7 +26,7 @@ public:
     bool isAContact(const QString &contact, const QString &user) const;
     QString getSecret(QString &login);
     bool insertLog(const QString &encryptedMessage, const QString &date, const QString &sender, const QString &receiver) const;
-    QStringList getLogs(const QString &sender, const QString &receiver) const;
+    QList<LogKIS> getLogs(const QString &partner, const QString &receiver) const;
 private:
     DBTools();
     ~DBTools();

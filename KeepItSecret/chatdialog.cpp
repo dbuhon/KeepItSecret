@@ -20,6 +20,7 @@ void ChatDialog::setPartner(const QString &_partner)
 {
     partner = _partner;
     ui->partnerLabel->setText("to : " + partner);
+    client->askLogs(partner);
 }
 
 ChatDialog::~ChatDialog()
@@ -30,7 +31,7 @@ ChatDialog::~ChatDialog()
 void ChatDialog::on_sendButton_clicked()
 {
     QDateTime date;
-    QString currentDate = date.currentDateTime().toLocalTime().toString();
+    QString currentDate = date.currentDateTime().toLocalTime().toString("yyyy/MM/dd hh:mm:ss");
 
     QTextEdit *chat = ui->chat;
     QString text = ui->sendText->text().trimmed();
@@ -43,6 +44,7 @@ void ChatDialog::on_sendButton_clicked()
         client->sendMessage(partner, currentDate, encryptedMsg);
 
         chat->append("Vous : [" + currentDate + "] : " + text);
+        ui->sendText->clear();
     }
 }
 

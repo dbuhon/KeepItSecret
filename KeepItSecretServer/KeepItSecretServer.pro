@@ -16,20 +16,20 @@ SOURCES += main.cpp\
         server.cpp \
         dbtools.cpp \
         kis_user.cpp \
-        kis_socket.cpp \
         options.cpp \
         qblowfish.cpp \
-        cryptoutils.cpp
+        cryptoutils.cpp \
+    kis_log.cpp
 
 HEADERS  += mainwindow.h \
         server.h \
         dbtools.h \
         kis_user.h \
-        kis_socket.h \
         options.h \
         qblowfish.h \
         qblowfish_p.h \
-        cryptoutils.h
+        cryptoutils.h \
+    kis_log.h
 
 FORMS    += mainwindow.ui
 

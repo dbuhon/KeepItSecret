@@ -71,6 +71,11 @@ void Client::addUser(QString login, QString password){
     flux << "*ADDUSER*" << SEPARATOR << login << SEPARATOR << password << SEPARATOR << endl;
 }
 
+void Client::askLogs(QString partner){
+    QTextStream flux(socket);
+    flux << "*GETLOGS*" << SEPARATOR << partner << SEPARATOR << endl;
+}
+
 /**
  * Ask the server if the giving login and password are correct to log in
  * @brief Client::tryToSignIn
