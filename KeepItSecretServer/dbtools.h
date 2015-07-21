@@ -24,7 +24,8 @@ public:
     bool userExistsInKIS_USER(const QString &user) const;
     bool isAContact(const QString &contact, const QString &user) const;
     QString getSecret(QString &login);
-
+    bool insertLog(const QString &encryptedMessage, const QString &date, const QString &sender, const QString &receiver) const;
+    QStringList getLogs(const QString &sender, const QString &receiver) const;
 private:
     DBTools();
     ~DBTools();

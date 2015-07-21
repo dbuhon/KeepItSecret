@@ -212,6 +212,9 @@ void Options::treatmentMessage(const QString &line){
             // Handle the re-encryption of the message with the partner secret
             QString clientName = client->objectName();
 
+            // Insert logs in the sender db
+            DBTools::Instance().insertLog(encryptedMsg, date, partner, clientName);
+
             CryptoUtils crypto;
             QString secretClient = DBTools::Instance().getSecret(clientName);
             QString secretPartner = DBTools::Instance().getSecret(partner);
@@ -220,6 +223,8 @@ void Options::treatmentMessage(const QString &line){
 
             QString cryptedMsg = crypto.encrypt(secretPartner, msg);
 
+            // Insert logs in the receiver db
+            DBTools::Instance().insertLog(cryptedMsg, date, clientName, partner);
 
             flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << cryptedMsg << SEPARATOR << endl;
         }

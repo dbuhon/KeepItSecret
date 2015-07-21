@@ -33,11 +33,15 @@ bool DBTools::loadDatabase(){
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
 
-        qryStr = "CREATE TABLE IF NOT EXISTS KIS_CONTACT (Contact varchar(255) NOT NULL, User varchar(255) NOT NULL, PRIMARY KEY (Contact,User), FOREIGN KEY (Contact) REFERENCES KIS_USER(login), FOREIGN KEY (User) REFERENCES KIS_USER(login))";
+        qryStr = "CREATE TABLE IF NOT EXISTS KIS_LOG ( ID INTEGER PRIMARY KEY AUTOINCREMENT, EncryptedMessage text NOT NULL, Date varchar(100), Sender varchar(255) NOT NULL, Receiver varchar(255) NOT NULL, FOREIGN KEY (Sender) REFERENCES KIS_USER(login), FOREIGN KEY (Receiver) REFERENCES KIS_USER(login))";
         query.prepare(qryStr);
         if(!query.exec(qryStr))
             qDebug() << query.lastError().text();
 
+        qryStr = "CREATE TABLE IF NOT EXISTS KIS_CONTACT (Contact varchar(255) NOT NULL, User varchar(255) NOT NULL, PRIMARY KEY (Contact,User), FOREIGN KEY (Contact) REFERENCES KIS_USER(login), FOREIGN KEY (User) REFERENCES KIS_USER(login))";
+        query.prepare(qryStr);
+        if(!query.exec(qryStr))
+            qDebug() << query.lastError().text();
 
     }
     return true;
@@ -57,6 +61,47 @@ bool DBTools::addUser(const UserKIS &user){
     return true;
 }
 
+bool DBTools::insertLog(const QString &encryptedMessage, const QString &date, const QString &sender, const QString &receiver) const{
+    QString qryStr;
+    QSqlQuery query(myDB);
+
+    if (!userExistsInKIS_USER(sender) || !userExistsInKIS_USER(receiver) || sender.compare(receiver) == 0)
+        return false;
+
+    qryStr = "INSERT INTO KIS_LOG ( EncryptedMessage, Date, Sender, Receiver ) VALUES ( '" + encryptedMessage + "', '" + date + "', (SELECT Login FROM KIS_USER WHERE Login='" + sender + "'), (SELECT Login FROM KIS_USER WHERE Login='" + receiver + "'))";
+    query.prepare(qryStr);
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+QStringList DBTools::getLogs(const QString &sender, const QString &receiver) const{
+    QStringList listLogs;
+
+    QString qryStr;
+    QSqlQuery query(myDB);
+    qryStr = "SELECT Sender, Date, EncryptedMessage FROM KIS_LOG WHERE Sender='" + sender + "' AND Receiver='" + receiver + "' LIMIT 50";
+    query.prepare(qryStr);
+
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+    }
+    else
+    {
+        // TODO : FIX THIS TREATMENT
+        query.next();
+        for (int i = 0; i < query.size(); i++)
+            listLogs.append(query.value(i).toString());
+    }
+
+    return listLogs;
+}
+
 bool DBTools::insertContact(const QString &contact, const QString &login) const{
     QString qryStr;
     QSqlQuery query(myDB);
@@ -71,6 +116,16 @@ bool DBTools::insertContact(const QString &contact, const QString &login) const{
         qDebug() << query.lastError().text();
         return false;
     }
+
+    /*
+    qryStr = "INSERT INTO KIS_CONTACT ( Contact, User ) VALUES ( (SELECT Login FROM KIS_USER WHERE Login='" + login + "'), (SELECT Login FROM KIS_USER WHERE Login='" + contact + "'))";
+    query.prepare(qryStr);
+    if(!query.exec(qryStr))
+    {
+        qDebug() << query.lastError().text();
+        return false;
+    }
+    */
 
     return true;
 }
