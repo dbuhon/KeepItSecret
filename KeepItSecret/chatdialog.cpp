@@ -4,7 +4,7 @@
 #include <QTextCodec>
 
 ChatDialog::ChatDialog(QWidget *parent) :
-    QDialog(parent),
+    QMainWindow(parent),
     ui(new Ui::ChatDialog)
 {
     ui->setupUi(this);

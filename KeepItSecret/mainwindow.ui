@@ -102,7 +102,8 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <family>Arial</family>
+            <pointsize>13</pointsize>
            </font>
           </property>
           <property name="styleSheet">
@@ -141,7 +142,8 @@ margin-right:50px;</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <family>Arial</family>
+            <pointsize>13</pointsize>
             <kerning>true</kerning>
            </font>
           </property>
@@ -185,6 +187,14 @@ margin-right:50px;</string>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: none;
 border-radius: 5px;
@@ -195,7 +205,7 @@ margin-left:50px;
 margin-right:50px;</string>
           </property>
           <property name="text">
-           <string>Créer un nouveau compte</string>
+           <string>  Créer un nouveau compte</string>
           </property>
           <property name="autoExclusive">
            <bool>false</bool>
@@ -235,6 +245,14 @@ margin-right:50px;</string>
             <height>0</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>13</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="focusPolicy">
            <enum>Qt::StrongFocus</enum>
           </property>
@@ -249,7 +267,7 @@ margin-right:50px;</string>
 background-color: rgb(84, 249, 141);
 margin-top: 75%;
 height:100%;
-color: black;
+color: rgb(39, 39, 39);
 margin-left:50px;
 margin-right:50px;
 margin-bottom:75%;</string>

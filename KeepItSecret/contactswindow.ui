@@ -62,12 +62,21 @@ color: rgb(255, 255, 255);</string>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>13</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="styleSheet">
-           <string notr="true">color: black;
+           <string notr="true">color: rgb(39, 39, 39);
 border-radius: 5px;
 background-color: rgb(115, 194, 251);
 margin-top: 60%;
-height: 100%;</string>
+height: 100%;
+</string>
           </property>
           <property name="text">
            <string>Nouveau contact</string>
@@ -84,12 +93,13 @@ height: 100%;</string>
           </property>
           <property name="font">
            <font>
+            <family>Arial</family>
             <pointsize>14</pointsize>
            </font>
           </property>
           <property name="styleSheet">
            <string notr="true">background-color: whitesmoke;
-color: black;</string>
+color: rgb(39, 39, 39);</string>
           </property>
          </widget>
         </item>

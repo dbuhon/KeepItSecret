@@ -3,13 +3,13 @@
 #ifndef CHATDIALOG_H
 #define CHATDIALOG_H
 
-#include <QDialog>
+#include <QMainWindow>
 
 namespace Ui {
 class ChatDialog;
 }
 
-class ChatDialog : public QDialog
+class ChatDialog : public QMainWindow
 {
     Q_OBJECT
 
