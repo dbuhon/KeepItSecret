@@ -9,7 +9,7 @@
 
 Client::Client(QObject *parent) : QObject(parent)
 {
-    QString address = "81.249.218.53";
+    QString address = "192.168.1.252";
 
     socket = new QTcpSocket();
     //socket->connectToHost(QHostAddress::LocalHost, 9999);

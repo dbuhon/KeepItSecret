@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>693</height>
+    <width>580</width>
+    <height>952</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,6 +67,32 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QLineEdit" name="lineEdit_log">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -83,7 +109,7 @@ color: rgb(255, 255, 255);</string>
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 margin-top: 80%;
-height: 50px;
+height: 100%;
 margin-left:50px;
 margin-right:50px;</string>
           </property>
@@ -91,6 +117,19 @@ margin-right:50px;</string>
            <string>Identifiant</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_pwd1">
@@ -112,7 +151,7 @@ margin-right:50px;</string>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-height: 50px;
+height: 100%;
 margin-top:80%;
 margin-left:50px;
 margin-right:50px;</string>
@@ -124,6 +163,19 @@ margin-right:50px;</string>
            <string>Mot de passe</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_pwd2">
@@ -141,7 +193,7 @@ margin-right:50px;</string>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-height: 50px;
+height: 100%;
 margin-top:80%;
 margin-left:50px;
 margin-right:50px;</string>
@@ -150,6 +202,19 @@ margin-right:50px;</string>
            <string>Confirmation du mot de passe</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton">
@@ -184,7 +249,7 @@ margin-right:50px;</string>
            <string notr="true">border-radius: 5px;
 background-color: rgb(255, 78, 81);
 margin-top: 75%;
-height: 50px;
+height: 100%;
 color: black;
 margin-left:50px;
 margin-right:50px;
@@ -206,6 +271,19 @@ margin-bottom:75%;</string>
            <bool>false</bool>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
