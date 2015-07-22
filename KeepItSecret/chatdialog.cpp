@@ -53,3 +53,8 @@ void ChatDialog::newmessage(QString partner, QString date, QString encryptedMsg)
 
     ui->chat->appendHtml("<b>" + partner.toUtf8() + " [" + date.toUtf8() + "] : </b>" + msg);
 }
+
+void ChatDialog::on_quitButton_clicked()
+{
+    this->close();
+}
