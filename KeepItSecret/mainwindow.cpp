@@ -61,7 +61,6 @@ void MainWindow::on_pushButton_newAccount_clicked()
 
 void MainWindow::signin(bool isOk)
 {
-    // TRAITEMENT
     if (isOk)
         openContactsView();
     else {

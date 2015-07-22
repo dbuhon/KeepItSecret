@@ -23,6 +23,8 @@ private slots:
     void on_sendButton_clicked();
     void newmessage(QString partner, QString date, QString encryptedMsg);
 
+    void on_quitButton_clicked();
+
 private:
     Ui::ChatDialog *ui;
     Client *client;

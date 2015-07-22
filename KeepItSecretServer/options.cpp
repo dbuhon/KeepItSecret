@@ -69,7 +69,7 @@ void Options::treatmentShowUsers(const QString &line){
     if (!loggedin)
         return;
 
-    /*
+    /*SHOW CONNECTED USERS
     QTextStream flux(client);
 
     logger->append("SHOWUSERS : ");
@@ -84,7 +84,7 @@ void Options::treatmentShowUsers(const QString &line){
     logger->append("");
     */
 
-    // SHOW CONNECTED CONTACTS
+    // SHOW CONTACTS
     QTextStream flux(client);
     flux << "*SHOWUSERS*" << SEPARATOR;
     QString clientName = client->objectName();
@@ -202,7 +202,6 @@ void Options::treatmentSignIn(const QString &line){
             client->setObjectName(login);
             connectedUsers->append(client);
 
-            //sendUserListToClients();
             sendContactListToClients();
             return;
         }
