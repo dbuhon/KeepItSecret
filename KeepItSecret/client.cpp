@@ -13,11 +13,15 @@ Client::Client(QObject *parent) : QObject(parent)
 
     socket = new QTcpSocket();
     //socket->connectToHost(QHostAddress::LocalHost, 9999);
-    socket->connectToHost(address, 9999);
+    socket->connectToHost(address, 22);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyToRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnection()));
 }
 
+/**
+ * Action performed when the client disconnects
+ * @brief Client::disconnection
+ */
 void Client::disconnection()
 {
     socket->deleteLater();
@@ -29,6 +33,10 @@ Client::~Client()
 
 }
 
+/**
+ * Action performed when tu client has something to read from its socket
+ * @brief Client::readyToRead
+ */
 void Client::readyToRead()
 {
     QString line;
@@ -118,6 +126,11 @@ void Client::addContact(QString contact){
     flux << "*ADDCONTACT*" << SEPARATOR << contact << SEPARATOR << endl;
 }
 
+/**
+ * Returns the socket
+ * @brief Client::getSocket
+ * @return
+ */
 QTcpSocket *Client::getSocket()
 {
     return this->socket;

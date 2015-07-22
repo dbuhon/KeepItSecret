@@ -22,8 +22,6 @@ public:
     void openNewContactView();
     void openChatDialogView(QString partner);
     void setClient(Client *_client);
-Q_SIGNALS:
-    void contactsWindowClosedSignal(bool isClosed);
 
 private slots:
     void on_pushButton_newContact_clicked();

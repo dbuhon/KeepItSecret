@@ -24,12 +24,26 @@ QString CryptoUtils::encrypt(QString secretKey, QString string){
     return blowFish.encrypted(string.toUtf8());
 }
 
+/**
+ * Handle the encryption using QBlowfish
+ * @brief CryptoUtils::encrypt
+ * @param blowFish
+ * @param string
+ * @return
+ */
 QString CryptoUtils::encrypt(QBlowfish blowFish, QString string){
     QByteArray encrypted = blowFish.encrypted(string.toUtf8());
 
     return encrypted.toBase64();
 }
 
+/**
+ * Handle the encryption using QBlowfish
+ * @brief CryptoUtils::encrypt
+ * @param secretKey
+ * @param string
+ * @return
+ */
 QString CryptoUtils::encrypt(QByteArray secretKey, QString string){
     QBlowfish blowFish(secretKey);
     blowFish.setPaddingEnabled(true);
@@ -68,6 +82,13 @@ QString CryptoUtils::decrypt(QBlowfish blowFish, QString string){
     return blowFish.decrypted(decrypted);
 }
 
+/**
+ * Handle the decryption using QBlowfish
+ * @brief CryptoUtils::decrypt
+ * @param secretKey
+ * @param string
+ * @return
+ */
 QString CryptoUtils::decrypt(QByteArray secretKey, QString string){
     QBlowfish blowFish(secretKey);
     blowFish.setPaddingEnabled(true);

@@ -306,6 +306,8 @@ margin-bottom:75%;</string>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>lineEdit_log</tabstop>
+  <tabstop>lineEdit_pwd1</tabstop>
+  <tabstop>lineEdit_pwd2</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
  <resources/>

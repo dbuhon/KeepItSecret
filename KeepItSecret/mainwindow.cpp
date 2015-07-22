@@ -33,7 +33,7 @@ void MainWindow::openContactsView()
    contactsWindow = new ContactsWindow();
    contactsWindow->setClient(client);
    contactsWindow->show();
-   connect(contactsWindow,SIGNAL(contactsWindowClosedSignal(bool)),this,SLOT(contactwindowclosed(bool)));
+   this->hide();
 }
 
 void MainWindow::on_pushButton_submit_clicked()
@@ -67,12 +67,5 @@ void MainWindow::signin(bool isOk)
         QMessageBox mb;
         mb.setText("Vos identifiants sont invalides.\nRééssayez ou créez un nouveau compte.");
         mb.exec();
-    }
-}
-
-void MainWindow::contactwindowclosed(bool isClosed)
-{
-    if (isClosed){
-        delete ui;
     }
 }

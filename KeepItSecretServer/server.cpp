@@ -10,7 +10,7 @@ Server::Server(QTextEdit *_logger)
     connect(this, SIGNAL(newConnection()),
             this, SLOT(clientConnection()));
 
-    if(!this->listen(QHostAddress::Any, 9999))
+    if(!this->listen(QHostAddress::Any, 22))
         logger->append("Server could not start\n");
     else
         logger->append("Server started\n");

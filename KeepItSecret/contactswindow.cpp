@@ -11,7 +11,6 @@ ContactsWindow::ContactsWindow(QWidget *parent) :
 
 ContactsWindow::~ContactsWindow()
 {
-    emit contactsWindowClosedSignal(true);
     delete ui;
 }
 
@@ -52,4 +51,3 @@ void ContactsWindow::populateContacts(){
     ui->listWidget_contacts->clear();
     ui->listWidget_contacts->addItems(client->listUsers);
 }
-
