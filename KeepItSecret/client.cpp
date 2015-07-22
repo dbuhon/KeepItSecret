@@ -39,14 +39,6 @@ void Client::readyToRead()
         Options options(this);
         options.parseLine(line);
     }
-
-    /*
-    if (socket->canReadLine()){
-        line = socket->readLine();
-        Options options(this);
-        options.parseLine(line);
-    }
-    */
 }
 
 void Client::sendMessage(QString login, QString date, QString msg){

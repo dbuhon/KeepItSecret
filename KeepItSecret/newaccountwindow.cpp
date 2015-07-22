@@ -6,6 +6,10 @@ NewAccountWindow::NewAccountWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::NewAccountWindow)
 {
     ui->setupUi(this);
+    ui->lineEdit_pwd1->setEchoMode(QLineEdit::Password);
+    ui->lineEdit_pwd2->setEchoMode(QLineEdit::Password);
+    ui->lineEdit_pwd1->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt::ImhNoAutoUppercase);
+    ui->lineEdit_pwd2->setInputMethodHints(Qt::ImhHiddenText| Qt::ImhNoPredictiveText|Qt::ImhNoAutoUppercase);
 }
 
 NewAccountWindow::~NewAccountWindow()

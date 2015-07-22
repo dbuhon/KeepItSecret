@@ -21,7 +21,7 @@ public:
     bool addUser(const UserKIS &user);
     bool tryToSignIn(const QString &login, const QString &password) const;
     bool insertContact(const QString &contact, const QString &login) const;
-    QStringList getContacts(QString &login);
+    QStringList getContacts(QString &user);
     bool userExistsInKIS_USER(const QString &user) const;
     bool isAContact(const QString &contact, const QString &user) const;
     QString getSecret(QString &login);

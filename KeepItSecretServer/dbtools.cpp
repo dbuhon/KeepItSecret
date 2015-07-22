@@ -190,12 +190,12 @@ bool DBTools::tryToSignIn(const QString &login, const QString &password) const{
     return true;
 }
 
-QStringList DBTools::getContacts(QString &login){
+QStringList DBTools::getContacts(QString &user){
     QStringList listContacts;
 
     QString qryStr;
     QSqlQuery query(myDB);
-    qryStr = "SELECT DISTINCT Contact FROM KIS_CONTACT WHERE Login = '" + login + "'";
+    qryStr = "SELECT Contact FROM KIS_CONTACT WHERE User = '" + user + "'";
     query.prepare(qryStr);
 
     if(!query.exec(qryStr))
@@ -204,8 +204,11 @@ QStringList DBTools::getContacts(QString &login){
     }
     else
     {
-        while (query.next())
-            listContacts.append(query.value(0).toString());
+        while (query.next()){
+            QString contact = query.value(0).toString();
+            if (DBTools::isAContact(user, contact))
+                listContacts.append(query.value(0).toString());
+        }
     }
 
     return listContacts;

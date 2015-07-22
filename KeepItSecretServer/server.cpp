@@ -74,8 +74,8 @@ void Server::clientDisconnection()
 
     connectedUsers.removeAll(client);
 
-    Options options(client, &connectedUsers, logger);
-    options.sendUserListToClients();
+    /*Options options(client, &connectedUsers, logger);
+    options.sendUserListToClients();*/
 
     logger->append("A client logged out : " + client->objectName());
 }

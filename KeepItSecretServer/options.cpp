@@ -69,7 +69,7 @@ void Options::treatmentShowUsers(const QString &line){
     if (!loggedin)
         return;
 
-
+    /*
     QTextStream flux(client);
 
     logger->append("SHOWUSERS : ");
@@ -82,9 +82,8 @@ void Options::treatmentShowUsers(const QString &line){
     }
     flux << endl;
     logger->append("");
+    */
 
-
-/*
     // SHOW CONNECTED CONTACTS
     QTextStream flux(client);
     flux << "*SHOWUSERS*" << SEPARATOR;
@@ -93,7 +92,7 @@ void Options::treatmentShowUsers(const QString &line){
     for (int i = 0; i < listContact.size(); ++i) {
         flux << listContact[i] << SEPARATOR;
     }
-    flux << endl;*/
+    flux << endl;
 }
 
 /**
@@ -163,6 +162,7 @@ void Options::treatmentAddContact(const QString &line){
         flux << "*ADDCONTACT*" << SEPARATOR << "OK" << SEPARATOR << endl;
         logger->append("ADDCONTACT (" + contact + " : " + client->objectName() + ") : OK\n");
         treatmentShowUsers(line);
+        sendContactListToClients();
     }
     else{
         flux << "*ADDCONTACT*" << SEPARATOR << "NOK" << SEPARATOR << endl;
@@ -203,6 +203,7 @@ void Options::treatmentSignIn(const QString &line){
             connectedUsers->append(client);
 
             //sendUserListToClients();
+            sendContactListToClients();
             return;
         }
     }
@@ -223,6 +224,7 @@ void Options::treatmentMessage(const QString &line){
     QString partner(line.split(SEPARATOR).at(1));
     QString date(line.split(SEPARATOR).at(2));
     QString encryptedMsg(line.split(SEPARATOR).at(3));
+    QString cryptedMsgForPartner = handleLogsInsertion(encryptedMsg, date, partner);
 
     QListIterator<QTcpSocket*> iter(*connectedUsers);
     while (iter.hasNext()){
@@ -230,29 +232,40 @@ void Options::treatmentMessage(const QString &line){
         if (user->objectName().compare(partner) == 0){
             QTextStream flux(user);
 
-            // Handle the re-encryption of the message with the partner secret
-            QString clientName = client->objectName();
-
-            // Insert logs in the sender db
-            DBTools::Instance().insertLog(encryptedMsg, date, partner, clientName);
-
-            CryptoUtils crypto;
-            QString secretClient = DBTools::Instance().getSecret(clientName);
-            QString secretPartner = DBTools::Instance().getSecret(partner);
-
-            QString msg = crypto.decrypt(secretClient, encryptedMsg);
-
-            QString cryptedMsg = crypto.encrypt(secretPartner, msg);
-
-            // Insert logs in the receiver db
-            DBTools::Instance().insertLog(cryptedMsg, date, clientName, partner);
-
-            flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << cryptedMsg << SEPARATOR << endl;
+            flux << "*MSG*" << SEPARATOR << client->objectName() << SEPARATOR << date << SEPARATOR << cryptedMsgForPartner << SEPARATOR << endl;
         }
     }
+
     logger->append("Message sent from : '" + client->objectName() + "' to '" + partner + "' at [" + date + "]\n");
 }
 
+/**
+ * Handle the logs insertion (history of conversations) and return an encrypted message readable by the partner
+ * @brief Options::handleLogsInsertion
+ * @param encryptedMsg
+ * @param date
+ * @param partner
+ */
+QString Options::handleLogsInsertion(QString &encryptedMsg, QString &date, QString &partner){
+    // Handle the re-encryption of the message with the partner secret
+    QString clientName = client->objectName();
+
+    // Insert logs in the sender db
+    DBTools::Instance().insertLog(encryptedMsg, date, partner, clientName);
+
+    CryptoUtils crypto;
+    QString secretClient = DBTools::Instance().getSecret(clientName);
+    QString secretPartner = DBTools::Instance().getSecret(partner);
+
+    QString msg = crypto.decrypt(secretClient, encryptedMsg);
+
+    QString cryptedMsg = crypto.encrypt(secretPartner, msg);
+
+    // Insert logs in the receiver db
+    DBTools::Instance().insertLog(cryptedMsg, date, clientName, partner);
+
+    return cryptedMsg;
+}
 
 /**
  * Send to the clients their contact list

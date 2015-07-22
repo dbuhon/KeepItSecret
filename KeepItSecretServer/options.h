@@ -40,6 +40,7 @@ private:
     void treatmentAddContact(const QString &line);
     void treatmentSignIn(const QString &line);
     void treatmentMessage(const QString &line);
+    QString handleLogsInsertion(QString &encryptedMsg, QString &date, QString &partner);
 };
 
 #endif // OPTIONS_H
