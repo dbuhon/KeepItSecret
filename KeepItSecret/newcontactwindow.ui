@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>436</width>
-    <height>682</height>
+    <width>456</width>
+    <height>741</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -82,7 +82,7 @@ color: rgb(255, 255, 255);</string>
           <property name="styleSheet">
            <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
-margin-top: 100%;
+margin-top: 75%;
 margin-left:50px;
 margin-right:50px;
 height: 50px;</string>
@@ -129,7 +129,7 @@ height: 50px;
 color: black;
 margin-left:50px;
 margin-right:50px;
-margin-bottom:75%;</string>
+margin-bottom:150%;</string>
           </property>
           <property name="text">
            <string>Ajouter</string>

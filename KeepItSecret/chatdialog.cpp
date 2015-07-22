@@ -33,7 +33,6 @@ void ChatDialog::on_sendButton_clicked()
     QDateTime date;
     QString currentDate = date.currentDateTime().toLocalTime().toString("yyyy/MM/dd hh:mm:ss");
 
-    QTextEdit *chat = ui->chat;
     QString text = ui->sendText->text().trimmed();
 
     if (!text.isNull() && !text.isEmpty()){
@@ -43,7 +42,7 @@ void ChatDialog::on_sendButton_clicked()
 
         client->sendMessage(partner, currentDate, encryptedMsg);
 
-        chat->append("Vous : [" + currentDate + "] : " + text);
+        ui->chat->appendHtml("<b>Vous : [" + currentDate + "] : </b>" + text);
         ui->sendText->clear();
     }
 }
@@ -52,5 +51,5 @@ void ChatDialog::newmessage(QString partner, QString date, QString encryptedMsg)
     CryptoUtils crypto;
     QString msg = crypto.decrypt(client->secretKey, encryptedMsg);
 
-    ui->chat->append(partner.toUtf8() + " [" + date.toUtf8() + "] : " + msg);
+    ui->chat->appendHtml("<b>" + partner.toUtf8() + " [" + date.toUtf8() + "] : </b>" + msg);
 }
