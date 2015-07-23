@@ -6,16 +6,16 @@
 #include <QMainWindow>
 
 namespace Ui {
-class ChatDialog;
+class ChatWindow;
 }
 
-class ChatDialog : public QMainWindow
+class ChatWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit ChatDialog(QWidget *parent = 0);
-    ~ChatDialog();
+    explicit ChatWindow(QWidget *parent = 0);
+    ~ChatWindow();
     void setClient(Client *_client);
     void setPartner(const QString &_partner);
 
@@ -26,7 +26,7 @@ private slots:
     void on_quitButton_clicked();
 
 private:
-    Ui::ChatDialog *ui;
+    Ui::ChatWindow *ui;
     Client *client;
     QString partner;
 };

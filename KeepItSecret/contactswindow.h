@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "newcontactwindow.h"
-#include "chatdialog.h"
+#include "chatwindow.h"
 #include "client.h"
 
 class Chat;

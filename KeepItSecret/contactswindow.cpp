@@ -1,6 +1,6 @@
 #include "contactswindow.h"
 #include "ui_contactswindow.h"
-#include "chatdialog.h"
+#include "chatwindow.h"
 
 ContactsWindow::ContactsWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +23,7 @@ void ContactsWindow::openNewContactView()
 
 void ContactsWindow::openChatDialogView(QString partner)
 {
-    ChatDialog *chatDialog = new ChatDialog();
+    ChatWindow *chatDialog = new ChatWindow();
     chatDialog->setClient(client);
     chatDialog->setPartner(partner);
     chatDialog->show();

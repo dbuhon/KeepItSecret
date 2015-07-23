@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ChatDialog</class>
- <widget class="QMainWindow" name="ChatDialog">
+ <class>ChatWindow</class>
+ <widget class="QMainWindow" name="ChatWindow">
   <property name="geometry">
    <rect>
     <x>0</x>

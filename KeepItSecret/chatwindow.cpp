@@ -1,21 +1,21 @@
-#include "chatdialog.h"
+#include "chatwindow.h"
 #include "ui_chatdialog.h"
 #include <QDateTime>
 #include <QTextCodec>
 
-ChatDialog::ChatDialog(QWidget *parent) :
+ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::ChatDialog)
+    ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
 }
 
 /**
  * Set a client to the chat window and performs actions
- * @brief ChatDialog::setClient
+ * @brief ChatWindow::setClient
  * @param _client
  */
-void ChatDialog::setClient(Client *_client)
+void ChatWindow::setClient(Client *_client)
 {
     client = _client;
     connect(client,SIGNAL(newMessageSignal(QString,QString,QString)),SLOT(newmessage(QString,QString,QString)));
@@ -23,26 +23,26 @@ void ChatDialog::setClient(Client *_client)
 
 /**
  * Set a partner to the chat window and performs actions
- * @brief ChatDialog::setPartner
+ * @brief ChatWindow::setPartner
  * @param _partner
  */
-void ChatDialog::setPartner(const QString &_partner)
+void ChatWindow::setPartner(const QString &_partner)
 {
     partner = _partner;
     ui->partnerLabel->setText("to : " + partner);
     client->askLogs(partner);
 }
 
-ChatDialog::~ChatDialog()
+ChatWindow::~ChatWindow()
 {
     delete ui;
 }
 
 /**
  * Action performed when the user clicks on the button to send a message
- * @brief ChatDialog::on_sendButton_clicked
+ * @brief ChatWindow::on_sendButton_clicked
  */
-void ChatDialog::on_sendButton_clicked()
+void ChatWindow::on_sendButton_clicked()
 {
     QDateTime date;
     QString currentDate = date.currentDateTime().toLocalTime().toString("yyyy/MM/dd hh:mm:ss");
@@ -63,12 +63,12 @@ void ChatDialog::on_sendButton_clicked()
 
 /**
  * Action performed when the user receives a new message
- * @brief ChatDialog::newmessage
+ * @brief ChatWindow::newmessage
  * @param partner
  * @param date
  * @param encryptedMsg
  */
-void ChatDialog::newmessage(QString partner, QString date, QString encryptedMsg){
+void ChatWindow::newmessage(QString partner, QString date, QString encryptedMsg){
     CryptoUtils crypto;
     QString msg = crypto.decrypt(client->secretKey, encryptedMsg);
 
@@ -77,9 +77,9 @@ void ChatDialog::newmessage(QString partner, QString date, QString encryptedMsg)
 
 /**
  * Action performed on click in the 'Quit' button
- * @brief ChatDialog::on_quitButton_clicked
+ * @brief ChatWindow::on_quitButton_clicked
  */
-void ChatDialog::on_quitButton_clicked()
+void ChatWindow::on_quitButton_clicked()
 {
     this->close();
 }

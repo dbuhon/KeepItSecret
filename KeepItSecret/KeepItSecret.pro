@@ -19,9 +19,9 @@ SOURCES += main.cpp\
     newcontactwindow.cpp \
     client.cpp \
     options.cpp \
-    chatdialog.cpp \
     qblowfish.cpp \
-    cryptoutils.cpp
+    cryptoutils.cpp \
+    chatwindow.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -30,17 +30,17 @@ HEADERS  += \
     newcontactwindow.h \
     client.h \
     options.h \
-    chatdialog.h \
     qblowfish.h \
     qblowfish_p.h \
-    cryptoutils.h
+    cryptoutils.h \
+    chatwindow.h
 
 FORMS    += \
     mainwindow.ui \
     contactswindow.ui \
     newaccountwindow.ui \
     newcontactwindow.ui \
-    chatdialog.ui
+    chatwindow.ui
 
 CONFIG += mobility \
        += c++11
